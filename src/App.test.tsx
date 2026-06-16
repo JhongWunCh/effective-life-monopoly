@@ -32,11 +32,24 @@ describe("App", () => {
     vi.restoreAllMocks();
   });
 
-  it("starts on the character introduction page with protagonist cards and basic indicators", () => {
+  it("starts on the activity introduction page and explains the two-score model", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { name: "有效人生大富翁" })).toBeInTheDocument();
     expect(screen.getByText("24 小時挑戰")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "活動介紹" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("heading", { name: "活動介紹" })).toBeInTheDocument();
+    expect(screen.getByText("每個人一天都是 24 小時，但起點責任不同。")).toBeInTheDocument();
+    expect(screen.getByText("有效人生不是把時間塞滿，而是知道哪些時間值得花。")).toBeInTheDocument();
+    expect(screen.getByText("遊戲只看兩個核心：可支配時間與有效選擇。")).toBeInTheDocument();
+    expect(screen.getByText("人際關係")).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "擲骰" })).not.toBeInTheDocument();
+  });
+
+  it("shows the character introduction page with protagonist cards and basic indicators", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "角色介紹" }));
+
     expect(screen.getByRole("button", { name: "角色介紹" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("heading", { name: "角色介紹" })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "擲骰" })).not.toBeInTheDocument();
@@ -45,16 +58,17 @@ describe("App", () => {
       expect(screen.getByRole("article", { name: `${protagonistName} 角色卡` })).toBeInTheDocument();
     }
 
-    expect(screen.getAllByText("時間").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("精力").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("專注").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("健康").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("關係").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("成就").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("可支配時間").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("身心能量").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("深度專注").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("身心健康").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("人際關係").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("有效產出").length).toBeGreaterThan(0);
   });
 
   it("uses exaggerated anime character cards for the four protagonists", () => {
     render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "角色介紹" }));
 
     expect(screen.getByRole("img", { name: "阿里爸爸 動漫造型" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "阿吐伯 動漫造型" })).toBeInTheDocument();
@@ -124,8 +138,8 @@ describe("App", () => {
     fireEvent.click(screen.getByRole("button", { name: "擲骰" }));
     finishAnimatedRoll(3);
 
-    expect(screen.getByText("時間 +1")).toBeInTheDocument();
-    expect(screen.getByText("專注 +1、成就 +1")).toBeInTheDocument();
+    expect(screen.getByText("可支配時間 +1")).toBeInTheDocument();
+    expect(screen.getByText("深度專注 +1、有效產出 +1")).toBeInTheDocument();
   });
 
   it("advances to the next team after the host rolls and applies the first option", async () => {

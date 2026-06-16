@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ActivityIntro } from "./components/ActivityIntro";
 import { Board } from "./components/Board";
 import { CardPanel } from "./components/CardPanel";
 import { CharacterIntro } from "./components/CharacterIntro";
@@ -20,7 +21,7 @@ const ROLL_ANIMATION_MS = 900;
 const MOVE_STEP_MS = 220;
 
 type RollStatus = "idle" | "rolling" | "moving";
-type ActiveView = "characters" | "game";
+type ActiveView = "intro" | "characters" | "game";
 
 type TurnAnimation = {
   phase: RollStatus;
@@ -36,7 +37,7 @@ const createIdleAnimation = (): TurnAnimation => ({
 
 export default function App() {
   const [state, setState] = useState(createInitialGameState);
-  const [activeView, setActiveView] = useState<ActiveView>("characters");
+  const [activeView, setActiveView] = useState<ActiveView>("intro");
   const [animation, setAnimation] = useState<TurnAnimation>(createIdleAnimation);
   const [revealedSpaceIds, setRevealedSpaceIds] = useState<Set<number>>(() => new Set());
   const timerIds = useRef<number[]>([]);
@@ -164,6 +165,13 @@ export default function App() {
         <div className="view-tabs" aria-label="頁面切換">
           <button
             type="button"
+            aria-pressed={activeView === "intro"}
+            onClick={() => setActiveView("intro")}
+          >
+            活動介紹
+          </button>
+          <button
+            type="button"
             aria-pressed={activeView === "characters"}
             onClick={() => setActiveView("characters")}
           >
@@ -178,7 +186,9 @@ export default function App() {
           </button>
         </div>
       </section>
-      {activeView === "characters" ? (
+      {activeView === "intro" ? (
+        <ActivityIntro />
+      ) : activeView === "characters" ? (
         <CharacterIntro />
       ) : (
       <section className={`game-layout${state.isResultsVisible ? " game-layout-results" : ""}`}>

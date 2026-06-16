@@ -130,6 +130,7 @@ button {
 .card-panel,
 .host-controls,
 .results-panel,
+.intro-page,
 .character-page {
   border: 1px solid #c8d3df;
   border-radius: 8px;
@@ -417,6 +418,7 @@ button {
 .card-panel,
 .host-controls,
 .results-panel,
+.intro-page,
 .character-page {
   padding: 14px;
 }
@@ -441,6 +443,167 @@ button {
   color: #17202a;
   font-size: 22px;
   line-height: 1.2;
+}
+
+.intro-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 18px;
+  overflow: hidden;
+  padding: 18px;
+}
+
+.intro-hero,
+.intro-score-frame,
+.intro-facets {
+  min-width: 0;
+  border: 2px solid #d3dde8;
+  border-radius: 8px;
+  background: #f9fbfd;
+}
+
+.intro-hero {
+  display: grid;
+  align-content: center;
+  min-height: 420px;
+  padding: 28px;
+  color: #f8fbff;
+  background:
+    linear-gradient(135deg, rgb(23 32 42 / 96%), rgb(31 111 178 / 82%)),
+    #17202a;
+  border-color: #17202a;
+}
+
+.intro-hero .panel-kicker {
+  color: #9fd0ff;
+  font-size: 15px;
+}
+
+.intro-hero h2 {
+  margin: 8px 0 18px;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.intro-lead,
+.intro-statement,
+.intro-score-frame > p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.intro-lead {
+  max-width: 680px;
+  color: #fff2c2;
+  font-size: clamp(26px, 3.2vw, 46px);
+  font-weight: 900;
+}
+
+.intro-statement {
+  max-width: 720px;
+  margin-top: 18px;
+  color: #dcecff;
+  font-size: clamp(20px, 2.1vw, 30px);
+  font-weight: 800;
+}
+
+.intro-score-frame {
+  display: grid;
+  align-content: stretch;
+  gap: 14px;
+  padding: 18px;
+}
+
+.intro-score-frame > p {
+  padding: 16px;
+  border: 2px solid #17202a;
+  border-radius: 8px;
+  color: #17202a;
+  background: #ffd166;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.intro-score-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.intro-score-grid article,
+.facet-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #d3dde8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.intro-score-grid article {
+  display: grid;
+  gap: 10px;
+  min-height: 158px;
+}
+
+.intro-score-grid span {
+  display: inline-grid;
+  width: 42px;
+  height: 32px;
+  place-items: center;
+  border-radius: 6px;
+  color: #ffffff;
+  background: #1f6fb2;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.intro-score-grid h3,
+.facet-card strong {
+  margin: 0;
+  color: #17202a;
+  line-height: 1.1;
+}
+
+.intro-score-grid h3 {
+  font-size: 30px;
+}
+
+.intro-score-grid p,
+.facet-card p {
+  margin: 0;
+  color: #263746;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.intro-score-grid p {
+  font-size: 18px;
+}
+
+.intro-facets {
+  grid-column: 1 / -1;
+  padding: 18px;
+}
+
+.facet-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.facet-card {
+  border-top: 5px solid #1f6fb2;
+}
+
+.facet-card strong {
+  display: block;
+  font-size: 20px;
+}
+
+.facet-card p {
+  margin-top: 8px;
+  color: #526b84;
+  font-size: 15px;
 }
 
 .score-list,
@@ -982,6 +1145,18 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .intro-page {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-hero {
+    min-height: 360px;
+  }
+
+  .facet-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .character-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1016,6 +1191,32 @@ button {
 
   .top-bar h1 {
     font-size: 28px;
+  }
+
+  .intro-page {
+    padding: 12px;
+  }
+
+  .intro-hero,
+  .intro-score-frame,
+  .intro-facets {
+    padding: 14px;
+  }
+
+  .intro-hero {
+    min-height: 320px;
+  }
+
+  .intro-score-frame > p {
+    font-size: 20px;
+  }
+
+  .intro-score-grid h3 {
+    font-size: 24px;
+  }
+
+  .facet-grid {
+    grid-template-columns: 1fr;
   }
 
   .character-grid {
