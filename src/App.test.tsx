@@ -41,7 +41,12 @@ describe("App", () => {
     expect(screen.getByRole("heading", { name: "活動介紹" })).toBeInTheDocument();
     expect(screen.getByText("每個人一天都是 24 小時，但起點責任不同。")).toBeInTheDocument();
     expect(screen.getByText("有效人生不是把時間塞滿，而是知道哪些時間值得花。")).toBeInTheDocument();
-    expect(screen.getByText("遊戲只看兩個核心：可支配時間與有效選擇。")).toBeInTheDocument();
+    expect(
+      screen.getByText("遊戲不把六個面向做成六種分數，現場只看兩個核心。")
+    ).toBeInTheDocument();
+    expect(screen.getByText("六個面向藏在卡牌設計裡，幫助大家討論什麼叫有效。")).toBeInTheDocument();
+    expect(screen.getByText("還剩多少能主動安排的時間。")).toBeInTheDocument();
+    expect(screen.getByText("這次選擇值不值得花時間。")).toBeInTheDocument();
     expect(screen.getByText("人際關係")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "擲骰" })).not.toBeInTheDocument();
   });

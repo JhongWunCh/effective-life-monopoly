@@ -488,7 +488,7 @@ button {
 
 .intro-lead,
 .intro-statement,
-.intro-score-frame > p {
+.intro-model-note p {
   margin: 0;
   line-height: 1.45;
 }
@@ -515,14 +515,25 @@ button {
   padding: 18px;
 }
 
-.intro-score-frame > p {
+.intro-model-note {
+  display: grid;
+  gap: 8px;
   padding: 16px;
   border: 2px solid #17202a;
   border-radius: 8px;
   color: #17202a;
   background: #ffd166;
+}
+
+.intro-model-note p:first-child {
   font-size: 24px;
   font-weight: 900;
+}
+
+.intro-model-note p:last-child {
+  color: #263746;
+  font-size: 17px;
+  font-weight: 800;
 }
 
 .intro-score-grid {
@@ -1207,8 +1218,12 @@ button {
     min-height: 320px;
   }
 
-  .intro-score-frame > p {
+  .intro-model-note p:first-child {
     font-size: 20px;
+  }
+
+  .intro-model-note p:last-child {
+    font-size: 16px;
   }
 
   .intro-score-grid h3 {
