@@ -87,14 +87,14 @@ export function CardPanel({ card, lastOutcome, onApplyOption }: CardPanelProps) 
     }
 
     return (
-      <section className="card-panel card-panel-empty" aria-label="事件卡">
+      <section className="card-panel card-panel-empty card-panel-deck" aria-label="事件卡">
         <p>擲骰後會在這裡顯示事件卡。</p>
       </section>
     );
   }
 
   return (
-    <section className={`card-panel period-${card.period}`} aria-label="事件卡">
+    <section className={`card-panel card-panel-drawn period-${card.period} type-${card.type}`} aria-label="事件卡">
       <div className="card-meta">
         <span>{typeLabels[card.type]}</span>
         <span>{periodLabels[card.period]}</span>

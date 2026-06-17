@@ -41,36 +41,38 @@ export function HostControls({
 
   return (
     <section className="host-controls" aria-label="主持人控制台">
-      <div className="host-current">
-        <span>目前隊伍</span>
-        <strong>{currentTeamName}</strong>
-      </div>
-      <div className={`round-progress${roundProgress.isReadyToFinish ? " is-ready" : ""}`}>
-        <strong>{roundLabel}</strong>
-        <span>
-          本輪 {roundProgress.completedTeamsThisRound} / {teamCount} 隊
-        </span>
-      </div>
-      <div className={`die-display is-${rollStatus}`} aria-live="polite">
-        <span className="die-cube" aria-hidden="true">
-          {dieFace}
-        </span>
-        <span className="die-copy">{dieLabel}</span>
-        {rollStatus === "moving" ? <span className="move-copy">走格中</span> : null}
-      </div>
-      <div className="control-row">
-        <button className="primary-control" type="button" onClick={onRoll} disabled={!canRoll}>
-          擲骰
-        </button>
-        <button type="button" onClick={onUndo} disabled={!canUndo}>
-          復原上一動
-        </button>
-        <button type="button" onClick={onShowResults} disabled={!canShowResults}>
-          {resultsButtonLabel}
-        </button>
-        <button className="danger-control" type="button" onClick={onReset} disabled={!canReset}>
-          重設遊戲
-        </button>
+      <div className="host-controls-board" aria-label="桌遊主持區">
+        <div className="host-current">
+          <span>目前隊伍</span>
+          <strong>{currentTeamName}</strong>
+        </div>
+        <div className={`round-progress${roundProgress.isReadyToFinish ? " is-ready" : ""}`}>
+          <strong>{roundLabel}</strong>
+          <span>
+            本輪 {roundProgress.completedTeamsThisRound} / {teamCount} 隊
+          </span>
+        </div>
+        <div className={`die-display is-${rollStatus}`} aria-live="polite">
+          <span className="die-cube" aria-hidden="true">
+            {dieFace}
+          </span>
+          <span className="die-copy">{dieLabel}</span>
+          {rollStatus === "moving" ? <span className="move-copy">走格中</span> : null}
+        </div>
+        <div className="control-row">
+          <button className="primary-control" type="button" onClick={onRoll} disabled={!canRoll}>
+            擲骰
+          </button>
+          <button type="button" onClick={onUndo} disabled={!canUndo}>
+            復原上一動
+          </button>
+          <button type="button" onClick={onShowResults} disabled={!canShowResults}>
+            {resultsButtonLabel}
+          </button>
+          <button className="danger-control" type="button" onClick={onReset} disabled={!canReset}>
+            重設遊戲
+          </button>
+        </div>
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ export function Scoreboard({
 
           return (
             <article
-              className={`score-card${team.id === currentTeamId ? " is-current" : ""}`}
+              className={`score-card player-state-card${team.id === currentTeamId ? " is-current" : ""}`}
               key={team.id}
             >
               <div className="score-card-header">

@@ -119,6 +119,21 @@ describe("App", () => {
     expect(screen.getAllByText("人生有效點").length).toBeGreaterThan(0);
   });
 
+  it("presents the game board as a classic tabletop board without changing controls", () => {
+    renderGameBoard();
+
+    const board = screen.getByRole("region", { name: "有效人生大富翁棋盤" });
+
+    expect(board).toHaveClass("board-panel-tabletop");
+    expect(board.querySelector(".board-frame")).not.toBeNull();
+    expect(board.querySelector(".board-center-emblem")).not.toBeNull();
+    expect(board.querySelector(".board-space-card-back")).not.toBeNull();
+    expect(screen.getByLabelText("桌遊主持區")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "擲骰" })).toBeInTheDocument();
+    expect(screen.getAllByText("機會").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("命運").length).toBeGreaterThan(0);
+  });
+
   it("lets the host set the number of rounds before starting", () => {
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: "遊戲設定" }));
