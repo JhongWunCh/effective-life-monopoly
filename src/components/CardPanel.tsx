@@ -1,5 +1,4 @@
 import type { Card, CardOption, Period, ResolvedOutcome, SpaceType } from "../game/types";
-import { indicatorKeys, indicatorLabels } from "../game/indicators";
 
 type CardPanelProps = {
   card?: Card;
@@ -21,41 +20,24 @@ const typeLabels: Record<SpaceType, string> = {
   reflection: "反思"
 };
 
-const formatDelta = (hours: number) => {
-  if (hours > 0) {
-    return `+${hours} 小時`;
-  }
-
+const formatTimeEffect = (hours: number) => {
   if (hours < 0) {
-    return `${hours} 小時`;
+    return `消耗 ${Math.abs(hours)} 小時`;
   }
 
-  return "時間不變";
+  return "未額外消耗時間";
 };
 
 const formatPoints = (points: number) => {
   if (points > 0) {
-    return `人生有效點 +${points}`;
+    return `人生有效點增加 ${points}`;
   }
 
   if (points < 0) {
-    return `人生有效點 ${points}`;
+    return `人生有效點扣除 ${Math.abs(points)}`;
   }
 
   return "人生有效點不變";
-};
-
-const formatIndicatorDeltas = (option: CardOption) => {
-  const deltas = option.indicatorDeltas;
-
-  if (!deltas) {
-    return "";
-  }
-
-  return indicatorKeys
-    .filter((indicatorKey) => (deltas[indicatorKey] ?? 0) > 0)
-    .map((indicatorKey) => `${indicatorLabels[indicatorKey]} +${deltas[indicatorKey]}`)
-    .join("、");
 };
 
 export function CardPanel({ card, lastOutcome, onApplyOption }: CardPanelProps) {
@@ -79,7 +61,7 @@ export function CardPanel({ card, lastOutcome, onApplyOption }: CardPanelProps) 
             <p>{lastOutcome.text}</p>
           </div>
           <div className="outcome-impact" aria-label="結果影響">
-            <span>{formatDelta(lastOutcome.timeDeltaHours)}</span>
+            <span>{formatTimeEffect(lastOutcome.timeDeltaHours)}</span>
             <span>{formatPoints(lastOutcome.effectiveMarks)}</span>
           </div>
         </section>
@@ -102,28 +84,17 @@ export function CardPanel({ card, lastOutcome, onApplyOption }: CardPanelProps) 
       <h2>{card.title}</h2>
       <p className="card-text">{card.text}</p>
       <div className="option-list">
-        {card.options.map((option) => {
-          const indicatorImpact = formatIndicatorDeltas(option);
-
-          return (
-            <button
-              className="option-button"
-              key={option.id}
-              type="button"
-              onClick={() => onApplyOption(option)}
-            >
-              <span className="option-id">{option.id}</span>
-              <span className="option-copy">{option.label}</span>
-              <span className="option-impact">
-                <span>
-                  {formatDelta(option.timeDeltaHours)} / {formatPoints(option.effectiveMarks)}
-                </span>
-                {option.outcomes?.length ? <span className="indicator-impact">選後揭示好壞結果</span> : null}
-                {indicatorImpact ? <span className="indicator-impact">{indicatorImpact}</span> : null}
-              </span>
-            </button>
-          );
-        })}
+        {card.options.map((option) => (
+          <button
+            className="option-button"
+            key={option.id}
+            type="button"
+            onClick={() => onApplyOption(option)}
+          >
+            <span className="option-id">{option.id}</span>
+            <span className="option-copy">{option.label}</span>
+          </button>
+        ))}
       </div>
     </section>
   );

@@ -91,7 +91,7 @@ export function applyOption(
     index === state.currentTeamIndex
       ? {
           ...team,
-          remainingHours: Math.max(0, team.remainingHours + resolvedOutcome.timeDeltaHours),
+          remainingHours: applyTimeEffect(team.remainingHours, resolvedOutcome.timeDeltaHours),
           effectiveMarks: Math.max(0, team.effectiveMarks + resolvedOutcome.effectiveMarks),
           indicators: applyIndicatorDeltas(team.indicators, resolvedOutcome.indicatorDeltas)
         }
@@ -287,6 +287,12 @@ function applyIndicatorDeltas(
       clampIndicator(currentIndicators[indicatorKey] + (indicatorDeltas[indicatorKey] ?? 0))
     ])
   ) as Indicators;
+}
+
+function applyTimeEffect(remainingHours: number, timeDeltaHours: number): number {
+  const consumedHours = Math.max(0, -timeDeltaHours);
+
+  return Math.max(0, remainingHours - consumedHours);
 }
 
 function clampIndicator(value: number): number {

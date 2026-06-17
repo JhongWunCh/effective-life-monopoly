@@ -1210,7 +1210,7 @@ button {
 
 .option-button {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) auto;
+  grid-template-columns: 38px minmax(0, 1fr);
   align-items: center;
   gap: 10px;
   width: 100%;
@@ -1248,19 +1248,6 @@ button {
   font-weight: 800;
   line-height: 1.25;
   overflow-wrap: anywhere;
-}
-
-.option-impact {
-  color: #526b84;
-  display: grid;
-  gap: 3px;
-  font-size: 14px;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.indicator-impact {
-  color: #2f7d55;
 }
 
 .outcome-panel {
@@ -1982,8 +1969,4 @@ button {
     grid-template-columns: 34px minmax(0, 1fr);
   }
 
-  .option-impact {
-    grid-column: 2;
-    white-space: normal;
-  }
 }

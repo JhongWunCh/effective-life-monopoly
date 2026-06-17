@@ -328,22 +328,22 @@ const baseCards: Card[] = [
     type: "reflection",
     period: "midnight",
     title: "今天真正重要的是什麼？",
-    text: "在睡前回看今天，把沒有推進人生方向的活動標記出來。",
+    text: "睡前回想今天，把與長期方向無關、卻占用時間的事情標記下來。",
     options: [
-      { id: "A", label: "記下一件可刪除的事", timeDeltaHours: 0.5, effectiveMarks: 1 },
+      { id: "A", label: "記下一件明天可刪減的事", timeDeltaHours: 0.5, effectiveMarks: 1 },
       { id: "B", label: "照原本節奏滑手機", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "列出明天三件要事", timeDeltaHours: 0, effectiveMarks: 2 }
+      { id: "C", label: "列出明天最重要的三件事", timeDeltaHours: 0, effectiveMarks: 2 }
     ]
   },
   {
     id: "midnight-fate-phone",
     type: "fate",
     period: "midnight",
-    title: "半夜手機自己升天",
-    text: "手機在枕頭邊震到像要宣布登基，群組說只是貼圖，但你的靈魂已經坐起來開會。",
+    title: "半夜手機震動",
+    text: "手機在枕邊震動，群組只是貼圖，但睡意已經被打斷。",
     options: [
-      { id: "A", label: "翻面裝死，明早再審判", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, health: 1 } },
-      { id: "B", label: "立刻回覆，順便把人生回到凌晨三點", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      { id: "A", label: "手機翻面，明早再處理", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, health: 1 } },
+      { id: "B", label: "立刻回覆，讓睡意重新歸零", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
   {
@@ -362,12 +362,12 @@ const baseCards: Card[] = [
     id: "midnight-opportunity-prepare",
     type: "opportunity",
     period: "midnight",
-    title: "睡前桌面開光",
-    text: "桌上有杯子、充電線、昨天的便利貼，像一個小型案發現場。",
+    title: "睡前整理桌面",
+    text: "桌上散著杯子、充電線和便利貼，明早第一步可能被雜物拖住。",
     options: [
-      { id: "A", label: "把桌面清到可以召喚明天", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
-      { id: "B", label: "把雜物推成山，假裝那叫系統", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "找明天第一份檔案，找不到就拜一下滑鼠", timeDeltaHours: 0.5, effectiveMarks: 1, indicatorDeltas: { focus: 1, achievement: 1 } }
+      { id: "A", label: "清出明早可以立刻開始的桌面", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
+      { id: "B", label: "把雜物先推到一旁，明天再說", timeDeltaHours: -0.5, effectiveMarks: 0 },
+      { id: "C", label: "先找好明天第一份要用的檔案", timeDeltaHours: 0.5, effectiveMarks: 1, indicatorDeltas: { focus: 1, achievement: 1 } }
     ]
   },
   {
@@ -385,11 +385,11 @@ const baseCards: Card[] = [
     id: "midnight-fate-emergency",
     type: "fate",
     period: "midnight",
-    title: "半夜求救鈴聲長腳",
-    text: "有人說只有五分鐘，結果五分鐘穿西裝坐下來變成一小時。",
+    title: "半夜求救訊息",
+    text: "有人說只要五分鐘，實際處理起來卻可能拖成一小時。",
     options: [
-      { id: "A", label: "先救火，再把火柴收走", timeDeltaHours: -0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
-      { id: "B", label: "邊救邊碎念，把自己也燒進去", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      { id: "A", label: "先處理急事，再補上界線", timeDeltaHours: -0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
+      { id: "B", label: "一邊處理一邊抱怨，讓情緒也被捲入", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
   {
@@ -413,7 +413,7 @@ const baseCards: Card[] = [
     options: [
       { id: "A", label: "先選一件主線任務", timeDeltaHours: 0.5, effectiveMarks: 1 },
       { id: "B", label: "直接打開聊天軟體", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "排三段專注時間", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "C", label: "排出三段不被打斷的專注時間", timeDeltaHours: 0.5, effectiveMarks: 2 }
     ]
   },
   {
@@ -444,23 +444,23 @@ const baseCards: Card[] = [
     id: "morning-opportunity-commute",
     type: "opportunity",
     period: "morning",
-    title: "通勤車廂修行",
-    text: "捷運晃一下，手機短影音就端出人生自助餐。",
+    title: "通勤時間選擇",
+    text: "捷運晃動之間，短影音很容易吃掉整段通勤。",
     options: [
-      { id: "A", label: "聽一段學習音訊，假裝自己是移動圖書館", timeDeltaHours: 0, effectiveMarks: 1, indicatorDeltas: { achievement: 1 } },
-      { id: "B", label: "滑到站名都變演算法推薦", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "在腦中預演第一句話，不跟空氣吵架", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1 } }
+      { id: "A", label: "聽一段學習音訊", timeDeltaHours: 0, effectiveMarks: 1, indicatorDeltas: { achievement: 1 } },
+      { id: "B", label: "一路滑短影音到下車", timeDeltaHours: -0.5, effectiveMarks: 0 },
+      { id: "C", label: "在腦中預演今天第一句開場", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1 } }
     ]
   },
   {
     id: "morning-fate-meeting",
     type: "fate",
     period: "morning",
-    title: "會議從天花板掉下來",
-    text: "臨時會議像忍者一樣出現，還帶著沒有 agenda 的武器。",
+    title: "臨時會議插隊",
+    text: "臨時會議突然出現，卻沒有清楚議程。",
     options: [
-      { id: "A", label: "要求先說要決定什麼，不然大家一起看天花板", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } },
-      { id: "B", label: "直接坐下被投影片醃漬", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      { id: "A", label: "先確認會議要決定什麼", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } },
+      { id: "B", label: "直接進會議，照單全收", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
   {
@@ -526,23 +526,23 @@ const baseCards: Card[] = [
     id: "afternoon-opportunity-help",
     type: "opportunity",
     period: "afternoon",
-    title: "同事頭上冒煙",
-    text: "同事卡住來求救，語氣像只要三分鐘，眼神像準備住進你的行事曆。",
+    title: "同事臨時求助",
+    text: "同事卡住來求救，說只要三分鐘，實際上可能牽動你的下午安排。",
     options: [
-      { id: "A", label: "直接接手，成為人體快捷鍵", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { relationship: 1 } },
-      { id: "B", label: "畫下一步和截止線，讓對方自己走路", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
-      { id: "C", label: "開固定答疑時段，禁止問題隨地長出來", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1 } }
+      { id: "A", label: "直接接手，先替對方解決", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { relationship: 1 } },
+      { id: "B", label: "寫下下一步和截止線，讓對方自己推進", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
+      { id: "C", label: "約定固定答疑時段，避免問題一直插隊", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1 } }
     ]
   },
   {
     id: "afternoon-fate-request",
     type: "fate",
     period: "afternoon",
-    title: "突發請託穿西裝",
-    text: "新的請託說自己很急，但沒有證件證明它真的重要。",
+    title: "突發請託",
+    text: "新的請託看起來很急，但還需要判斷它是否真的重要。",
     options: [
-      { id: "A", label: "先問截止和影響，請它出示身分證", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
-      { id: "B", label: "立刻放下手邊工作，向混亂敬禮", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      { id: "A", label: "先問截止時間與實際影響", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
+      { id: "B", label: "立刻放下手邊工作，先處理再說", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
   {
@@ -597,23 +597,23 @@ const baseCards: Card[] = [
     id: "evening-opportunity-study",
     type: "opportunity",
     period: "evening",
-    title: "自我投資扭蛋機",
-    text: "晚上剩一點時間，理智說學習，沙發說來嘛我很軟。",
+    title: "晚間自我投資",
+    text: "晚上剩下一點時間，學習與休息都在爭取你的注意力。",
     options: [
-      { id: "A", label: "學一個小單元，抽到能力碎片", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { achievement: 1 } },
-      { id: "B", label: "滑到手機開始發燙，手指成為永動機", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "整理今天學到的事，腦袋關機前存檔", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } }
+      { id: "A", label: "完成一個小單元的學習", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { achievement: 1 } },
+      { id: "B", label: "一路滑手機到準備睡覺", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "整理今天學到的重點", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } }
     ]
   },
   {
     id: "evening-fate-overtime",
     type: "fate",
     period: "evening",
-    title: "加班怪獸敲門",
-    text: "工作追到晚上，還戴著『我真的很急』的假鬍子。",
+    title: "加班訊息出現",
+    text: "工作追到晚上，訊息寫著很急，卻未必非今天不可。",
     options: [
-      { id: "A", label: "確認今天是否必須完成，拔掉假鬍子", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
-      { id: "B", label: "直接加到深夜，和辦公椅建立感情", timeDeltaHours: -2, effectiveMarks: 1 }
+      { id: "A", label: "確認今天是否真的必須完成", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
+      { id: "B", label: "直接加班到深夜", timeDeltaHours: -2, effectiveMarks: 1 }
     ]
   },
   {
@@ -674,8 +674,8 @@ function withDefaultRandomOutcomes(option: CardOption): CardOption {
       {
         id: `${option.id}-good`,
         tone: "good",
-        title: "神奇好結果",
-        text: "宇宙突然站你這邊，事情滑順到像地板剛打蠟。你省下一點時間，也多拿一點人生有效點。",
+        title: "意外順利",
+        text: "事情比預期順利，沒有額外消耗時間，也多得到一點人生有效點。",
         timeDeltaHours: option.timeDeltaHours + 0.5,
         effectiveMarks: option.effectiveMarks + 1,
         indicatorDeltas: option.indicatorDeltas
@@ -683,8 +683,8 @@ function withDefaultRandomOutcomes(option: CardOption): CardOption {
       {
         id: `${option.id}-bad`,
         tone: "bad",
-        title: "劇情突然轉彎",
-        text: "劇情突然轉彎，連旁白都跌倒。你多耗了一點時間，人生有效點也被現場扣走。",
+        title: "情況轉折",
+        text: "事情比預期多繞了一圈，你多消耗了一點時間，人生有效點也被扣走。",
         timeDeltaHours: option.timeDeltaHours - 0.5,
         effectiveMarks: option.effectiveMarks - 1,
         indicatorDeltas: option.indicatorDeltas

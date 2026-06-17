@@ -148,6 +148,40 @@ describe("game data", () => {
     expect(randomOutcomeTitles.filter((title) => title.includes("無厘頭"))).toEqual([]);
   });
 
+  it("keeps card copy polished enough for facilitation", () => {
+    const allCopy = cards.flatMap((card) => [
+      card.title,
+      card.text,
+      ...card.options.flatMap((option) => [
+        option.label,
+        ...(option.outcomes?.flatMap((outcome) => [outcome.title, outcome.text]) ?? [])
+      ])
+    ]);
+
+    const distractingPhrases = [
+      "開光",
+      "案發現場",
+      "升天",
+      "拜一下滑鼠",
+      "天花板掉下來",
+      "投影片醃漬",
+      "頭上冒煙",
+      "穿西裝",
+      "人體快捷鍵",
+      "隨地長出來",
+      "扭蛋機",
+      "永動機",
+      "假鬍子",
+      "辦公椅建立感情",
+      "地板剛打蠟",
+      "旁白都跌倒"
+    ];
+
+    expect(
+      allCopy.filter((copy) => distractingPhrases.some((phrase) => copy.includes(phrase)))
+    ).toEqual([]);
+  });
+
   it("lets opportunity and fate cards use either two or three choices", () => {
     const opportunityAndFateCards = cards.filter(
       (card) => card.type === "opportunity" || card.type === "fate"

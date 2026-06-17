@@ -127,6 +127,26 @@ describe("game engine", () => {
     expect(state.isResultsVisible).toBe(true);
   });
 
+  it("does not increase remaining hours when a choice protects time", () => {
+    const state = {
+      ...createInitialGameState(),
+      teams: teams.map((team, index) =>
+        index === 0 ? { ...team, remainingHours: 17 } : { ...team }
+      )
+    };
+    const option = {
+      id: "A" as const,
+      label: "stable protected-time fixture",
+      timeDeltaHours: 1,
+      effectiveMarks: 2
+    };
+
+    const next = applyOption(state, option);
+
+    expect(next.teams[0]!.remainingHours).toBe(17);
+    expect(next.teams[0]!.effectiveMarks).toBe(2);
+  });
+
   it("applies the selected random outcome and records it for reveal", () => {
     const state = {
       ...createInitialGameState(),

@@ -216,7 +216,7 @@ describe("App", () => {
     expect(within(babyCard).getByText("起始可支配 16h")).toBeInTheDocument();
   });
 
-  it("shows key indicator gains on opportunity card options", () => {
+  it("keeps option consequences hidden until the host applies a choice", () => {
     vi.useFakeTimers();
     mockDieRoll(3);
 
@@ -225,8 +225,21 @@ describe("App", () => {
     fireEvent.click(screen.getByRole("button", { name: "擲骰" }));
     finishAnimatedRoll(3);
 
-    expect(screen.getByText("可支配時間 +1、深度專注 +1")).toBeInTheDocument();
-    expect(screen.getByText("深度專注 +1、有效產出 +1")).toBeInTheDocument();
+    const cardPanel = screen.getByRole("region", { name: "事件卡" });
+
+    for (const optionButton of within(cardPanel).getAllByRole("button")) {
+      expect(optionButton).not.toHaveTextContent(/人生有效點/);
+      expect(optionButton).not.toHaveTextContent(/[+-]\d+(?:\.\d+)?\s*小時/);
+      expect(optionButton).not.toHaveTextContent(/好結果|壞結果|選後揭示/);
+      expect(optionButton).not.toHaveTextContent(/可支配時間|深度專注|有效產出/);
+    }
+
+    fireEvent.click(screen.getByRole("button", { name: /A/ }));
+
+    const outcomeImpact = screen.getByLabelText("結果影響");
+    expect(outcomeImpact).toHaveTextContent(/時間|小時/);
+    expect(outcomeImpact).toHaveTextContent(/人生有效點/);
+    expect(outcomeImpact).not.toHaveTextContent(/[+-]\d/);
   });
 
   it("reveals a random opportunity or fate result after the host applies an option", () => {
