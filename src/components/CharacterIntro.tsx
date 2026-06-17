@@ -1,5 +1,4 @@
 import { protagonists } from "../game/data";
-import { indicatorKeys, indicatorLabels } from "../game/indicators";
 import aliImage from "../assets/characters/ali-baba-anime.png";
 import atuImage from "../assets/characters/atu-farmer-anime.png";
 import babyImage from "../assets/characters/jin-beibei-anime.png";
@@ -63,14 +62,6 @@ export function CharacterIntro() {
               <span>{formatHours(24 - protagonist.startingDeductionHours)}</span>
             </div>
             <p className="character-identity">{characterFlair[protagonist.id]!.roast}</p>
-            <dl className="character-indicators">
-              {indicatorKeys.map((indicatorKey) => (
-                <div key={indicatorKey}>
-                  <dt>{indicatorLabels[indicatorKey]}</dt>
-                  <dd>{protagonist.baseIndicators[indicatorKey]}</dd>
-                </div>
-              ))}
-            </dl>
             <div className="burden-list" aria-label={`${protagonist.name} 固定時間`}>
               <span>開局扣時 {formatHours(protagonist.startingDeductionHours)}</span>
               <span>起始可支配 {formatHours(24 - protagonist.startingDeductionHours)}</span>

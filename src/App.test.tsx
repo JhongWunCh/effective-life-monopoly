@@ -57,7 +57,7 @@ describe("App", () => {
     expect(screen.queryByRole("button", { name: "擲骰" })).not.toBeInTheDocument();
   });
 
-  it("shows the character introduction page with protagonist cards and basic indicators", () => {
+  it("shows protagonist cards without unused indicator stats", () => {
     render(<App />);
     fireEvent.click(screen.getByRole("button", { name: "角色介紹" }));
 
@@ -69,12 +69,18 @@ describe("App", () => {
       expect(screen.getByRole("article", { name: `${protagonistName} 角色卡` })).toBeInTheDocument();
     }
 
-    expect(screen.getAllByText("可支配時間").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("身心能量").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("深度專注").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("身心健康").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("人際關係").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("有效產出").length).toBeGreaterThan(0);
+    const characterRegion = screen.getByRole("region", { name: "角色介紹" });
+
+    for (const removedLabel of [
+      "可支配時間",
+      "身心能量",
+      "深度專注",
+      "身心健康",
+      "人際關係",
+      "有效產出"
+    ]) {
+      expect(within(characterRegion).queryAllByText(removedLabel)).toEqual([]);
+    }
   });
 
   it("uses exaggerated anime character cards for the four protagonists", () => {

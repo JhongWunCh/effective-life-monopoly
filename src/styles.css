@@ -808,35 +808,6 @@ button {
   line-height: 1.45;
 }
 
-.character-indicators {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin: 0;
-}
-
-.character-indicators div {
-  min-width: 0;
-  padding: 8px;
-  border: 1px solid #dde6ee;
-  border-radius: 6px;
-  background: #ffffff;
-}
-
-.character-indicators dt {
-  color: #526b84;
-  font-size: 13px;
-  font-weight: 900;
-}
-
-.character-indicators dd {
-  margin: 2px 0 0;
-  color: #17202a;
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 1;
-}
-
 .burden-list {
   display: flex;
   flex-wrap: wrap;
