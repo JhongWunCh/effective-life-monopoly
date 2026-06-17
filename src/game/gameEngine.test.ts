@@ -107,6 +107,57 @@ describe("game engine", () => {
     expect(state.isResultsVisible).toBe(true);
   });
 
+  it("applies the selected random outcome and records it for reveal", () => {
+    const state = {
+      ...createInitialGameState(),
+      currentCardId: "morning-fate-meeting",
+      lastRoll: 3,
+      teams: teams.map((team, index) =>
+        index === 0 ? { ...team, remainingHours: 20, effectiveMarks: 3 } : { ...team }
+      )
+    };
+    const option = {
+      id: "A" as const,
+      label: "先問清楚目的",
+      timeDeltaHours: 0,
+      effectiveMarks: 0,
+      outcomes: [
+        {
+          id: "good",
+          tone: "good" as const,
+          title: "問對問題",
+          text: "會議縮短，還抓到真正決策點。",
+          timeDeltaHours: 0.5,
+          effectiveMarks: 2
+        },
+        {
+          id: "bad",
+          tone: "bad" as const,
+          title: "對方準備不足",
+          text: "問題問清楚了，但會議仍然拖長。",
+          timeDeltaHours: -1,
+          effectiveMarks: -1
+        }
+      ]
+    };
+
+    const next = applyOption(state, option, () => 0.99);
+
+    expect(next.teams[0]!.remainingHours).toBe(19);
+    expect(next.teams[0]!.effectiveMarks).toBe(2);
+    expect(next.lastOutcome).toEqual({
+      optionId: "A",
+      optionLabel: "先問清楚目的",
+      isRandom: true,
+      tone: "bad",
+      title: "對方準備不足",
+      text: "問題問清楚了，但會議仍然拖長。",
+      timeDeltaHours: -1,
+      effectiveMarks: -1
+    });
+    expect(next.currentTeamIndex).toBe(1);
+  });
+
   it("applies key indicator growth from selected options", () => {
     const state = {
       ...createInitialGameState(),
@@ -137,10 +188,10 @@ describe("game engine", () => {
     };
     const option = cards.find((card) => card.id === "evening-fate-overtime")!.options[1]!;
 
-    const next = applyOption(state, option);
+    const next = applyOption(state, option, () => 0);
 
     expect(next.teams[0]!.remainingHours).toBe(0);
-    expect(next.teams[0]!.effectiveMarks).toBe(1);
+    expect(next.teams[0]!.effectiveMarks).toBe(2);
   });
 
   it("shows results while preserving selected card and roll", () => {

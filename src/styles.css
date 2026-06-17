@@ -911,6 +911,62 @@ button {
   color: #2f7d55;
 }
 
+.outcome-panel {
+  border-width: 2px;
+}
+
+.outcome-good {
+  background: #e4f4e8;
+  border-color: #2f7d55;
+}
+
+.outcome-bad {
+  background: #fff1ef;
+  border-color: #a83232;
+}
+
+.outcome-fixed {
+  background: #f8fbff;
+}
+
+.outcome-copy {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid rgb(23 32 42 / 14%);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 72%);
+}
+
+.outcome-copy strong {
+  color: #17202a;
+  font-size: 20px;
+}
+
+.outcome-copy p {
+  margin: 0;
+  color: #263746;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.outcome-impact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.outcome-impact span {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #ffffff;
+  background: #17202a;
+  font-weight: 900;
+}
+
 .host-controls {
   display: grid;
   gap: 12px;

@@ -23,8 +23,8 @@ export function ResultsView({ teams }: ResultsViewProps) {
           <span>時間管理獎</span>
           <strong>{awards.timeManagement}</strong>
         </article>
-        <article className="award-card" aria-label="有效選擇獎">
-          <span>有效選擇獎</span>
+        <article className="award-card" aria-label="人生有效點獎">
+          <span>人生有效點獎</span>
           <strong>{awards.effectiveChoice}</strong>
         </article>
         <article className="award-card" aria-label="有效人生獎">
@@ -40,7 +40,7 @@ export function ResultsView({ teams }: ResultsViewProps) {
               <th scope="col">隊伍</th>
               <th scope="col">已花時間</th>
               <th scope="col">剩餘時間</th>
-              <th scope="col">有效標記</th>
+              <th scope="col">人生有效點</th>
               <th scope="col">有效人生分</th>
             </tr>
           </thead>

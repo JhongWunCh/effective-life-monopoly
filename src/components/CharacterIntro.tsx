@@ -72,6 +72,8 @@ export function CharacterIntro() {
               ))}
             </dl>
             <div className="burden-list" aria-label={`${protagonist.name} 固定時間`}>
+              <span>開局扣時 {formatHours(protagonist.startingDeductionHours)}</span>
+              <span>起始可支配 {formatHours(24 - protagonist.startingDeductionHours)}</span>
               {protagonist.fixedBurdens.map((burden) => (
                 <span key={burden.label}>
                   {burden.label} -{formatHours(burden.hours)}

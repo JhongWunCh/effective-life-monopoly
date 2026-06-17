@@ -21,6 +21,8 @@ export type Team = {
   indicators: Indicators;
 };
 
+export type OutcomeTone = "good" | "bad";
+
 export type Protagonist = {
   id: string;
   name: string;
@@ -47,6 +49,29 @@ export type BoardSpace = {
 export type CardOption = {
   id: "A" | "B" | "C";
   label: string;
+  timeDeltaHours: number;
+  effectiveMarks: number;
+  indicatorDeltas?: Partial<Indicators>;
+  outcomes?: CardOutcome[];
+};
+
+export type CardOutcome = {
+  id: string;
+  tone: OutcomeTone;
+  title: string;
+  text: string;
+  timeDeltaHours: number;
+  effectiveMarks: number;
+  indicatorDeltas?: Partial<Indicators>;
+};
+
+export type ResolvedOutcome = {
+  optionId: CardOption["id"];
+  optionLabel: string;
+  isRandom: boolean;
+  tone: OutcomeTone | "fixed";
+  title: string;
+  text: string;
   timeDeltaHours: number;
   effectiveMarks: number;
   indicatorDeltas?: Partial<Indicators>;

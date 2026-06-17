@@ -38,6 +38,22 @@ describe("scoring", () => {
     });
   });
 
+  it("does not report negative spent hours when a result restores time", () => {
+    const team = makeTeam({
+      id: "recovered",
+      name: "Recovered Team",
+      startingHours: 20,
+      remainingHours: 21,
+      effectiveMarks: 3
+    });
+
+    expect(calculateTeamScore(team)).toMatchObject({
+      spentHours: 0,
+      remainingHours: 21,
+      effectiveLifeScore: 24
+    });
+  });
+
   it("selects award winners by remaining hours, effective marks, and effective life score", () => {
     const teams = [
       makeTeam({

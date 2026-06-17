@@ -122,6 +122,20 @@ describe("game data", () => {
     }
   });
 
+  it("gives every opportunity and fate option a good and bad random result", () => {
+    const opportunityAndFateCards = cards.filter(
+      (card) => card.type === "opportunity" || card.type === "fate"
+    );
+
+    expect(opportunityAndFateCards.length).toBeGreaterThan(0);
+
+    for (const card of opportunityAndFateCards) {
+      for (const option of card.options) {
+        expect(option.outcomes?.map((outcome) => outcome.tone).sort()).toEqual(["bad", "good"]);
+      }
+    }
+  });
+
   it("keeps team starting hours aligned with Chad's approved burdens", () => {
     expect(
       teams.map(({ protagonistId, startingHours, remainingHours }) => ({
@@ -148,7 +162,7 @@ describe("game data", () => {
             period,
             title,
             text,
-            options: options.map(({ indicatorDeltas: _indicatorDeltas, ...option }) => option)
+            options: options.map(({ indicatorDeltas: _indicatorDeltas, outcomes: _outcomes, ...option }) => option)
           }
         ])
     );

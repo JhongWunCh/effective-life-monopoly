@@ -16,10 +16,12 @@ export type AwardSummary = {
 };
 
 export function calculateTeamScore(team: Team): TeamScore {
+  const spentHours = Math.max(0, team.startingHours - team.remainingHours);
+
   return {
     teamId: team.id,
     teamName: team.name,
-    spentHours: team.startingHours - team.remainingHours,
+    spentHours,
     remainingHours: team.remainingHours,
     effectiveMarks: team.effectiveMarks,
     effectiveLifeScore: team.remainingHours + team.effectiveMarks

@@ -1,4 +1,4 @@
-import type { BoardSpace, Card, Protagonist, Team } from "./types";
+import type { BoardSpace, Card, CardOption, Protagonist, Team } from "./types";
 
 export const protagonists: Protagonist[] = [
   {
@@ -318,7 +318,7 @@ export const boardSpaces: BoardSpace[] = [
   }
 ];
 
-export const cards: Card[] = [
+const baseCards: Card[] = [
   {
     id: "midnight-reflection-quiet",
     type: "reflection",
@@ -656,3 +656,42 @@ export const cards: Card[] = [
     ]
   }
 ];
+
+export const cards: Card[] = baseCards.map((card) =>
+  card.type === "opportunity" || card.type === "fate"
+    ? {
+        ...card,
+        options: card.options.map(withDefaultRandomOutcomes)
+      }
+    : card
+);
+
+function withDefaultRandomOutcomes(option: CardOption): CardOption {
+  if (option.outcomes?.length) {
+    return option;
+  }
+
+  return {
+    ...option,
+    outcomes: [
+      {
+        id: `${option.id}-good`,
+        tone: "good",
+        title: "好結果",
+        text: "這個選擇執行順利，事情比預期更省力，也更貼近有效人生。",
+        timeDeltaHours: option.timeDeltaHours + 0.5,
+        effectiveMarks: option.effectiveMarks + 1,
+        indicatorDeltas: option.indicatorDeltas
+      },
+      {
+        id: `${option.id}-bad`,
+        tone: "bad",
+        title: "壞結果",
+        text: "事情出現反轉，額外消耗時間與心力，這次選擇的價值被打折。",
+        timeDeltaHours: option.timeDeltaHours - 0.5,
+        effectiveMarks: option.effectiveMarks - 1,
+        indicatorDeltas: option.indicatorDeltas
+      }
+    ]
+  };
+}

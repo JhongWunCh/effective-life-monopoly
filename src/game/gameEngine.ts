@@ -1,7 +1,7 @@
 import { boardSpaces, teams as initialTeams } from "./data";
 import { indicatorKeys } from "./indicators";
 import type { Indicators } from "./types";
-import type { CardOption, Team } from "./types";
+import type { CardOption, ResolvedOutcome, Team } from "./types";
 
 const BOARD_SPACE_COUNT = 24;
 const STARTING_POSITION = 0;
@@ -11,6 +11,7 @@ export type GameStateSnapshot = {
   currentTeamIndex: number;
   currentCardId?: string;
   lastRoll?: number;
+  lastOutcome?: ResolvedOutcome;
   isResultsVisible: boolean;
 };
 
@@ -52,22 +53,66 @@ export function moveCurrentTeam(state: GameState, roll: number): GameState {
   });
 }
 
-export function applyOption(state: GameState, option: CardOption): GameState {
+export function applyOption(
+  state: GameState,
+  option: CardOption,
+  random: () => number = Math.random
+): GameState {
+  const resolvedOutcome = resolveOptionOutcome(option, random);
+
   return createState({
     teams: state.teams.map((team, index) =>
       index === state.currentTeamIndex
         ? {
             ...team,
-            remainingHours: Math.max(0, team.remainingHours + option.timeDeltaHours),
-            effectiveMarks: team.effectiveMarks + option.effectiveMarks,
-            indicators: applyIndicatorDeltas(team.indicators, option.indicatorDeltas)
+            remainingHours: Math.max(0, team.remainingHours + resolvedOutcome.timeDeltaHours),
+            effectiveMarks: Math.max(0, team.effectiveMarks + resolvedOutcome.effectiveMarks),
+            indicators: applyIndicatorDeltas(team.indicators, resolvedOutcome.indicatorDeltas)
           }
         : { ...team }
     ),
     currentTeamIndex: (state.currentTeamIndex + 1) % state.teams.length,
+    lastOutcome: resolvedOutcome,
     isResultsVisible: false,
     history: historyWithSnapshot(state)
   });
+}
+
+export function resolveOptionOutcome(
+  option: CardOption,
+  random: () => number = Math.random
+): ResolvedOutcome {
+  if (option.outcomes?.length) {
+    const outcomeIndex = Math.min(
+      option.outcomes.length - 1,
+      Math.floor(random() * option.outcomes.length)
+    );
+    const outcome = option.outcomes[outcomeIndex]!;
+
+    return {
+      optionId: option.id,
+      optionLabel: option.label,
+      isRandom: true,
+      tone: outcome.tone,
+      title: outcome.title,
+      text: outcome.text,
+      timeDeltaHours: outcome.timeDeltaHours,
+      effectiveMarks: outcome.effectiveMarks,
+      indicatorDeltas: outcome.indicatorDeltas
+    };
+  }
+
+  return {
+    optionId: option.id,
+    optionLabel: option.label,
+    isRandom: false,
+    tone: "fixed",
+    title: "選擇結果",
+    text: "這個選擇立即生效。",
+    timeDeltaHours: option.timeDeltaHours,
+    effectiveMarks: option.effectiveMarks,
+    indicatorDeltas: option.indicatorDeltas
+  };
 }
 
 export function showResults(state: GameState): GameState {
@@ -118,6 +163,15 @@ function cloneSnapshot(snapshot: GameStateSnapshot): GameStateSnapshot {
 
   if (snapshot.lastRoll !== undefined) {
     cloned.lastRoll = snapshot.lastRoll;
+  }
+
+  if (snapshot.lastOutcome !== undefined) {
+    cloned.lastOutcome = {
+      ...snapshot.lastOutcome,
+      indicatorDeltas: snapshot.lastOutcome.indicatorDeltas
+        ? { ...snapshot.lastOutcome.indicatorDeltas }
+        : undefined
+    };
   }
 
   return cloned;

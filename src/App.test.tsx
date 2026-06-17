@@ -93,6 +93,7 @@ describe("App", () => {
     expect(screen.getAllByText("阿里爸爸組").length).toBeGreaterThan(0);
     expect(screen.getByText("00:00")).toBeInTheDocument();
     expect(screen.getAllByText("剩餘時間").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("人生有效點").length).toBeGreaterThan(0);
   });
 
   it("places scoreboards on both sides and keeps host controls in the board center", () => {
@@ -134,6 +135,16 @@ describe("App", () => {
     expect(screen.queryByText("補眠決策")).not.toBeInTheDocument();
   });
 
+  it("shows starting hour deductions on protagonist cards", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "角色介紹" }));
+
+    const aliCard = screen.getByRole("article", { name: "阿里爸爸 角色卡" });
+
+    expect(within(aliCard).getByText("開局扣時 3.5h")).toBeInTheDocument();
+    expect(within(aliCard).getByText("起始可支配 20.5h")).toBeInTheDocument();
+  });
+
   it("shows key indicator gains on opportunity card options", () => {
     vi.useFakeTimers();
     mockDieRoll(3);
@@ -145,6 +156,22 @@ describe("App", () => {
 
     expect(screen.getByText("可支配時間 +1")).toBeInTheDocument();
     expect(screen.getByText("深度專注 +1、有效產出 +1")).toBeInTheDocument();
+  });
+
+  it("reveals a random opportunity or fate result after the host applies an option", () => {
+    vi.useFakeTimers();
+    mockDieRoll(3);
+
+    renderGameBoard();
+
+    fireEvent.click(screen.getByRole("button", { name: "擲骰" }));
+    finishAnimatedRoll(3);
+    fireEvent.click(screen.getByRole("button", { name: /A/ }));
+
+    expect(screen.getByRole("heading", { name: "結果揭曉" })).toBeInTheDocument();
+    const outcomeRegion = screen.getByRole("region", { name: "事件結果" });
+    expect(within(outcomeRegion).getAllByText(/好結果|壞結果/).length).toBeGreaterThan(0);
+    expect(within(outcomeRegion).getByText(/人生有效點/)).toBeInTheDocument();
   });
 
   it("advances to the next team after the host rolls and applies the first option", async () => {
@@ -262,7 +289,7 @@ describe("App", () => {
 
     expect(screen.getByRole("heading", { name: "結算結果" })).toBeInTheDocument();
     expect(screen.getByText("時間管理獎")).toBeInTheDocument();
-    expect(screen.getByText("有效選擇獎")).toBeInTheDocument();
+    expect(screen.getByText("人生有效點獎")).toBeInTheDocument();
     expect(screen.getByText("有效人生獎")).toBeInTheDocument();
 
     const resultsRegion = screen.getByRole("region", { name: "結算結果" });
@@ -271,7 +298,7 @@ describe("App", () => {
       within(screen.getByRole("article", { name: "時間管理獎" })).getByText("阿吐伯組")
     ).toBeInTheDocument();
     expect(
-      within(screen.getByRole("article", { name: "有效選擇獎" })).getByText("阿里爸爸組")
+      within(screen.getByRole("article", { name: "人生有效點獎" })).getByText("阿里爸爸組")
     ).toBeInTheDocument();
     expect(
       within(screen.getByRole("article", { name: "有效人生獎" })).getByText("阿吐伯組")

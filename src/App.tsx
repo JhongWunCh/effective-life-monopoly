@@ -232,6 +232,7 @@ export default function App() {
               />
               <CardPanel
                 card={currentCard}
+                lastOutcome={state.lastOutcome}
                 onApplyOption={(option) =>
                   setState((currentState) => applyOption(currentState, option))
                 }

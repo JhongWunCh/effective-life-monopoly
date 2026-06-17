@@ -27,7 +27,7 @@ export function Scoreboard({
       <div className="score-list">
         {teams.map((team) => {
           const protagonist = protagonists.find((item) => item.id === team.protagonistId);
-          const spentHours = team.startingHours - team.remainingHours;
+          const spentHours = Math.max(0, team.startingHours - team.remainingHours);
           const indicatorTotal = Object.values(team.indicators).reduce((sum, value) => sum + value, 0);
 
           return (
@@ -40,7 +40,7 @@ export function Scoreboard({
                   <h3>{team.name}</h3>
                   {protagonist ? <p>{protagonist.name}</p> : null}
                 </div>
-                <span className="score-badge">{team.effectiveMarks} 效能</span>
+                <span className="score-badge">{team.effectiveMarks} 人生有效點</span>
               </div>
               <dl className="score-stats">
                 <div>
@@ -56,7 +56,7 @@ export function Scoreboard({
                   <dd>{formatHours(team.remainingHours)}</dd>
                 </div>
                 <div>
-                  <dt>有效標記</dt>
+                  <dt>人生有效點</dt>
                   <dd>{team.effectiveMarks}</dd>
                 </div>
                 <div>

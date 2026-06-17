@@ -48,7 +48,7 @@ export function ActivityIntro() {
           </article>
           <article>
             <span>02</span>
-            <h3>有效選擇</h3>
+            <h3>人生有效點</h3>
             <p>這次選擇值不值得花時間。</p>
           </article>
         </div>
