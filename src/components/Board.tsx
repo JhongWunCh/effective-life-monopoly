@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { BoardSpace, Period, Team } from "../game/types";
+import type { BoardSpace, SpaceType, Team } from "../game/types";
 import { getBoardCellPlacement } from "../game/boardLayout";
 
 type BoardProps = {
@@ -11,16 +11,11 @@ type BoardProps = {
   centerContent?: ReactNode;
 };
 
-const periodLabels: Record<Period, string> = {
-  midnight: "深夜",
-  morning: "早上",
-  afternoon: "下午",
-  evening: "晚上"
-};
-
-const typeLabels = {
+const typeLabels: Record<SpaceType, string> = {
+  action: "一般",
   opportunity: "機會",
-  fate: "命運"
+  fate: "命運",
+  reflection: "一般"
 };
 
 const teamTokenLabels: Record<string, string> = {
@@ -50,13 +45,6 @@ export function Board({
                 <span>有效人生</span>
                 <strong>選擇</strong>
               </div>
-              <div className="period-legend">
-                {Object.entries(periodLabels).map(([period, label]) => (
-                  <span className={`legend-item period-${period}`} key={period}>
-                    {label}
-                  </span>
-                ))}
-              </div>
             </div>
             <div className="board-center-content">{centerContent}</div>
           </div>
@@ -65,12 +53,12 @@ export function Board({
             const placement = getBoardCellPlacement(space.id);
             const isRevealed = revealedSpaceIds.has(space.id);
             const spaceTitle = isRevealed ? space.title : "未揭露任務";
-            const typeClass = `type-${space.type}`;
+            const typeClass = isRevealed ? `type-${space.type}` : "type-mystery";
             const revealClass = isRevealed ? "is-revealed" : "board-space-card-back";
 
             return (
               <article
-                className={`board-space period-${space.period} ${typeClass} ${revealClass}`}
+                className={`board-space ${typeClass} ${revealClass}`}
                 key={space.id}
                 aria-label={isRevealed ? spaceTitle : `未揭露任務 ${space.id + 1}`}
                 data-board-space-id={space.id}
@@ -78,11 +66,8 @@ export function Board({
               >
                 <div className="space-meta">
                   <span className="space-index">{String(space.id + 1).padStart(2, "0")}</span>
-                  <span className="space-period">{periodLabels[space.period]}</span>
                 </div>
-                {space.type === "opportunity" || space.type === "fate" ? (
-                  <span className={`space-type type-${space.type}`}>{typeLabels[space.type]}</span>
-                ) : null}
+                {isRevealed ? <span className={`space-type type-${space.type}`}>{typeLabels[space.type]}</span> : null}
                 <h3 className={`space-title${isRevealed ? "" : " is-hidden"}`}>
                   {isRevealed ? space.title : "?"}
                 </h3>

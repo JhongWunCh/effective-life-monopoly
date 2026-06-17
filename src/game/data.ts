@@ -683,7 +683,7 @@ function withDefaultRandomOutcomes(option: CardOption): CardOption {
       {
         id: `${option.id}-bad`,
         tone: "bad",
-        title: "無厘頭壞結果",
+        title: "劇情突然轉彎",
         text: "劇情突然轉彎，連旁白都跌倒。你多耗了一點時間，人生有效點也被現場扣走。",
         timeDeltaHours: option.timeDeltaHours - 0.5,
         effectiveMarks: option.effectiveMarks - 1,

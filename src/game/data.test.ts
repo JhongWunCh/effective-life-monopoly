@@ -140,6 +140,14 @@ describe("game data", () => {
     }
   });
 
+  it("keeps random outcome titles free of behind-the-scenes tone labels", () => {
+    const randomOutcomeTitles = cards.flatMap((card) =>
+      card.options.flatMap((option) => option.outcomes?.map((outcome) => outcome.title) ?? [])
+    );
+
+    expect(randomOutcomeTitles.filter((title) => title.includes("無厘頭"))).toEqual([]);
+  });
+
   it("lets opportunity and fate cards use either two or three choices", () => {
     const opportunityAndFateCards = cards.filter(
       (card) => card.type === "opportunity" || card.type === "fate"

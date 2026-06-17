@@ -119,7 +119,7 @@ describe("App", () => {
     expect(screen.getAllByText("人生有效點").length).toBeGreaterThan(0);
   });
 
-  it("presents the game board as a classic tabletop board without changing controls", () => {
+  it("presents the game board as mystery card backs without changing controls", () => {
     renderGameBoard();
 
     const board = screen.getByRole("region", { name: "有效人生大富翁棋盤" });
@@ -130,8 +130,9 @@ describe("App", () => {
     expect(board.querySelector(".board-space-card-back")).not.toBeNull();
     expect(screen.getByLabelText("桌遊主持區")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "擲骰" })).toBeInTheDocument();
-    expect(screen.getAllByText("機會").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("命運").length).toBeGreaterThan(0);
+    expect(within(board).queryAllByText("機會")).toHaveLength(0);
+    expect(within(board).queryAllByText("命運")).toHaveLength(0);
+    expect(within(board).queryAllByText("深夜")).toHaveLength(0);
   });
 
   it("lets the host set the number of rounds before starting", () => {
@@ -180,12 +181,23 @@ describe("App", () => {
     ).toBeInTheDocument();
   });
 
-  it("shows opportunity and fate labels on hidden board spaces", () => {
+  it("keeps opportunity and fate labels hidden until spaces are revealed", () => {
+    vi.useFakeTimers();
+    mockDieRoll(3);
+
     renderGameBoard();
 
-    expect(screen.getAllByText("機會").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("命運").length).toBeGreaterThan(0);
-    expect(screen.queryByText("補眠決策")).not.toBeInTheDocument();
+    const board = screen.getByRole("region", { name: "有效人生大富翁棋盤" });
+
+    expect(within(board).queryAllByText("機會")).toHaveLength(0);
+    expect(within(board).queryByText("明日預備")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "擲骰" }));
+    finishAnimatedRoll(3);
+
+    const revealedSpace = screen.getByRole("article", { name: "明日預備" });
+    expect(within(revealedSpace).getByText("機會")).toBeInTheDocument();
+    expect(within(revealedSpace).getByRole("heading", { name: "明日預備" })).toBeInTheDocument();
   });
 
   it("shows starting hour deductions on protagonist cards", () => {
