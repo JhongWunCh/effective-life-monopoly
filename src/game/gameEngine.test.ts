@@ -92,7 +92,7 @@ describe("game engine", () => {
 
     const next = applyOption(state, option);
 
-    expect(next.teams[0]!.remainingHours).toBe(20);
+    expect(next.teams[0]!.remainingHours).toBe(18);
     expect(next.teams[0]!.effectiveMarks).toBe(2);
     expect(next.currentTeamIndex).toBe(1);
     expect(next.currentCardId).toBeUndefined();
@@ -100,7 +100,7 @@ describe("game engine", () => {
     expect(next.isResultsVisible).toBe(false);
     expect(next.history).toEqual([toSnapshot(state)]);
     expectFlatHistory(next);
-    expect(state.teams[0]!.remainingHours).toBe(20.5);
+    expect(state.teams[0]!.remainingHours).toBe(18.5);
     expect(state.teams[0]!.effectiveMarks).toBe(0);
     expect(state.currentCardId).toBe("signature-baby");
     expect(state.lastRoll).toBe(4);

@@ -16,7 +16,7 @@ describe("game data", () => {
       "金被被組"
     ]);
 
-    expect(teams.map((team) => team.startingHours)).toEqual([20.5, 21, 20.5, 21]);
+    expect(teams.map((team) => team.startingHours)).toEqual([18.5, 20, 19, 16]);
   });
 
   it("defines 24 board spaces split into four six-space periods", () => {
@@ -46,9 +46,10 @@ describe("game data", () => {
         fixedBurdens: [
           { label: "早晚接送小孩", hours: 1, period: "morning" },
           { label: "帶小孩", hours: 2, period: "evening" },
-          { label: "幫老婆洗碗", hours: 0.5, period: "evening" }
+          { label: "幫老婆洗碗", hours: 0.5, period: "evening" },
+          { label: "煮飯洗衣", hours: 2, period: "evening" }
         ],
-        startingDeductionHours: 3.5,
+        startingDeductionHours: 5.5,
         signatureCardId: "signature-ali"
       },
       {
@@ -57,9 +58,10 @@ describe("game data", () => {
         identity: "台灣台南的神秘地主。",
         fixedBurdens: [
           { label: "早上耕田", hours: 2, period: "morning" },
-          { label: "去醫院看護理師拿藥", hours: 1, period: "afternoon" }
+          { label: "去醫院看護理師拿藥", hours: 1, period: "afternoon" },
+          { label: "看八點檔", hours: 1, period: "evening" }
         ],
-        startingDeductionHours: 3,
+        startingDeductionHours: 4,
         signatureCardId: "signature-atu"
       },
       {
@@ -68,9 +70,10 @@ describe("game data", () => {
         identity: "台北信義區富家千金，出入都搭 taxi，很愛逛百貨公司也很會花錢。",
         fixedBurdens: [
           { label: "化妝治裝", hours: 2, period: "morning" },
-          { label: "逛百貨公司", hours: 1.5, period: "afternoon" }
+          { label: "逛百貨公司", hours: 1.5, period: "afternoon" },
+          { label: "約會", hours: 1.5, period: "evening" }
         ],
-        startingDeductionHours: 3.5,
+        startingDeductionHours: 5,
         signatureCardId: "signature-sun"
       },
       {
@@ -78,10 +81,11 @@ describe("game data", () => {
         name: "金被被",
         identity: "神秘天才兒童，2 歲即入幼兒園並直升大學，成為商業神話；但因為是嬰兒所以只能喝奶。",
         fixedBurdens: [
+          { label: "上課", hours: 5, period: "morning" },
           { label: "公園玩溜滑梯", hours: 2, period: "evening" },
           { label: "喝奶", hours: 1, period: "evening" }
         ],
-        startingDeductionHours: 3,
+        startingDeductionHours: 8,
         signatureCardId: "signature-baby"
       }
     ]);
@@ -136,6 +140,17 @@ describe("game data", () => {
     }
   });
 
+  it("lets opportunity and fate cards use either two or three choices", () => {
+    const opportunityAndFateCards = cards.filter(
+      (card) => card.type === "opportunity" || card.type === "fate"
+    );
+    const optionCounts = opportunityAndFateCards.map((card) => card.options.length);
+
+    expect(optionCounts.every((count) => count === 2 || count === 3)).toBe(true);
+    expect(optionCounts).toContain(2);
+    expect(optionCounts).toContain(3);
+  });
+
   it("keeps team starting hours aligned with Chad's approved burdens", () => {
     expect(
       teams.map(({ protagonistId, startingHours, remainingHours }) => ({
@@ -144,10 +159,10 @@ describe("game data", () => {
         remainingHours
       }))
     ).toEqual([
-      { protagonistId: "ali", startingHours: 20.5, remainingHours: 20.5 },
-      { protagonistId: "atu", startingHours: 21, remainingHours: 21 },
-      { protagonistId: "sun", startingHours: 20.5, remainingHours: 20.5 },
-      { protagonistId: "baby", startingHours: 21, remainingHours: 21 }
+      { protagonistId: "ali", startingHours: 18.5, remainingHours: 18.5 },
+      { protagonistId: "atu", startingHours: 20, remainingHours: 20 },
+      { protagonistId: "sun", startingHours: 19, remainingHours: 19 },
+      { protagonistId: "baby", startingHours: 16, remainingHours: 16 }
     ]);
   });
 
@@ -182,23 +197,21 @@ describe("game data", () => {
       "signature-atu": {
         id: "signature-atu",
         period: "afternoon",
-        title: "阿吐伯：清晨耕田與午後拿藥",
-        text: "早上耕田耗掉體力，午後去醫院拿藥又比預期更久。",
+        title: "阿吐伯：田埂、拿藥與八點檔宇宙",
+        text: "早上耕田、下午拿藥，晚上八點檔準時召喚淚水，人生比連續劇還會轉台。",
         options: [
-          { id: "A", label: "照常耕滿 2 小時", timeDeltaHours: -2, effectiveMarks: 2 },
-          { id: "B", label: "用工具與排程提早收工", timeDeltaHours: -1, effectiveMarks: 2 },
-          { id: "C", label: "去醫院順便閒聊太久", timeDeltaHours: -2, effectiveMarks: 1 }
+          { id: "A", label: "用工具提早收工，八點檔前把藥拿好", timeDeltaHours: -2, effectiveMarks: 3 },
+          { id: "B", label: "在醫院聊到片頭曲響起，回家只剩主題曲", timeDeltaHours: -3, effectiveMarks: 1 }
         ]
       },
       "signature-baby": {
         id: "signature-baby",
         period: "evening",
-        title: "金被被：天才兒童的奶與滑梯",
-        text: "商業神話仍然需要喝奶，也需要把公園溜滑梯玩夠才肯收心。",
+        title: "金被被：五小時上課與奶瓶董事會",
+        text: "神童早上上課 5 小時，下午還要用奶瓶主持商業決策，人生履歷比身高長。",
         options: [
-          { id: "A", label: "滑梯玩滿 2 小時", timeDeltaHours: -2, effectiveMarks: 2 },
-          { id: "B", label: "喝奶後整理明天任務", timeDeltaHours: -1, effectiveMarks: 2 },
-          { id: "C", label: "硬撐商業神話不休息", timeDeltaHours: -0.5, effectiveMarks: 1 }
+          { id: "A", label: "乖乖上課，拿蠟筆畫出年度策略", timeDeltaHours: -5, effectiveMarks: 3 },
+          { id: "B", label: "在教室宣布併購溜滑梯，老師請家長來", timeDeltaHours: -6, effectiveMarks: 1 }
         ]
       },
       "signature-sun": {

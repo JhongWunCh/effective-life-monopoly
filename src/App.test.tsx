@@ -140,9 +140,15 @@ describe("App", () => {
     fireEvent.click(screen.getByRole("button", { name: "角色介紹" }));
 
     const aliCard = screen.getByRole("article", { name: "阿里爸爸 角色卡" });
+    const babyCard = screen.getByRole("article", { name: "金被被 角色卡" });
 
-    expect(within(aliCard).getByText("開局扣時 3.5h")).toBeInTheDocument();
-    expect(within(aliCard).getByText("起始可支配 20.5h")).toBeInTheDocument();
+    expect(within(aliCard).getByText("開局扣時 5.5h")).toBeInTheDocument();
+    expect(within(aliCard).getByText("起始可支配 18.5h")).toBeInTheDocument();
+    expect(
+      within(babyCard).getByText((_, element) => element?.textContent === "上課 -5h")
+    ).toBeInTheDocument();
+    expect(within(babyCard).getByText("開局扣時 8h")).toBeInTheDocument();
+    expect(within(babyCard).getByText("起始可支配 16h")).toBeInTheDocument();
   });
 
   it("shows key indicator gains on opportunity card options", () => {
@@ -154,7 +160,7 @@ describe("App", () => {
     fireEvent.click(screen.getByRole("button", { name: "擲骰" }));
     finishAnimatedRoll(3);
 
-    expect(screen.getByText("可支配時間 +1")).toBeInTheDocument();
+    expect(screen.getByText("可支配時間 +1、深度專注 +1")).toBeInTheDocument();
     expect(screen.getByText("深度專注 +1、有效產出 +1")).toBeInTheDocument();
   });
 
@@ -171,7 +177,7 @@ describe("App", () => {
     expect(screen.getByRole("heading", { name: "結果揭曉" })).toBeInTheDocument();
     const outcomeRegion = screen.getByRole("region", { name: "事件結果" });
     expect(within(outcomeRegion).getAllByText(/好結果|壞結果/).length).toBeGreaterThan(0);
-    expect(within(outcomeRegion).getByText(/人生有效點/)).toBeInTheDocument();
+    expect(within(outcomeRegion).getAllByText(/人生有效點/).length).toBeGreaterThan(0);
   });
 
   it("advances to the next team after the host rolls and applies the first option", async () => {
