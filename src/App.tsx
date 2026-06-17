@@ -3,6 +3,7 @@ import { ActivityIntro } from "./components/ActivityIntro";
 import { Board } from "./components/Board";
 import { CardPanel } from "./components/CardPanel";
 import { CharacterIntro } from "./components/CharacterIntro";
+import { GameSettingsPanel } from "./components/GameSettingsPanel";
 import { HostControls } from "./components/HostControls";
 import { ResultsView } from "./components/ResultsView";
 import { Scoreboard } from "./components/Scoreboard";
@@ -10,8 +11,10 @@ import { boardSpaces, cards } from "./game/data";
 import {
   applyOption,
   createInitialGameState,
+  getRoundProgress,
   moveCurrentTeam,
   resetGame,
+  returnToBoard,
   showResults,
   undoLastAction
 } from "./game/gameEngine";
@@ -21,7 +24,7 @@ const ROLL_ANIMATION_MS = 900;
 const MOVE_STEP_MS = 220;
 
 type RollStatus = "idle" | "rolling" | "moving";
-type ActiveView = "intro" | "characters" | "game";
+type ActiveView = "intro" | "characters" | "settings" | "game";
 
 type TurnAnimation = {
   phase: RollStatus;
@@ -44,7 +47,10 @@ export default function App() {
   const currentTeam = state.teams[state.currentTeamIndex];
   const currentCard = cards.find((card) => card.id === state.currentCardId);
   const isAnimating = animation.phase !== "idle";
-  const canRoll = !state.currentCardId && !state.isResultsVisible && !isAnimating;
+  const roundProgress = useMemo(() => getRoundProgress(state), [state]);
+  const canRoll =
+    !roundProgress.isReadyToFinish && !state.currentCardId && !state.isResultsVisible && !isAnimating;
+  const resultsButtonLabel = roundProgress.isReadyToFinish ? "完成結算" : "提前結算";
   const displayedTeams = useMemo<Team[]>(
     () =>
       state.teams.map((team) => ({
@@ -149,10 +155,33 @@ export default function App() {
       return;
     }
 
+    restartGame();
+  };
+
+  const restartGame = () => {
     clearAnimationTimers();
     setAnimation(createIdleAnimation());
     setRevealedSpaceIds(new Set());
     setState((currentState) => resetGame(currentState));
+    setActiveView("game");
+  };
+
+  const updateTargetRounds = (targetRounds: number) => {
+    clearAnimationTimers();
+    setAnimation(createIdleAnimation());
+    setRevealedSpaceIds(new Set());
+    setState((currentState) => resetGame(currentState, { targetRounds }));
+  };
+
+  const showGameResults = () => {
+    if (!roundProgress.isReadyToFinish && !window.confirm("還沒完成設定輪數，要提前結算嗎？")) {
+      return;
+    }
+
+    clearAnimationTimers();
+    setAnimation(createIdleAnimation());
+    setState((currentState) => showResults(currentState));
+    setActiveView("game");
   };
 
   return (
@@ -179,6 +208,13 @@ export default function App() {
           </button>
           <button
             type="button"
+            aria-pressed={activeView === "settings"}
+            onClick={() => setActiveView("settings")}
+          >
+            遊戲設定
+          </button>
+          <button
+            type="button"
             aria-pressed={activeView === "game"}
             onClick={() => setActiveView("game")}
           >
@@ -190,10 +226,20 @@ export default function App() {
         <ActivityIntro />
       ) : activeView === "characters" ? (
         <CharacterIntro />
+      ) : activeView === "settings" ? (
+        <GameSettingsPanel
+          targetRounds={state.settings.targetRounds}
+          onTargetRoundsChange={updateTargetRounds}
+        />
       ) : (
       <section className={`game-layout${state.isResultsVisible ? " game-layout-results" : ""}`}>
         {state.isResultsVisible ? (
-          <ResultsView teams={state.teams} />
+          <ResultsView
+            teams={state.teams}
+            roundProgress={roundProgress}
+            onBackToBoard={() => setState((currentState) => returnToBoard(currentState))}
+            onReset={restartGame}
+          />
         ) : (
           <>
             <Scoreboard
@@ -215,10 +261,12 @@ export default function App() {
                     currentTeamName={currentTeam.name}
                     lastRoll={displayedRoll}
                     rollStatus={animation.phase}
+                    roundProgress={roundProgress}
                     canRoll={canRoll}
                     canUndo={state.history.length > 0 && !isAnimating}
-                    canShowResults={!isAnimating}
+                    canShowResults={!state.currentCardId && !isAnimating}
                     canReset={!isAnimating}
+                    resultsButtonLabel={resultsButtonLabel}
                     onRoll={startRollAnimation}
                     onUndo={() => {
                       clearAnimationTimers();
@@ -226,7 +274,7 @@ export default function App() {
                       setState((currentState) => undoLastAction(currentState));
                     }}
                     onReset={resetToInitialGame}
-                    onShowResults={() => setState((currentState) => showResults(currentState))}
+                    onShowResults={showGameResults}
                   />
                 }
               />

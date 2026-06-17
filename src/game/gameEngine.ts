@@ -5,6 +5,26 @@ import type { CardOption, ResolvedOutcome, Team } from "./types";
 
 const BOARD_SPACE_COUNT = 24;
 const STARTING_POSITION = 0;
+const DEFAULT_TARGET_ROUNDS = 3;
+const MIN_TARGET_ROUNDS = 1;
+const MAX_TARGET_ROUNDS = 5;
+
+export type GameSettings = {
+  targetRounds: number;
+};
+
+export type RoundProgress = {
+  completedTurns: number;
+  completedTeamsThisRound: number;
+  currentRound: number;
+  targetRounds: number;
+  totalTurns: number;
+  isReadyToFinish: boolean;
+};
+
+export const defaultGameSettings: GameSettings = {
+  targetRounds: DEFAULT_TARGET_ROUNDS
+};
 
 export type GameStateSnapshot = {
   teams: Team[];
@@ -13,6 +33,8 @@ export type GameStateSnapshot = {
   lastRoll?: number;
   lastOutcome?: ResolvedOutcome;
   isResultsVisible: boolean;
+  settings: GameSettings;
+  completedTurns: number;
 };
 
 export type GameState = GameStateSnapshot & {
@@ -23,7 +45,9 @@ type GameStateParts = GameStateSnapshot & {
   history: GameStateSnapshot[];
 };
 
-export function createInitialGameState(): GameState {
+export function createInitialGameState(settings: GameSettings = defaultGameSettings): GameState {
+  const normalizedSettings = normalizeSettings(settings);
+
   return createState({
     teams: initialTeams.map((team) => ({
       ...team,
@@ -32,6 +56,8 @@ export function createInitialGameState(): GameState {
     })),
     currentTeamIndex: 0,
     isResultsVisible: false,
+    settings: normalizedSettings,
+    completedTurns: 0,
     history: []
   });
 }
@@ -49,6 +75,8 @@ export function moveCurrentTeam(state: GameState, roll: number): GameState {
     currentCardId: getFirstCardIdForPosition(nextPosition),
     lastRoll: roll,
     isResultsVisible: false,
+    settings: state.settings,
+    completedTurns: state.completedTurns,
     history: historyWithSnapshot(state)
   });
 }
@@ -74,6 +102,8 @@ export function applyOption(
     currentTeamIndex: (state.currentTeamIndex + 1) % state.teams.length,
     lastOutcome: resolvedOutcome,
     isResultsVisible: false,
+    settings: state.settings,
+    completedTurns: state.completedTurns + 1,
     history: historyWithSnapshot(state)
   });
 }
@@ -121,19 +151,49 @@ export function showResults(state: GameState): GameState {
     currentTeamIndex: state.currentTeamIndex,
     currentCardId: state.currentCardId,
     lastRoll: state.lastRoll,
+    lastOutcome: state.lastOutcome,
     isResultsVisible: true,
+    settings: state.settings,
+    completedTurns: state.completedTurns,
     history: historyWithSnapshot(state)
   });
 }
 
-export function resetGame(_state?: GameState): GameState {
-  return createInitialGameState();
+export function returnToBoard(state: GameState): GameState {
+  return createState({
+    ...cloneSnapshot(state),
+    isResultsVisible: false,
+    history: historyWithSnapshot(state)
+  });
+}
+
+export function resetGame(state?: GameState, settings: GameSettings = state?.settings ?? defaultGameSettings): GameState {
+  return createInitialGameState(settings);
 }
 
 export function undoLastAction(state: GameState): GameState {
   const previous = state.history.at(-1);
 
   return previous ? createState({ ...previous, history: state.history.slice(0, -1) }) : cloneState(state);
+}
+
+export function getRoundProgress(state: GameState): RoundProgress {
+  const teamCount = Math.max(1, state.teams.length);
+  const targetRounds = state.settings.targetRounds;
+  const totalTurns = targetRounds * teamCount;
+  const completedTurns = Math.min(state.completedTurns, totalTurns);
+  const isReadyToFinish = completedTurns >= totalTurns;
+  const completedTeamsThisRound = isReadyToFinish ? teamCount : completedTurns % teamCount;
+  const currentRound = Math.min(targetRounds, Math.floor(completedTurns / teamCount) + 1);
+
+  return {
+    completedTurns,
+    completedTeamsThisRound,
+    currentRound,
+    targetRounds,
+    totalTurns,
+    isReadyToFinish
+  };
 }
 
 function createState(parts: GameStateParts): GameState {
@@ -154,7 +214,9 @@ function cloneSnapshot(snapshot: GameStateSnapshot): GameStateSnapshot {
   const cloned: GameStateSnapshot = {
     teams: cloneTeams(snapshot.teams),
     currentTeamIndex: snapshot.currentTeamIndex,
-    isResultsVisible: snapshot.isResultsVisible
+    isResultsVisible: snapshot.isResultsVisible,
+    settings: { ...snapshot.settings },
+    completedTurns: snapshot.completedTurns
   };
 
   if (snapshot.currentCardId !== undefined) {
@@ -224,4 +286,14 @@ function positiveModulo(value: number, divisor: number): number {
 
 function getFirstCardIdForPosition(position: number): string | undefined {
   return boardSpaces.find((space) => space.id === position)?.cardIds[0];
+}
+
+function normalizeSettings(settings: GameSettings): GameSettings {
+  const targetRounds = Number.isFinite(settings.targetRounds)
+    ? Math.round(settings.targetRounds)
+    : DEFAULT_TARGET_ROUNDS;
+
+  return {
+    targetRounds: Math.max(MIN_TARGET_ROUNDS, Math.min(MAX_TARGET_ROUNDS, targetRounds))
+  };
 }

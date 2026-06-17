@@ -26,6 +26,12 @@ function renderGameBoard() {
   fireEvent.click(screen.getByRole("button", { name: "遊戲棋盤" }));
 }
 
+function playCurrentTurn(roll: number) {
+  fireEvent.click(screen.getByRole("button", { name: "擲骰" }));
+  finishAnimatedRoll(roll);
+  fireEvent.click(screen.getByRole("button", { name: /A/ }));
+}
+
 describe("App", () => {
   afterEach(() => {
     vi.useRealTimers();
@@ -90,10 +96,27 @@ describe("App", () => {
     renderGameBoard();
 
     expect(screen.getByRole("button", { name: "擲骰" })).toBeInTheDocument();
+    expect(screen.getByText("第 1 / 3 輪")).toBeInTheDocument();
+    expect(screen.getByText("本輪 0 / 4 隊")).toBeInTheDocument();
     expect(screen.getAllByText("阿里爸爸組").length).toBeGreaterThan(0);
     expect(screen.getByText("00:00")).toBeInTheDocument();
     expect(screen.getAllByText("剩餘時間").length).toBeGreaterThan(0);
     expect(screen.getAllByText("人生有效點").length).toBeGreaterThan(0);
+  });
+
+  it("lets the host set the number of rounds before starting", () => {
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "遊戲設定" }));
+
+    expect(screen.getByRole("button", { name: "遊戲設定" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("heading", { name: "遊戲設定" })).toBeInTheDocument();
+    expect(screen.getByText("四隊各完成一次選擇，算 1 輪。")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "1 輪" }));
+    fireEvent.click(screen.getByRole("button", { name: "遊戲棋盤" }));
+
+    expect(screen.getByText("第 1 / 1 輪")).toBeInTheDocument();
+    expect(screen.getByText("本輪 0 / 4 隊")).toBeInTheDocument();
   });
 
   it("places scoreboards on both sides and keeps host controls in the board center", () => {
@@ -281,8 +304,42 @@ describe("App", () => {
     confirm.mockRestore();
   });
 
-  it("shows settlement results when the host requests results", async () => {
+  it("finishes the game after every team completes the configured rounds", async () => {
+    vi.useFakeTimers();
+    mockDieRoll(2);
+
+    Object.defineProperty(window, "scrollTo", {
+      configurable: true,
+      value: vi.fn()
+    });
+
+    render(<App />);
+    fireEvent.click(screen.getByRole("button", { name: "遊戲設定" }));
+    fireEvent.click(screen.getByRole("button", { name: "1 輪" }));
+    fireEvent.click(screen.getByRole("button", { name: "遊戲棋盤" }));
+
+    expect(screen.getByRole("button", { name: "提前結算" })).toBeInTheDocument();
+
+    playCurrentTurn(2);
+    playCurrentTurn(2);
+    playCurrentTurn(2);
+    playCurrentTurn(2);
+
+    expect(screen.getByText("已完成 1 / 1 輪")).toBeInTheDocument();
+    expect(screen.getByText("本輪 4 / 4 隊")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "擲骰" })).toBeDisabled();
+
+    fireEvent.click(screen.getByRole("button", { name: "完成結算" }));
+
+    expect(screen.getByRole("heading", { name: "完賽結算" })).toBeInTheDocument();
+    expect(screen.getByText("完成 1 / 1 輪，共 4 次選擇")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "回棋盤檢查" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "再玩一次" })).toBeInTheDocument();
+  });
+
+  it("shows settlement results when the host requests early results", async () => {
     const scrollTo = vi.fn();
+    const confirm = vi.spyOn(window, "confirm").mockReturnValue(true);
 
     Object.defineProperty(window, "scrollTo", {
       configurable: true,
@@ -291,14 +348,15 @@ describe("App", () => {
 
     renderGameBoard();
 
-    fireEvent.click(screen.getByRole("button", { name: "顯示結果" }));
+    fireEvent.click(screen.getByRole("button", { name: "提前結算" }));
 
-    expect(screen.getByRole("heading", { name: "結算結果" })).toBeInTheDocument();
+    expect(confirm).toHaveBeenCalledWith("還沒完成設定輪數，要提前結算嗎？");
+    expect(screen.getByRole("heading", { name: "完賽結算" })).toBeInTheDocument();
     expect(screen.getByText("時間管理獎")).toBeInTheDocument();
     expect(screen.getByText("人生有效點獎")).toBeInTheDocument();
     expect(screen.getByText("有效人生獎")).toBeInTheDocument();
 
-    const resultsRegion = screen.getByRole("region", { name: "結算結果" });
+    const resultsRegion = screen.getByRole("region", { name: "完賽結算" });
     expect(resultsRegion.closest(".game-layout")).not.toBeNull();
     expect(
       within(screen.getByRole("article", { name: "時間管理獎" })).getByText("阿吐伯組")
@@ -310,5 +368,7 @@ describe("App", () => {
       within(screen.getByRole("article", { name: "有效人生獎" })).getByText("阿吐伯組")
     ).toBeInTheDocument();
     await waitFor(() => expect(scrollTo).toHaveBeenCalledWith({ left: 0, top: 0 }));
+
+    confirm.mockRestore();
   });
 });

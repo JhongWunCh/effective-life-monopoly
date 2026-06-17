@@ -1,21 +1,49 @@
 import { calculateAwards, calculateTeamScore } from "../game/scoring";
+import type { RoundProgress } from "../game/gameEngine";
 import type { Team } from "../game/types";
 
 type ResultsViewProps = {
   teams: Team[];
+  roundProgress: RoundProgress;
+  onBackToBoard: () => void;
+  onReset: () => void;
 };
 
 const formatHours = (hours: number) => `${hours.toFixed(1).replace(/\.0$/, "")}h`;
 
-export function ResultsView({ teams }: ResultsViewProps) {
+export function ResultsView({ teams, roundProgress, onBackToBoard, onReset }: ResultsViewProps) {
   const awards = calculateAwards(teams);
   const teamScores = teams.map(calculateTeamScore);
+  const champion = teamScores.find((score) => score.teamName === awards.effectiveLife) ?? teamScores[0]!;
+  const teamCount = roundProgress.totalTurns / roundProgress.targetRounds;
+  const completedRoundCount = roundProgress.isReadyToFinish
+    ? roundProgress.targetRounds
+    : Math.floor(roundProgress.completedTurns / teamCount);
 
   return (
     <section className="results-panel" aria-labelledby="results-heading">
-      <div className="panel-heading">
-        <p className="panel-kicker">Results</p>
-        <h2 id="results-heading">結算結果</h2>
+      <div className="finish-hero">
+        <div>
+          <p className="panel-kicker">Finish</p>
+          <h2 id="results-heading">完賽結算</h2>
+          <p>
+            完成 {completedRoundCount} / {roundProgress.targetRounds} 輪，共{" "}
+            {roundProgress.completedTurns} 次選擇
+          </p>
+        </div>
+        <article className="champion-card" aria-label="有效人生冠軍">
+          <span>今天最值得的是</span>
+          <strong>{champion.teamName}</strong>
+          <p>{champion.effectiveLifeScore} 分</p>
+        </article>
+        <div className="results-actions">
+          <button type="button" onClick={onBackToBoard}>
+            回棋盤檢查
+          </button>
+          <button className="primary-control" type="button" onClick={onReset}>
+            再玩一次
+          </button>
+        </div>
       </div>
 
       <div className="award-grid">

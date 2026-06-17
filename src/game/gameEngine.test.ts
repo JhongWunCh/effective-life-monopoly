@@ -3,8 +3,10 @@ import { boardSpaces, cards, teams } from "./data";
 import {
   applyOption,
   createInitialGameState,
+  getRoundProgress,
   moveCurrentTeam,
   resetGame,
+  returnToBoard,
   showResults,
   undoLastAction
 } from "./gameEngine";
@@ -35,6 +37,8 @@ describe("game engine", () => {
     expect(state.currentCardId).toBeUndefined();
     expect(state.lastRoll).toBeUndefined();
     expect(state.isResultsVisible).toBe(false);
+    expect(state.settings).toEqual({ targetRounds: 3 });
+    expect(state.completedTurns).toBe(0);
     expect(state.history).toEqual([]);
     expect(state.teams).toEqual(
       teams.map((team) => ({
@@ -47,6 +51,20 @@ describe("game engine", () => {
     expect(state.teams).not.toBe(teams);
     state.teams.forEach((team, index) => {
       expect(team).not.toBe(teams[index]);
+    });
+  });
+
+  it("creates initial state with configurable target rounds", () => {
+    const state = createInitialGameState({ targetRounds: 2 });
+
+    expect(state.settings).toEqual({ targetRounds: 2 });
+    expect(getRoundProgress(state)).toEqual({
+      completedTeamsThisRound: 0,
+      completedTurns: 0,
+      currentRound: 1,
+      isReadyToFinish: false,
+      targetRounds: 2,
+      totalTurns: 8
     });
   });
 
@@ -95,6 +113,7 @@ describe("game engine", () => {
     expect(next.teams[0]!.remainingHours).toBe(18);
     expect(next.teams[0]!.effectiveMarks).toBe(2);
     expect(next.currentTeamIndex).toBe(1);
+    expect(next.completedTurns).toBe(1);
     expect(next.currentCardId).toBeUndefined();
     expect(next.lastRoll).toBeUndefined();
     expect(next.isResultsVisible).toBe(false);
@@ -158,6 +177,26 @@ describe("game engine", () => {
     expect(next.currentTeamIndex).toBe(1);
   });
 
+  it("marks the game ready to finish after every team completes the target rounds", () => {
+    const option = { id: "A" as const, label: "stable round fixture", timeDeltaHours: 0, effectiveMarks: 1 };
+    let state = createInitialGameState({ targetRounds: 1 });
+
+    for (let turn = 0; turn < state.teams.length; turn += 1) {
+      state = applyOption(state, option);
+    }
+
+    expect(state.completedTurns).toBe(4);
+    expect(state.currentTeamIndex).toBe(0);
+    expect(getRoundProgress(state)).toEqual({
+      completedTeamsThisRound: 4,
+      completedTurns: 4,
+      currentRound: 1,
+      isReadyToFinish: true,
+      targetRounds: 1,
+      totalTurns: 4
+    });
+  });
+
   it("applies key indicator growth from selected options", () => {
     const state = {
       ...createInitialGameState(),
@@ -206,16 +245,31 @@ describe("game engine", () => {
     expect(shown.currentCardId).toBe("morning-reflection-prioritize");
     expect(shown.lastRoll).toBe(6);
     expect(shown.isResultsVisible).toBe(true);
+    expect(shown.settings).toEqual(state.settings);
+    expect(shown.completedTurns).toBe(state.completedTurns);
     expect(shown.history).toEqual([toSnapshot(state)]);
     expectFlatHistory(shown);
     expect(state.isResultsVisible).toBe(false);
   });
 
+  it("returns from results to the board without resetting scores or settings", () => {
+    const shown = showResults(createInitialGameState({ targetRounds: 2 }));
+
+    const board = returnToBoard(shown);
+
+    expect(board.isResultsVisible).toBe(false);
+    expect(board.teams).toEqual(shown.teams);
+    expect(board.completedTurns).toBe(0);
+    expect(board.settings).toEqual({ targetRounds: 2 });
+    expect(board.history).toEqual([...shown.history, toSnapshot(shown)]);
+    expectFlatHistory(board);
+  });
+
   it("resets game state to a fresh initial snapshot", () => {
     const moved = moveCurrentTeam(createInitialGameState(), 2);
-    const initial = createInitialGameState();
+    const initial = createInitialGameState({ targetRounds: 5 });
 
-    const reset = resetGame(moved);
+    const reset = resetGame(moved, { targetRounds: 5 });
 
     expect(reset).toEqual(initial);
     expect(reset).not.toBe(initial);
