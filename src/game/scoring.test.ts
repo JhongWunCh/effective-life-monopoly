@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { calculateAwards, calculateTeamScore } from "./scoring";
+import { calculateAwards, calculateTeamScore, getEffectiveLifeWinners } from "./scoring";
 import type { Team } from "./types";
 
 const makeTeam = (
@@ -109,6 +109,51 @@ describe("scoring", () => {
       effectiveChoice: "First Team",
       effectiveLife: "First Team"
     });
+  });
+
+  it("reports every tied effective life winner instead of choosing by input order", () => {
+    const teams = [
+      makeTeam({
+        id: "ali",
+        name: "阿里爸爸組",
+        startingHours: 18.5,
+        remainingHours: 15.5,
+        effectiveMarks: 5
+      }),
+      makeTeam({
+        id: "sun",
+        name: "孫小梅組",
+        startingHours: 19,
+        remainingHours: 17.5,
+        effectiveMarks: 3
+      }),
+      makeTeam({
+        id: "baby",
+        name: "金被被組",
+        startingHours: 16,
+        remainingHours: 13,
+        effectiveMarks: 5
+      })
+    ];
+
+    expect(getEffectiveLifeWinners(teams)).toEqual([
+      {
+        teamId: "ali",
+        teamName: "阿里爸爸組",
+        spentHours: 3,
+        remainingHours: 15.5,
+        effectiveMarks: 5,
+        effectiveLifeScore: 20.5
+      },
+      {
+        teamId: "sun",
+        teamName: "孫小梅組",
+        spentHours: 1.5,
+        remainingHours: 17.5,
+        effectiveMarks: 3,
+        effectiveLifeScore: 20.5
+      }
+    ]);
   });
 
   it("throws a clear error when calculating awards for no teams", () => {

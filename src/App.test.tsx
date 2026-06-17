@@ -240,6 +240,28 @@ describe("App", () => {
     expect(outcomeImpact).toHaveTextContent(/時間|小時/);
     expect(outcomeImpact).toHaveTextContent(/人生有效點/);
     expect(outcomeImpact).not.toHaveTextContent(/[+-]\d/);
+    expect(outcomeImpact).not.toHaveTextContent("未額外消耗時間");
+    expect(outcomeImpact).toHaveTextContent(/消耗 [1-9]\d*(?:\.\d+)? 小時/);
+  });
+
+  it("randomizes visible option labels so choosing A does not always choose the source A option", () => {
+    vi.useFakeTimers();
+    mockDieRoll(2);
+
+    renderGameBoard();
+
+    fireEvent.click(screen.getByRole("button", { name: "擲骰" }));
+    finishAnimatedRoll(2);
+
+    const cardPanel = screen.getByRole("region", { name: "事件卡" });
+    const optionButtons = within(cardPanel).getAllByRole("button");
+
+    expect(optionButtons[0]).toHaveTextContent("A");
+    expect(optionButtons[0]).toHaveTextContent("硬撐把工作做完");
+
+    fireEvent.click(optionButtons[0]!);
+
+    expect(screen.getByText("A. 硬撐把工作做完")).toBeInTheDocument();
   });
 
   it("reveals a random opportunity or fate result after the host applies an option", () => {
@@ -410,6 +432,7 @@ describe("App", () => {
     expect(screen.getByText("時間管理獎")).toBeInTheDocument();
     expect(screen.getByText("人生有效點獎")).toBeInTheDocument();
     expect(screen.getByText("有效人生獎")).toBeInTheDocument();
+    expect(screen.getAllByText("有效人生分 = 剩餘時間 + 人生有效點").length).toBeGreaterThan(0);
 
     const resultsRegion = screen.getByRole("region", { name: "完賽結算" });
     expect(resultsRegion.closest(".game-layout")).not.toBeNull();

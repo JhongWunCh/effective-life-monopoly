@@ -86,7 +86,7 @@ export function applyOption(
   option: CardOption,
   random: () => number = Math.random
 ): GameState {
-  const resolvedOutcome = resolveOptionOutcome(option, random);
+  const resolvedOutcome = normalizeResolvedOutcomeTime(resolveOptionOutcome(option, random));
   const nextTeams = state.teams.map((team, index) =>
     index === state.currentTeamIndex
       ? {
@@ -289,10 +289,21 @@ function applyIndicatorDeltas(
   ) as Indicators;
 }
 
+function normalizeResolvedOutcomeTime(outcome: ResolvedOutcome): ResolvedOutcome {
+  return {
+    ...outcome,
+    timeDeltaHours: normalizeTimeDeltaHours(outcome.timeDeltaHours)
+  };
+}
+
 function applyTimeEffect(remainingHours: number, timeDeltaHours: number): number {
-  const consumedHours = Math.max(0, -timeDeltaHours);
+  const consumedHours = Math.abs(normalizeTimeDeltaHours(timeDeltaHours));
 
   return Math.max(0, remainingHours - consumedHours);
+}
+
+function normalizeTimeDeltaHours(timeDeltaHours: number): number {
+  return timeDeltaHours < 0 ? timeDeltaHours : -1;
 }
 
 function clampIndicator(value: number): number {

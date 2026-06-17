@@ -127,7 +127,7 @@ describe("game engine", () => {
     expect(state.isResultsVisible).toBe(true);
   });
 
-  it("does not increase remaining hours when a choice protects time", () => {
+  it("spends at least one hour even when a choice protects time", () => {
     const state = {
       ...createInitialGameState(),
       teams: teams.map((team, index) =>
@@ -143,7 +143,7 @@ describe("game engine", () => {
 
     const next = applyOption(state, option);
 
-    expect(next.teams[0]!.remainingHours).toBe(17);
+    expect(next.teams[0]!.remainingHours).toBe(16);
     expect(next.teams[0]!.effectiveMarks).toBe(2);
   });
 

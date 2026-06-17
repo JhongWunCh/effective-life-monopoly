@@ -330,9 +330,9 @@ const baseCards: Card[] = [
     title: "今天真正重要的是什麼？",
     text: "睡前回想今天，把與長期方向無關、卻占用時間的事情標記下來。",
     options: [
-      { id: "A", label: "記下一件明天可刪減的事", timeDeltaHours: 0.5, effectiveMarks: 1 },
-      { id: "B", label: "照原本節奏滑手機", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "列出明天最重要的三件事", timeDeltaHours: 0, effectiveMarks: 2 }
+      { id: "A", label: "記下一件明天可刪減的事", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "照原本節奏滑手機", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "列出明天最重要的三件事", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -342,7 +342,7 @@ const baseCards: Card[] = [
     title: "半夜手機震動",
     text: "手機在枕邊震動，群組只是貼圖，但睡意已經被打斷。",
     options: [
-      { id: "A", label: "手機翻面，明早再處理", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, health: 1 } },
+      { id: "A", label: "手機翻面，明早再處理", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, health: 1 } },
       { id: "B", label: "立刻回覆，讓睡意重新歸零", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
@@ -353,9 +353,9 @@ const baseCards: Card[] = [
     title: "補眠決策",
     text: "你可以立刻關燈，也可以再完成一段低效率工作。",
     options: [
-      { id: "A", label: "關燈睡覺", timeDeltaHours: 1, effectiveMarks: 1 },
+      { id: "A", label: "關燈睡覺", timeDeltaHours: -1, effectiveMarks: 1 },
       { id: "B", label: "硬撐把工作做完", timeDeltaHours: -1, effectiveMarks: 1 },
-      { id: "C", label: "寫下斷點後休息", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "C", label: "寫下斷點後休息", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -365,9 +365,9 @@ const baseCards: Card[] = [
     title: "睡前整理桌面",
     text: "桌上散著杯子、充電線和便利貼，明早第一步可能被雜物拖住。",
     options: [
-      { id: "A", label: "清出明早可以立刻開始的桌面", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
-      { id: "B", label: "把雜物先推到一旁，明天再說", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "先找好明天第一份要用的檔案", timeDeltaHours: 0.5, effectiveMarks: 1, indicatorDeltas: { focus: 1, achievement: 1 } }
+      { id: "A", label: "清出明早可以立刻開始的桌面", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
+      { id: "B", label: "把雜物先推到一旁，明天再說", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "先找好明天第一份要用的檔案", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { focus: 1, achievement: 1 } }
     ]
   },
   {
@@ -388,7 +388,7 @@ const baseCards: Card[] = [
     title: "半夜求救訊息",
     text: "有人說只要五分鐘，實際處理起來卻可能拖成一小時。",
     options: [
-      { id: "A", label: "先處理急事，再補上界線", timeDeltaHours: -0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
+      { id: "A", label: "先處理急事，再補上界線", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
       { id: "B", label: "一邊處理一邊抱怨，讓情緒也被捲入", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
@@ -399,9 +399,9 @@ const baseCards: Card[] = [
     title: "清晨邊界",
     text: "天快亮了，決定哪些事情今天不再延伸。",
     options: [
-      { id: "A", label: "劃掉一個非必要承諾", timeDeltaHours: 1, effectiveMarks: 1 },
-      { id: "B", label: "把所有事都留著", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "寫下今日不可被打擾時段", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "A", label: "劃掉一個非必要承諾", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "把所有事都留著", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "寫下今日不可被打擾時段", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -411,9 +411,9 @@ const baseCards: Card[] = [
     title: "今日排序",
     text: "早晨先決定重要順序，避免被第一個訊息牽走。",
     options: [
-      { id: "A", label: "先選一件主線任務", timeDeltaHours: 0.5, effectiveMarks: 1 },
-      { id: "B", label: "直接打開聊天軟體", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "排出三段不被打斷的專注時間", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "A", label: "先選一件主線任務", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "直接打開聊天軟體", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "排出三段不被打斷的專注時間", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -425,7 +425,7 @@ const baseCards: Card[] = [
     options: [
       { id: "A", label: "自己全扛，把家裡收好", timeDeltaHours: -2, effectiveMarks: 3 },
       { id: "B", label: "跟家人協調分工", timeDeltaHours: -1, effectiveMarks: 3 },
-      { id: "C", label: "先放著明天再說", timeDeltaHours: -0.5, effectiveMarks: 0 }
+      { id: "C", label: "先放著明天再說", timeDeltaHours: -1, effectiveMarks: 0 }
     ]
   },
   {
@@ -435,9 +435,9 @@ const baseCards: Card[] = [
     title: "深度開局",
     text: "一天最清楚的時間可以先給最重要的輸出。",
     options: [
-      { id: "A", label: "先做九十分鐘主線", timeDeltaHours: 1, effectiveMarks: 2 },
-      { id: "B", label: "先清完所有小事", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "設定番茄鐘再開始", timeDeltaHours: 0.5, effectiveMarks: 1 }
+      { id: "A", label: "先做九十分鐘主線", timeDeltaHours: -1.5, effectiveMarks: 2 },
+      { id: "B", label: "先清完所有小事", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "設定番茄鐘再開始", timeDeltaHours: -1, effectiveMarks: 1 }
     ]
   },
   {
@@ -447,9 +447,9 @@ const baseCards: Card[] = [
     title: "通勤時間選擇",
     text: "捷運晃動之間，短影音很容易吃掉整段通勤。",
     options: [
-      { id: "A", label: "聽一段學習音訊", timeDeltaHours: 0, effectiveMarks: 1, indicatorDeltas: { achievement: 1 } },
-      { id: "B", label: "一路滑短影音到下車", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "在腦中預演今天第一句開場", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1 } }
+      { id: "A", label: "聽一段學習音訊", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { achievement: 1 } },
+      { id: "B", label: "一路滑短影音到下車", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "在腦中預演今天第一句開場", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1 } }
     ]
   },
   {
@@ -459,7 +459,7 @@ const baseCards: Card[] = [
     title: "臨時會議插隊",
     text: "臨時會議突然出現，卻沒有清楚議程。",
     options: [
-      { id: "A", label: "先確認會議要決定什麼", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } },
+      { id: "A", label: "先確認會議要決定什麼", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } },
       { id: "B", label: "直接進會議，照單全收", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
@@ -470,9 +470,9 @@ const baseCards: Card[] = [
     title: "收件箱清理",
     text: "面對滿版通知，決定用批次處理還是即時反應。",
     options: [
-      { id: "A", label: "批次回覆必要項", timeDeltaHours: 0.5, effectiveMarks: 1 },
+      { id: "A", label: "批次回覆必要項", timeDeltaHours: -1, effectiveMarks: 1 },
       { id: "B", label: "每封都立刻打開", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "把可委派項標出", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "C", label: "把可委派項標出", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -482,9 +482,9 @@ const baseCards: Card[] = [
     title: "午前補給",
     text: "你需要補充能量，避免下午靠意志力硬撐。",
     options: [
-      { id: "A", label: "短暫休息與喝水", timeDeltaHours: 0.5, effectiveMarks: 1 },
-      { id: "B", label: "跳過休息繼續衝", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "檢查上午產出與下午主線", timeDeltaHours: 0, effectiveMarks: 2 }
+      { id: "A", label: "短暫休息與喝水", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "跳過休息繼續衝", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "檢查上午產出與下午主線", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -494,9 +494,9 @@ const baseCards: Card[] = [
     title: "能量盤點",
     text: "午餐後先確認狀態，再選擇合適難度的任務。",
     options: [
-      { id: "A", label: "安排低阻力啟動", timeDeltaHours: 0.5, effectiveMarks: 1 },
-      { id: "B", label: "硬做最難任務", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "先散步十分鐘再回來", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "A", label: "安排低阻力啟動", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "硬做最難任務", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "先散步十分鐘再回來", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -506,9 +506,9 @@ const baseCards: Card[] = [
     title: "午休選擇",
     text: "短休息會花時間，但可能換回下午的清醒度。",
     options: [
-      { id: "A", label: "小睡二十分鐘", timeDeltaHours: 0.5, effectiveMarks: 1 },
+      { id: "A", label: "小睡二十分鐘", timeDeltaHours: -1, effectiveMarks: 1 },
       { id: "B", label: "邊吃邊開會", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "吃飯時不看螢幕", timeDeltaHours: 0, effectiveMarks: 2 }
+      { id: "C", label: "吃飯時不看螢幕", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -530,8 +530,8 @@ const baseCards: Card[] = [
     text: "同事卡住來求救，說只要三分鐘，實際上可能牽動你的下午安排。",
     options: [
       { id: "A", label: "直接接手，先替對方解決", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { relationship: 1 } },
-      { id: "B", label: "寫下下一步和截止線，讓對方自己推進", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
-      { id: "C", label: "約定固定答疑時段，避免問題一直插隊", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1 } }
+      { id: "B", label: "寫下下一步和截止線，讓對方自己推進", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
+      { id: "C", label: "約定固定答疑時段，避免問題一直插隊", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1 } }
     ]
   },
   {
@@ -541,7 +541,7 @@ const baseCards: Card[] = [
     title: "突發請託",
     text: "新的請託看起來很急，但還需要判斷它是否真的重要。",
     options: [
-      { id: "A", label: "先問截止時間與實際影響", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
+      { id: "A", label: "先問截止時間與實際影響", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
       { id: "B", label: "立刻放下手邊工作，先處理再說", timeDeltaHours: -1.5, effectiveMarks: 0 }
     ]
   },
@@ -552,9 +552,9 @@ const baseCards: Card[] = [
     title: "成果回顧",
     text: "下午收尾前確認產出，避免晚上才發現方向錯。",
     options: [
-      { id: "A", label: "對照今天主線", timeDeltaHours: 0.5, effectiveMarks: 1 },
-      { id: "B", label: "繼續堆更多輸出", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "請關係人快速確認", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "A", label: "對照今天主線", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "繼續堆更多輸出", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "請關係人快速確認", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -564,9 +564,9 @@ const baseCards: Card[] = [
     title: "收尾重整",
     text: "下班前把未完成的事情放回系統，不帶著混亂離開。",
     options: [
-      { id: "A", label: "寫下未完成斷點", timeDeltaHours: 0.5, effectiveMarks: 1 },
-      { id: "B", label: "把所有事記在腦中", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "明確取消一件低價值事", timeDeltaHours: 1, effectiveMarks: 2 }
+      { id: "A", label: "寫下未完成斷點", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "把所有事記在腦中", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "明確取消一件低價值事", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -576,9 +576,9 @@ const baseCards: Card[] = [
     title: "下班切換",
     text: "工作與生活之間需要一個清楚的轉場。",
     options: [
-      { id: "A", label: "寫三行收工筆記", timeDeltaHours: 0.5, effectiveMarks: 1 },
+      { id: "A", label: "寫三行收工筆記", timeDeltaHours: -1, effectiveMarks: 1 },
       { id: "B", label: "帶著通知回家", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "關掉非必要通知", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "C", label: "關掉非必要通知", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -588,9 +588,9 @@ const baseCards: Card[] = [
     title: "家庭時段",
     text: "晚上的陪伴品質，取決於你能不能把注意力留在當下。",
     options: [
-      { id: "A", label: "手機放到看不見處", timeDeltaHours: 0.5, effectiveMarks: 2 },
-      { id: "B", label: "邊陪伴邊回訊息", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "先說明一個必要回覆窗口", timeDeltaHours: 0, effectiveMarks: 1 }
+      { id: "A", label: "手機放到看不見處", timeDeltaHours: -1, effectiveMarks: 2 },
+      { id: "B", label: "邊陪伴邊回訊息", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "先說明一個必要回覆窗口", timeDeltaHours: -1, effectiveMarks: 1 }
     ]
   },
   {
@@ -600,9 +600,9 @@ const baseCards: Card[] = [
     title: "晚間自我投資",
     text: "晚上剩下一點時間，學習與休息都在爭取你的注意力。",
     options: [
-      { id: "A", label: "完成一個小單元的學習", timeDeltaHours: 0, effectiveMarks: 2, indicatorDeltas: { achievement: 1 } },
+      { id: "A", label: "完成一個小單元的學習", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { achievement: 1 } },
       { id: "B", label: "一路滑手機到準備睡覺", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "整理今天學到的重點", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } }
+      { id: "C", label: "整理今天學到的重點", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } }
     ]
   },
   {
@@ -612,7 +612,7 @@ const baseCards: Card[] = [
     title: "加班訊息出現",
     text: "工作追到晚上，訊息寫著很急，卻未必非今天不可。",
     options: [
-      { id: "A", label: "確認今天是否真的必須完成", timeDeltaHours: 0.5, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
+      { id: "A", label: "確認今天是否真的必須完成", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
       { id: "B", label: "直接加班到深夜", timeDeltaHours: -2, effectiveMarks: 1 }
     ]
   },
@@ -624,7 +624,7 @@ const baseCards: Card[] = [
     text: "完美的治裝與妝容需要時間，附近百貨公司的誘惑也正在招手。",
     options: [
       { id: "A", label: "完整化妝治裝 2 小時", timeDeltaHours: -2, effectiveMarks: 1 },
-      { id: "B", label: "快速整理，準時進入正事", timeDeltaHours: -0.5, effectiveMarks: 2 },
+      { id: "B", label: "快速整理，準時進入正事", timeDeltaHours: -1, effectiveMarks: 2 },
       { id: "C", label: "下午百貨逛好逛滿", timeDeltaHours: -1.5, effectiveMarks: 1 }
     ]
   },
@@ -635,9 +635,9 @@ const baseCards: Card[] = [
     title: "關係存款",
     text: "人際關係的維護也會影響未來的有效時間。",
     options: [
-      { id: "A", label: "主動回覆一個重要關係", timeDeltaHours: 0, effectiveMarks: 1 },
-      { id: "B", label: "所有訊息都先不管", timeDeltaHours: -0.5, effectiveMarks: 0 },
-      { id: "C", label: "安排明確的陪伴時間", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "A", label: "主動回覆一個重要關係", timeDeltaHours: -1, effectiveMarks: 1 },
+      { id: "B", label: "所有訊息都先不管", timeDeltaHours: -1, effectiveMarks: 0 },
+      { id: "C", label: "安排明確的陪伴時間", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   },
   {
@@ -647,9 +647,9 @@ const baseCards: Card[] = [
     title: "明日收束",
     text: "睡前只保留明天最重要的第一步。",
     options: [
-      { id: "A", label: "寫下第一個動作", timeDeltaHours: 0.5, effectiveMarks: 1 },
+      { id: "A", label: "寫下第一個動作", timeDeltaHours: -1, effectiveMarks: 1 },
       { id: "B", label: "繼續補今天沒做完的事", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "準備明早所需材料", timeDeltaHours: 0.5, effectiveMarks: 2 }
+      { id: "C", label: "準備明早所需材料", timeDeltaHours: -1, effectiveMarks: 2 }
     ]
   }
 ];
@@ -675,8 +675,8 @@ function withDefaultRandomOutcomes(option: CardOption): CardOption {
         id: `${option.id}-good`,
         tone: "good",
         title: "意外順利",
-        text: "事情比預期順利，沒有額外消耗時間，也多得到一點人生有效點。",
-        timeDeltaHours: option.timeDeltaHours + 0.5,
+        text: "事情比預期順利，你把時間消耗控制得比較好，也多得到一點人生有效點。",
+        timeDeltaHours: Math.min(-1, option.timeDeltaHours + 0.5),
         effectiveMarks: option.effectiveMarks + 1,
         indicatorDeltas: option.indicatorDeltas
       },

@@ -28,6 +28,17 @@ export function calculateTeamScore(team: Team): TeamScore {
   };
 }
 
+export function getEffectiveLifeWinners(teams: Team[]): TeamScore[] {
+  if (teams.length === 0) {
+    throw new Error("Cannot calculate effective life winners without teams.");
+  }
+
+  const scores = teams.map(calculateTeamScore);
+  const highestScore = Math.max(...scores.map((score) => score.effectiveLifeScore));
+
+  return scores.filter((score) => score.effectiveLifeScore === highestScore);
+}
+
 export function calculateAwards(teams: Team[]): AwardSummary {
   if (teams.length === 0) {
     throw new Error("Cannot calculate awards without teams.");

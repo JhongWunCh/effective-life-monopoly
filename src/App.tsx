@@ -19,6 +19,7 @@ import {
   showResults,
   undoLastAction
 } from "./game/gameEngine";
+import { createDisplayedOptions } from "./game/options";
 import type { Team } from "./game/types";
 
 const ROLL_ANIMATION_MS = 900;
@@ -47,6 +48,10 @@ export default function App() {
   const timerIds = useRef<number[]>([]);
   const currentTeam = state.teams[state.currentTeamIndex];
   const currentCard = cards.find((card) => card.id === state.currentCardId);
+  const displayedOptions = useMemo(
+    () => (currentCard ? createDisplayedOptions(currentCard.options) : undefined),
+    [currentCard]
+  );
   const isAnimating = animation.phase !== "idle";
   const roundProgress = useMemo(() => getRoundProgress(state), [state]);
   const activeTeamCount = useMemo(() => getActiveTeamCount(state), [state]);
@@ -292,6 +297,7 @@ export default function App() {
               />
               <CardPanel
                 card={currentCard}
+                displayedOptions={displayedOptions}
                 lastOutcome={state.lastOutcome}
                 onApplyOption={(option) =>
                   setState((currentState) => applyOption(currentState, option))

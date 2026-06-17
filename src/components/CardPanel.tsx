@@ -2,6 +2,7 @@ import type { Card, CardOption, Period, ResolvedOutcome, SpaceType } from "../ga
 
 type CardPanelProps = {
   card?: Card;
+  displayedOptions?: CardOption[];
   lastOutcome?: ResolvedOutcome;
   onApplyOption: (option: CardOption) => void;
 };
@@ -21,11 +22,9 @@ const typeLabels: Record<SpaceType, string> = {
 };
 
 const formatTimeEffect = (hours: number) => {
-  if (hours < 0) {
-    return `消耗 ${Math.abs(hours)} 小時`;
-  }
+  const spentHours = hours < 0 ? Math.abs(hours) : 1;
 
-  return "未額外消耗時間";
+  return `消耗 ${spentHours} 小時`;
 };
 
 const formatPoints = (points: number) => {
@@ -40,7 +39,7 @@ const formatPoints = (points: number) => {
   return "人生有效點不變";
 };
 
-export function CardPanel({ card, lastOutcome, onApplyOption }: CardPanelProps) {
+export function CardPanel({ card, displayedOptions, lastOutcome, onApplyOption }: CardPanelProps) {
   if (!card) {
     if (lastOutcome) {
       return (
@@ -84,7 +83,7 @@ export function CardPanel({ card, lastOutcome, onApplyOption }: CardPanelProps) 
       <h2>{card.title}</h2>
       <p className="card-text">{card.text}</p>
       <div className="option-list">
-        {card.options.map((option) => (
+        {(displayedOptions ?? card.options).map((option) => (
           <button
             className="option-button"
             key={option.id}

@@ -140,6 +140,60 @@ describe("game data", () => {
     }
   });
 
+  it("makes every card choice and outcome consume time", () => {
+    const nonConsumingChoices = cards.flatMap((card) =>
+      card.options
+        .filter((option) => option.timeDeltaHours >= 0)
+        .map((option) => ({
+          cardId: card.id,
+          optionId: option.id,
+          timeDeltaHours: option.timeDeltaHours
+        }))
+    );
+    const nonConsumingOutcomes = cards.flatMap((card) =>
+      card.options.flatMap((option) =>
+        (option.outcomes ?? [])
+          .filter((outcome) => outcome.timeDeltaHours >= 0)
+          .map((outcome) => ({
+            cardId: card.id,
+            optionId: option.id,
+            outcomeId: outcome.id,
+            timeDeltaHours: outcome.timeDeltaHours
+          }))
+      )
+    );
+
+    expect(nonConsumingChoices).toEqual([]);
+    expect(nonConsumingOutcomes).toEqual([]);
+  });
+
+  it("keeps normal card choices and outcomes costly enough for a three-round game", () => {
+    const lowCostChoices = cards.flatMap((card) =>
+      card.options
+        .filter((option) => option.timeDeltaHours > -1)
+        .map((option) => ({
+          cardId: card.id,
+          optionId: option.id,
+          timeDeltaHours: option.timeDeltaHours
+        }))
+    );
+    const lowCostOutcomes = cards.flatMap((card) =>
+      card.options.flatMap((option) =>
+        (option.outcomes ?? [])
+          .filter((outcome) => outcome.timeDeltaHours > -1)
+          .map((outcome) => ({
+            cardId: card.id,
+            optionId: option.id,
+            outcomeId: outcome.id,
+            timeDeltaHours: outcome.timeDeltaHours
+          }))
+      )
+    );
+
+    expect(lowCostChoices).toEqual([]);
+    expect(lowCostOutcomes).toEqual([]);
+  });
+
   it("keeps random outcome titles free of behind-the-scenes tone labels", () => {
     const randomOutcomeTitles = cards.flatMap((card) =>
       card.options.flatMap((option) => option.outcomes?.map((outcome) => outcome.title) ?? [])
@@ -233,7 +287,7 @@ describe("game data", () => {
         options: [
           { id: "A", label: "自己全扛，把家裡收好", timeDeltaHours: -2, effectiveMarks: 3 },
           { id: "B", label: "跟家人協調分工", timeDeltaHours: -1, effectiveMarks: 3 },
-          { id: "C", label: "先放著明天再說", timeDeltaHours: -0.5, effectiveMarks: 0 }
+          { id: "C", label: "先放著明天再說", timeDeltaHours: -1, effectiveMarks: 0 }
         ]
       },
       "signature-atu": {
@@ -263,7 +317,7 @@ describe("game data", () => {
         text: "完美的治裝與妝容需要時間，附近百貨公司的誘惑也正在招手。",
         options: [
           { id: "A", label: "完整化妝治裝 2 小時", timeDeltaHours: -2, effectiveMarks: 1 },
-          { id: "B", label: "快速整理，準時進入正事", timeDeltaHours: -0.5, effectiveMarks: 2 },
+          { id: "B", label: "快速整理，準時進入正事", timeDeltaHours: -1, effectiveMarks: 2 },
           { id: "C", label: "下午百貨逛好逛滿", timeDeltaHours: -1.5, effectiveMarks: 1 }
         ]
       }

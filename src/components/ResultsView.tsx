@@ -1,4 +1,4 @@
-import { calculateAwards, calculateTeamScore } from "../game/scoring";
+import { calculateAwards, calculateTeamScore, getEffectiveLifeWinners } from "../game/scoring";
 import type { RoundProgress } from "../game/gameEngine";
 import type { Team } from "../game/types";
 
@@ -11,6 +11,7 @@ type ResultsViewProps = {
 };
 
 const formatHours = (hours: number) => `${hours.toFixed(1).replace(/\.0$/, "")}h`;
+const formatTeamNames = (teamNames: string[]) => teamNames.join("、");
 
 export function ResultsView({
   teams,
@@ -21,7 +22,9 @@ export function ResultsView({
 }: ResultsViewProps) {
   const awards = calculateAwards(teams);
   const teamScores = teams.map(calculateTeamScore);
-  const champion = teamScores.find((score) => score.teamName === awards.effectiveLife) ?? teamScores[0]!;
+  const champions = getEffectiveLifeWinners(teams);
+  const championNames = champions.map((score) => score.teamName);
+  const championScore = champions[0]!.effectiveLifeScore;
   const teamCount = roundProgress.totalTurns / roundProgress.targetRounds;
   const completedRoundCount = roundProgress.isReadyToFinish
     ? roundProgress.targetRounds
@@ -43,9 +46,10 @@ export function ResultsView({
           )}
         </div>
         <article className="champion-card" aria-label="有效人生冠軍">
-          <span>今天最值得的是</span>
-          <strong>{champion.teamName}</strong>
-          <p>{champion.effectiveLifeScore} 分</p>
+          <span>{champions.length > 1 ? "今天最值得的是（並列）" : "今天最值得的是"}</span>
+          <strong>{formatTeamNames(championNames)}</strong>
+          <p>{championScore} 分</p>
+          <small>有效人生分 = 剩餘時間 + 人生有效點</small>
         </article>
         <div className="results-actions">
           <button type="button" onClick={onBackToBoard}>
@@ -68,11 +72,12 @@ export function ResultsView({
         </article>
         <article className="award-card" aria-label="有效人生獎">
           <span>有效人生獎</span>
-          <strong>{awards.effectiveLife}</strong>
+          <strong>{formatTeamNames(championNames)}</strong>
         </article>
       </div>
 
       <div className="results-table-wrap">
+        <p className="score-formula">有效人生分 = 剩餘時間 + 人生有效點</p>
         <table className="results-table">
           <thead>
             <tr>
