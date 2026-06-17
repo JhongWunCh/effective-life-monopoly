@@ -5,13 +5,20 @@ import type { Team } from "../game/types";
 type ResultsViewProps = {
   teams: Team[];
   roundProgress: RoundProgress;
+  isTimeExhausted: boolean;
   onBackToBoard: () => void;
   onReset: () => void;
 };
 
 const formatHours = (hours: number) => `${hours.toFixed(1).replace(/\.0$/, "")}h`;
 
-export function ResultsView({ teams, roundProgress, onBackToBoard, onReset }: ResultsViewProps) {
+export function ResultsView({
+  teams,
+  roundProgress,
+  isTimeExhausted,
+  onBackToBoard,
+  onReset
+}: ResultsViewProps) {
   const awards = calculateAwards(teams);
   const teamScores = teams.map(calculateTeamScore);
   const champion = teamScores.find((score) => score.teamName === awards.effectiveLife) ?? teamScores[0]!;
@@ -26,10 +33,14 @@ export function ResultsView({ teams, roundProgress, onBackToBoard, onReset }: Re
         <div>
           <p className="panel-kicker">Finish</p>
           <h2 id="results-heading">完賽結算</h2>
-          <p>
-            完成 {completedRoundCount} / {roundProgress.targetRounds} 輪，共{" "}
-            {roundProgress.completedTurns} 次選擇
-          </p>
+          {isTimeExhausted ? (
+            <p>所有隊伍可支配時間用完，共 {roundProgress.completedTurns} 次選擇</p>
+          ) : (
+            <p>
+              完成 {completedRoundCount} / {roundProgress.targetRounds} 輪，共{" "}
+              {roundProgress.completedTurns} 次選擇
+            </p>
+          )}
         </div>
         <article className="champion-card" aria-label="有效人生冠軍">
           <span>今天最值得的是</span>

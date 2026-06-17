@@ -41,12 +41,12 @@ export function Board({
   centerContent
 }: BoardProps) {
   return (
-    <section className="board-panel" aria-label="24 小時大富翁棋盤">
+    <section className="board-panel" aria-label="有效人生大富翁棋盤">
       <div className="board-grid">
         <div className="board-center">
           <div className="board-center-bg" aria-hidden="true">
             <p className="board-center-kicker">有效人生</p>
-            <strong>24H</strong>
+            <strong>選擇</strong>
             <div className="period-legend">
               {Object.entries(periodLabels).map(([period, label]) => (
                 <span className={`legend-item period-${period}`} key={period}>
@@ -67,12 +67,11 @@ export function Board({
             <article
               className={`board-space period-${space.period}${isRevealed ? " is-revealed" : ""}`}
               key={space.id}
-              aria-label={`${space.hour} ${spaceTitle}`}
+              aria-label={isRevealed ? spaceTitle : `未揭露任務 ${space.id + 1}`}
               data-board-space-id={space.id}
               style={{ gridColumn: placement.column, gridRow: placement.row }}
             >
               <div className="space-meta">
-                <span className="space-hour">{space.hour}</span>
                 <span className="space-period">{periodLabels[space.period]}</span>
               </div>
               {space.type === "opportunity" || space.type === "fate" ? (

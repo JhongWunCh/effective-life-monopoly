@@ -87,21 +87,27 @@ export function applyOption(
   random: () => number = Math.random
 ): GameState {
   const resolvedOutcome = resolveOptionOutcome(option, random);
+  const nextTeams = state.teams.map((team, index) =>
+    index === state.currentTeamIndex
+      ? {
+          ...team,
+          remainingHours: Math.max(0, team.remainingHours + resolvedOutcome.timeDeltaHours),
+          effectiveMarks: Math.max(0, team.effectiveMarks + resolvedOutcome.effectiveMarks),
+          indicators: applyIndicatorDeltas(team.indicators, resolvedOutcome.indicatorDeltas)
+        }
+      : { ...team }
+  );
+  const activeTeamCount = countActiveTeams(nextTeams);
+  const nextTeamIndex =
+    activeTeamCount === 0
+      ? state.currentTeamIndex
+      : findNextActiveTeamIndex(nextTeams, (state.currentTeamIndex + 1) % nextTeams.length);
 
   return createState({
-    teams: state.teams.map((team, index) =>
-      index === state.currentTeamIndex
-        ? {
-            ...team,
-            remainingHours: Math.max(0, team.remainingHours + resolvedOutcome.timeDeltaHours),
-            effectiveMarks: Math.max(0, team.effectiveMarks + resolvedOutcome.effectiveMarks),
-            indicators: applyIndicatorDeltas(team.indicators, resolvedOutcome.indicatorDeltas)
-          }
-        : { ...team }
-    ),
-    currentTeamIndex: (state.currentTeamIndex + 1) % state.teams.length,
+    teams: nextTeams,
+    currentTeamIndex: nextTeamIndex,
     lastOutcome: resolvedOutcome,
-    isResultsVisible: false,
+    isResultsVisible: activeTeamCount === 0,
     settings: state.settings,
     completedTurns: state.completedTurns + 1,
     history: historyWithSnapshot(state)
@@ -196,6 +202,10 @@ export function getRoundProgress(state: GameState): RoundProgress {
   };
 }
 
+export function getActiveTeamCount(state: Pick<GameStateSnapshot, "teams">): number {
+  return countActiveTeams(state.teams);
+}
+
 function createState(parts: GameStateParts): GameState {
   return {
     ...cloneSnapshot(parts),
@@ -241,6 +251,26 @@ function cloneSnapshot(snapshot: GameStateSnapshot): GameStateSnapshot {
 
 function cloneTeams(teams: Team[]): Team[] {
   return teams.map((team) => ({ ...team, indicators: { ...team.indicators } }));
+}
+
+function countActiveTeams(teams: Team[]): number {
+  return teams.filter(hasRemainingHours).length;
+}
+
+function hasRemainingHours(team: Team): boolean {
+  return team.remainingHours > 0;
+}
+
+function findNextActiveTeamIndex(teams: Team[], startIndex: number): number {
+  for (let offset = 0; offset < teams.length; offset += 1) {
+    const index = (startIndex + offset) % teams.length;
+
+    if (hasRemainingHours(teams[index]!)) {
+      return index;
+    }
+  }
+
+  return startIndex;
 }
 
 function applyIndicatorDeltas(

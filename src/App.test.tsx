@@ -99,7 +99,8 @@ describe("App", () => {
     expect(screen.getByText("第 1 / 3 輪")).toBeInTheDocument();
     expect(screen.getByText("本輪 0 / 4 隊")).toBeInTheDocument();
     expect(screen.getAllByText("阿里爸爸組").length).toBeGreaterThan(0);
-    expect(screen.getByText("00:00")).toBeInTheDocument();
+    expect(screen.queryByText("00:00")).not.toBeInTheDocument();
+    expect(screen.queryByText("24H")).not.toBeInTheDocument();
     expect(screen.getAllByText("剩餘時間").length).toBeGreaterThan(0);
     expect(screen.getAllByText("人生有效點").length).toBeGreaterThan(0);
   });
@@ -146,7 +147,7 @@ describe("App", () => {
     finishAnimatedRoll(2);
 
     expect(
-      within(screen.getByRole("article", { name: "02:00 補眠決策" })).getByText("補眠決策")
+      within(screen.getByRole("article", { name: "補眠決策" })).getByText("補眠決策")
     ).toBeInTheDocument();
   });
 

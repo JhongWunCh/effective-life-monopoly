@@ -11,6 +11,7 @@ import { boardSpaces, cards } from "./game/data";
 import {
   applyOption,
   createInitialGameState,
+  getActiveTeamCount,
   getRoundProgress,
   moveCurrentTeam,
   resetGame,
@@ -48,9 +49,15 @@ export default function App() {
   const currentCard = cards.find((card) => card.id === state.currentCardId);
   const isAnimating = animation.phase !== "idle";
   const roundProgress = useMemo(() => getRoundProgress(state), [state]);
+  const activeTeamCount = useMemo(() => getActiveTeamCount(state), [state]);
   const canRoll =
-    !roundProgress.isReadyToFinish && !state.currentCardId && !state.isResultsVisible && !isAnimating;
-  const resultsButtonLabel = roundProgress.isReadyToFinish ? "完成結算" : "提前結算";
+    activeTeamCount > 0 &&
+    !roundProgress.isReadyToFinish &&
+    !state.currentCardId &&
+    !state.isResultsVisible &&
+    !isAnimating;
+  const resultsButtonLabel =
+    activeTeamCount === 0 || roundProgress.isReadyToFinish ? "完成結算" : "提前結算";
   const displayedTeams = useMemo<Team[]>(
     () =>
       state.teams.map((team) => ({
@@ -174,7 +181,11 @@ export default function App() {
   };
 
   const showGameResults = () => {
-    if (!roundProgress.isReadyToFinish && !window.confirm("還沒完成設定輪數，要提前結算嗎？")) {
+    if (
+      activeTeamCount > 0 &&
+      !roundProgress.isReadyToFinish &&
+      !window.confirm("還沒完成設定輪數，要提前結算嗎？")
+    ) {
       return;
     }
 
@@ -237,6 +248,7 @@ export default function App() {
           <ResultsView
             teams={state.teams}
             roundProgress={roundProgress}
+            isTimeExhausted={activeTeamCount === 0}
             onBackToBoard={() => setState((currentState) => returnToBoard(currentState))}
             onReset={restartGame}
           />

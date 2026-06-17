@@ -3,6 +3,7 @@ import { boardSpaces, cards, teams } from "./data";
 import {
   applyOption,
   createInitialGameState,
+  getActiveTeamCount,
   getRoundProgress,
   moveCurrentTeam,
   resetGame,
@@ -231,6 +232,46 @@ describe("game engine", () => {
 
     expect(next.teams[0]!.remainingHours).toBe(0);
     expect(next.teams[0]!.effectiveMarks).toBe(2);
+  });
+
+  it("skips teams with no remaining hours when advancing the turn", () => {
+    const state = {
+      ...createInitialGameState({ targetRounds: 5 }),
+      teams: teams.map((team, index) => ({
+        ...team,
+        remainingHours: index === 0 ? 0.5 : index === 1 ? 0 : team.startingHours
+      }))
+    };
+    const option = { id: "A" as const, label: "use last half hour", timeDeltaHours: -1, effectiveMarks: 1 };
+
+    const next = applyOption(state, option);
+
+    expect(next.teams[0]!.remainingHours).toBe(0);
+    expect(next.currentTeamIndex).toBe(2);
+    expect(next.isResultsVisible).toBe(false);
+    expect(getActiveTeamCount(next)).toBe(2);
+  });
+
+  it("automatically shows results when every team has used all remaining time", () => {
+    const state = {
+      ...createInitialGameState({ targetRounds: 5 }),
+      currentCardId: "evening-fate-overtime",
+      lastRoll: 3,
+      teams: teams.map((team, index) => ({
+        ...team,
+        remainingHours: index === 0 ? 0.5 : 0
+      }))
+    };
+    const option = { id: "A" as const, label: "spend final time", timeDeltaHours: -1, effectiveMarks: 1 };
+
+    const next = applyOption(state, option);
+
+    expect(next.teams.every((team) => team.remainingHours === 0)).toBe(true);
+    expect(getActiveTeamCount(next)).toBe(0);
+    expect(next.currentTeamIndex).toBe(0);
+    expect(next.currentCardId).toBeUndefined();
+    expect(next.lastRoll).toBeUndefined();
+    expect(next.isResultsVisible).toBe(true);
   });
 
   it("shows results while preserving selected card and roll", () => {
