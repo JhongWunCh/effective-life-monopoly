@@ -38,23 +38,31 @@ describe("App", () => {
     vi.restoreAllMocks();
   });
 
-  it("starts on the activity introduction page and explains the two-score model", () => {
+  it("starts on a plain-language activity introduction and can continue to character cards", () => {
     render(<App />);
 
     expect(screen.getByRole("heading", { name: "有效人生大富翁" })).toBeInTheDocument();
     expect(screen.getByText("24 小時挑戰")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "活動介紹" })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByRole("heading", { name: "活動介紹" })).toBeInTheDocument();
-    expect(screen.getByText("每個人一天都是 24 小時，但起點責任不同。")).toBeInTheDocument();
-    expect(screen.getByText("有效人生不是把時間塞滿，而是知道哪些時間值得花。")).toBeInTheDocument();
-    expect(
-      screen.getByText("遊戲不把六個面向做成六種分數，現場只看兩個核心。")
-    ).toBeInTheDocument();
-    expect(screen.getByText("六個面向藏在卡牌設計裡，幫助大家討論什麼叫有效。")).toBeInTheDocument();
-    expect(screen.getByText("還剩多少能主動安排的時間。")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "用一局大富翁，聊聊時間花在哪裡" })).toBeInTheDocument();
+    expect(screen.getByText("這不是考核，也不是效率工具。")).toBeInTheDocument();
+    expect(screen.getByText("沒有標準答案，也不比較誰比較有效率。")).toBeInTheDocument();
+    expect(screen.getByText("選一個角色")).toBeInTheDocument();
+    expect(screen.getByText("遇到生活事件")).toBeInTheDocument();
+    expect(screen.getByText("做選擇，看結果")).toBeInTheDocument();
+    expect(screen.getByText("還剩多少自己的時間。")).toBeInTheDocument();
     expect(screen.getByText("這次選擇值不值得花時間。")).toBeInTheDocument();
+    expect(screen.getByText("如果今天只剩 2 小時，你會把它花在哪裡？")).toBeInTheDocument();
     expect(screen.getByText("人際關係")).toBeInTheDocument();
+    expect(screen.queryByText("Opening")).not.toBeInTheDocument();
+    expect(screen.queryByText("Card Logic")).not.toBeInTheDocument();
+    expect(screen.queryByText("核心計分")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "擲骰" })).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "看角色" }));
+
+    expect(screen.getByRole("button", { name: "角色介紹" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("heading", { name: "角色介紹" })).toBeInTheDocument();
   });
 
   it("shows protagonist cards without unused indicator stats", () => {

@@ -449,8 +449,7 @@ button {
 
 .intro-page {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-  gap: 18px;
+  gap: 16px;
   overflow: hidden;
   padding: 18px;
 }
@@ -544,8 +543,10 @@ button {
 }
 
 .intro-hero,
-.intro-score-frame,
-.intro-facets {
+.intro-flow,
+.intro-watch-panel,
+.intro-facets,
+.intro-closeout {
   min-width: 0;
   border: 2px solid #d3dde8;
   border-radius: 8px;
@@ -554,31 +555,49 @@ button {
 
 .intro-hero {
   display: grid;
-  align-content: center;
-  min-height: 420px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+  gap: 20px;
+  align-items: stretch;
+  min-height: 360px;
   padding: 28px;
   color: #f8fbff;
   background:
-    linear-gradient(135deg, rgb(23 32 42 / 96%), rgb(31 111 178 / 82%)),
+    linear-gradient(135deg, #17202a 0%, #1f6fb2 58%, #2f7d55 100%),
     #17202a;
   border-color: #17202a;
 }
 
-.intro-hero .panel-kicker {
-  color: #9fd0ff;
+.intro-hero-copy {
+  display: grid;
+  align-content: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.intro-pill {
+  width: fit-content;
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 6px;
+  color: #fff2c2;
+  background: rgb(255 255 255 / 10%);
   font-size: 15px;
+  font-weight: 900;
 }
 
 .intro-hero h2 {
-  margin: 8px 0 18px;
-  font-size: clamp(44px, 7vw, 88px);
-  line-height: 0.95;
+  max-width: 760px;
+  margin: 0;
+  font-size: 56px;
+  line-height: 1.03;
   letter-spacing: 0;
 }
 
 .intro-lead,
 .intro-statement,
-.intro-model-note p {
+.intro-host-prompt p,
+.intro-closeout p {
   margin: 0;
   line-height: 1.45;
 }
@@ -586,51 +605,101 @@ button {
 .intro-lead {
   max-width: 680px;
   color: #fff2c2;
-  font-size: clamp(26px, 3.2vw, 46px);
+  font-size: 28px;
   font-weight: 900;
 }
 
 .intro-statement {
   max-width: 720px;
-  margin-top: 18px;
   color: #dcecff;
-  font-size: clamp(20px, 2.1vw, 30px);
+  font-size: 20px;
   font-weight: 800;
 }
 
-.intro-score-frame {
-  display: grid;
-  align-content: stretch;
-  gap: 14px;
-  padding: 18px;
-}
-
-.intro-model-note {
-  display: grid;
+.intro-reassurance {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  padding: 16px;
-  border: 2px solid #17202a;
-  border-radius: 8px;
-  color: #17202a;
-  background: #ffd166;
 }
 
-.intro-model-note p:first-child {
-  font-size: 24px;
+.intro-reassurance span {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: #17202a;
+  background: #ffffff;
   font-weight: 900;
 }
 
-.intro-model-note p:last-child {
-  color: #263746;
-  font-size: 17px;
-  font-weight: 800;
+.intro-primary-action {
+  justify-self: start;
+  min-height: 48px;
+  padding: 10px 18px;
+  border: 2px solid #ffd166;
+  border-radius: 8px;
+  color: #17202a;
+  background: #ffd166;
+  font-weight: 900;
+  cursor: pointer;
 }
 
-.intro-score-grid {
+.intro-primary-action:hover,
+.intro-primary-action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(255 209 102 / 28%);
+}
+
+.intro-cast-panel {
   display: grid;
+  align-content: end;
   gap: 12px;
+  min-width: 0;
+  padding: 18px;
+  border: 2px solid rgb(255 255 255 / 24%);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 10%);
 }
 
+.intro-cast-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.intro-cast-grid img {
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 2px solid rgb(255 255 255 / 72%);
+  border-radius: 8px;
+  background: #e9efff;
+  box-shadow: 0 8px 16px rgb(0 0 0 / 16%);
+}
+
+.intro-cast-panel p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.intro-flow,
+.intro-facets,
+.intro-closeout {
+  padding: 18px;
+}
+
+.intro-step-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.intro-step-card,
 .intro-score-grid article,
 .facet-card {
   min-width: 0;
@@ -640,12 +709,13 @@ button {
   background: #ffffff;
 }
 
-.intro-score-grid article {
+.intro-step-card {
   display: grid;
   gap: 10px;
-  min-height: 158px;
+  min-height: 176px;
 }
 
+.intro-step-card span,
 .intro-score-grid span {
   display: inline-grid;
   width: 42px;
@@ -658,6 +728,15 @@ button {
   font-weight: 900;
 }
 
+.intro-step-card:nth-child(2) span {
+  background: #2f7d55;
+}
+
+.intro-step-card:nth-child(3) span {
+  background: #a83232;
+}
+
+.intro-step-card h3,
 .intro-score-grid h3,
 .facet-card strong {
   margin: 0;
@@ -665,10 +744,11 @@ button {
   line-height: 1.1;
 }
 
-.intro-score-grid h3 {
-  font-size: 30px;
+.intro-step-card h3 {
+  font-size: 26px;
 }
 
+.intro-step-card p,
 .intro-score-grid p,
 .facet-card p {
   margin: 0;
@@ -677,23 +757,97 @@ button {
   line-height: 1.45;
 }
 
+.intro-watch-panel {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+  gap: 14px;
+  padding: 14px;
+}
+
+.intro-host-prompt {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px;
+  border: 2px solid #17202a;
+  border-radius: 8px;
+  color: #17202a;
+  background: #ffd166;
+}
+
+.intro-host-prompt span,
+.intro-closeout span {
+  color: #526b84;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.intro-host-prompt strong {
+  font-size: 30px;
+  line-height: 1.1;
+}
+
+.intro-score-frame {
+  display: grid;
+  align-content: stretch;
+  gap: 12px;
+  min-width: 0;
+  padding: 18px;
+  border: 2px solid #d3dde8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.intro-score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.intro-score-grid article {
+  display: grid;
+  gap: 10px;
+  min-height: 150px;
+  border-width: 2px;
+}
+
+.intro-score-grid h3 {
+  font-size: 30px;
+}
+
 .intro-score-grid p {
   font-size: 18px;
 }
 
-.intro-facets {
-  grid-column: 1 / -1;
-  padding: 18px;
-}
-
 .facet-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
 .facet-card {
-  border-top: 5px solid #1f6fb2;
+  border-left: 5px solid #1f6fb2;
+}
+
+.facet-card:nth-child(2) {
+  border-left-color: #2f7d55;
+}
+
+.facet-card:nth-child(3) {
+  border-left-color: #a83232;
+}
+
+.facet-card:nth-child(4) {
+  border-left-color: #d6a52d;
+}
+
+.facet-card:nth-child(5) {
+  border-left-color: #6078bd;
+}
+
+.facet-card:nth-child(6) {
+  border-left-color: #7d8ea5;
 }
 
 .facet-card strong {
@@ -705,6 +859,27 @@ button {
   margin-top: 8px;
   color: #526b84;
   font-size: 15px;
+}
+
+.intro-closeout {
+  color: #f8fbff;
+  background: #17202a;
+  border-color: #17202a;
+}
+
+.intro-closeout article {
+  max-width: 960px;
+}
+
+.intro-closeout span {
+  color: #9fd0ff;
+}
+
+.intro-closeout p {
+  margin-top: 8px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .score-list,
@@ -1396,8 +1571,9 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .intro-hero {
-    min-height: 360px;
+  .intro-hero,
+  .intro-watch-panel {
+    grid-template-columns: 1fr;
   }
 
   .facet-grid {
@@ -1453,8 +1629,11 @@ button {
   }
 
   .intro-hero,
+  .intro-flow,
+  .intro-watch-panel,
   .intro-score-frame,
   .intro-facets,
+  .intro-closeout,
   .settings-hero,
   .round-settings-panel,
   .finish-hero {
@@ -1462,15 +1641,45 @@ button {
   }
 
   .intro-hero {
+    gap: 14px;
     min-height: 320px;
   }
 
-  .intro-model-note p:first-child {
-    font-size: 20px;
+  .intro-hero h2 {
+    font-size: 38px;
+    line-height: 1.08;
   }
 
-  .intro-model-note p:last-child {
-    font-size: 16px;
+  .intro-lead {
+    font-size: 22px;
+  }
+
+  .intro-statement,
+  .intro-closeout p {
+    font-size: 17px;
+  }
+
+  .intro-reassurance span {
+    width: 100%;
+  }
+
+  .intro-primary-action {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .intro-step-grid,
+  .intro-score-grid,
+  .facet-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .intro-step-card {
+    min-height: 0;
+  }
+
+  .intro-host-prompt strong {
+    font-size: 24px;
   }
 
   .settings-hero h2,
@@ -1492,10 +1701,6 @@ button {
 
   .intro-score-grid h3 {
     font-size: 24px;
-  }
-
-  .facet-grid {
-    grid-template-columns: 1fr;
   }
 
   .character-grid {

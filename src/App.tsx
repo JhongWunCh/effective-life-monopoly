@@ -234,7 +234,7 @@ export default function App() {
         </div>
       </section>
       {activeView === "intro" ? (
-        <ActivityIntro />
+        <ActivityIntro onOpenCharacters={() => setActiveView("characters")} />
       ) : activeView === "characters" ? (
         <CharacterIntro />
       ) : activeView === "settings" ? (
