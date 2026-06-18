@@ -1,4 +1,4 @@
-import type { BoardSpace, Card, CardOption, Protagonist, Team } from "./types";
+import type { BoardSpace, Card, CardOption, CardOutcome, Protagonist, Team } from "./types";
 
 export const protagonists: Protagonist[] = [
   {
@@ -322,6 +322,24 @@ export const boardSpaces: BoardSpace[] = [
   }
 ];
 
+const storyOutcome = (
+  id: string,
+  tone: CardOutcome["tone"],
+  title: string,
+  text: string,
+  timeDeltaHours: number,
+  effectiveMarks: number,
+  indicatorDeltas?: CardOutcome["indicatorDeltas"]
+): CardOutcome => ({
+  id,
+  tone,
+  title,
+  text,
+  timeDeltaHours,
+  effectiveMarks,
+  ...(indicatorDeltas ? { indicatorDeltas } : {})
+});
+
 const baseCards: Card[] = [
   {
     id: "midnight-reflection-quiet",
@@ -342,8 +360,84 @@ const baseCards: Card[] = [
     title: "半夜手機震動",
     text: "手機在枕邊震動，群組只是貼圖，但睡意已經被打斷。",
     options: [
-      { id: "A", label: "手機翻面，明早再處理", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, health: 1 } },
-      { id: "B", label: "立刻回覆，讓睡意重新歸零", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      {
+        id: "A",
+        label: "手機翻面，明早再處理",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1, health: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "世界沒有塌",
+            "早上打開群組，原來大家只是在接龍晚安圖，你少看 47 張貼圖，腦袋保住。",
+            -1,
+            2,
+            { focus: 1, health: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "主管已讀你的沉默",
+            "其中一則真的在問明天報告，你沒回但也沒被炸，只是早餐時補了一段說明。",
+            -2,
+            1,
+            { focus: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "立刻回覆，順便看完每個紅點",
+        timeDeltaHours: -2,
+        effectiveMarks: 0,
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "你成為貼圖調停委員",
+            "你快速回完重點，但又被晚安貼圖包圍，睡意當場離職。",
+            -2,
+            0
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "群組開啟第二季",
+            "你回了一句，群組像續訂影集一路演到 02:17。",
+            -3,
+            -1
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "開勿擾，只留緊急電話",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1, health: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "勿擾像防火牆",
+            "貼圖在門外跳舞，你睡到鬧鐘響，早上還記得自己姓什麼。",
+            -1,
+            2,
+            { focus: 1, health: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "重要訊息走側門",
+            "真正急事改打電話進來，你被叫醒一次，但至少沒有掉進群組深海。",
+            -1.5,
+            1,
+            { focus: 1 }
+          )
+        ]
+      }
     ]
   },
   {
@@ -362,12 +456,87 @@ const baseCards: Card[] = [
     id: "midnight-opportunity-prepare",
     type: "opportunity",
     period: "midnight",
-    title: "睡前整理桌面",
-    text: "桌上散著杯子、充電線和便利貼，明早第一步可能被雜物拖住。",
+    title: "睡前報告驚魂",
+    text: "你剛躺上床，棉被已經進入封印狀態，突然想起明天早上要交的報告還是空白。",
     options: [
-      { id: "A", label: "清出明早可以立刻開始的桌面", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
-      { id: "B", label: "把雜物先推到一旁，明天再說", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "先找好明天第一份要用的檔案", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { focus: 1, achievement: 1 } }
+      {
+        id: "A",
+        label: "爬起來把報告寫完",
+        timeDeltaHours: -3,
+        effectiveMarks: 1,
+        indicatorDeltas: { achievement: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "報告出生了",
+            "你把報告寫到可以交，雖然最後一頁看起來像咖啡因親自排版。",
+            -3,
+            1,
+            { achievement: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "報告會走但你不會",
+            "報告完成了，你也完成了靈魂出竅。早會時你對投影片點頭，其實是在防止自己睡倒。",
+            -4,
+            0,
+            { achievement: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "設 5:30 鬧鐘，早上衝刺",
+        timeDeltaHours: -2,
+        effectiveMarks: 1,
+        indicatorDeltas: { focus: 1 },
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "清晨奇蹟",
+            "你真的爬起來寫完，報告有點趕，但至少不是夢遊產物。",
+            -2,
+            1,
+            { focus: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "貪睡鍵背刺",
+            "你按掉鬧鐘後和枕頭重新簽約，醒來只剩十五分鐘可以跟標題培養感情。",
+            -2.5,
+            0
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "先睡，明天的自己會處理",
+        timeDeltaHours: -1,
+        effectiveMarks: 0,
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "明天的自己很能扛",
+            "你睡飽後火速補完簡版，內容不華麗但方向清楚。",
+            -1.5,
+            1,
+            { health: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "主管的眉毛先到會議室",
+            "你睡過頭又遲到，進門時主管的眉毛先到會議室，你的報告還在家裡深呼吸。",
+            -3,
+            -1
+          )
+        ]
+      }
     ]
   },
   {
@@ -377,8 +546,58 @@ const baseCards: Card[] = [
     title: "金被被：五小時上課與奶瓶董事會",
     text: "神童早上上課 5 小時，下午還要用奶瓶主持商業決策，人生履歷比身高長。",
     options: [
-      { id: "A", label: "乖乖上課，拿蠟筆畫出年度策略", timeDeltaHours: -5, effectiveMarks: 3, indicatorDeltas: { focus: 1, achievement: 1 } },
-      { id: "B", label: "在教室宣布併購溜滑梯，老師請家長來", timeDeltaHours: -6, effectiveMarks: 1 }
+      {
+        id: "A",
+        label: "乖乖上課，拿蠟筆畫出年度策略",
+        timeDeltaHours: -5,
+        effectiveMarks: 3,
+        indicatorDeltas: { focus: 1, achievement: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "蠟筆策略被收藏",
+            "老師本來想收蠟筆，結果發現你畫的是年度策略地圖，全班突然進入商業簡報時間。",
+            -5,
+            3,
+            { focus: 1, achievement: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "策略畫到牆上",
+            "你太投入，把策略延伸到教室牆面。老師點頭說很有野心，然後拿出清潔海綿。",
+            -6,
+            1,
+            { achievement: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "在教室宣布併購溜滑梯",
+        timeDeltaHours: -6,
+        effectiveMarks: 1,
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "溜滑梯董事會成立",
+            "同學們被你說服排隊投票，雖然公司治理很幼兒園，但秩序意外變好。",
+            -6,
+            2,
+            { relationship: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "老師請家長來開股東會",
+            "你宣布併購溜滑梯後，全班開始喊董事長。老師請家長來開股東會，奶瓶也被列入證物。",
+            -7,
+            0
+          )
+        ]
+      }
     ]
   },
   {
@@ -388,8 +607,85 @@ const baseCards: Card[] = [
     title: "半夜求救訊息",
     text: "有人說只要五分鐘，實際處理起來卻可能拖成一小時。",
     options: [
-      { id: "A", label: "先處理急事，再補上界線", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
-      { id: "B", label: "一邊處理一邊抱怨，讓情緒也被捲入", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      {
+        id: "A",
+        label: "先問到底急在哪裡",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1, relationship: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "五分鐘真的五分鐘",
+            "你問清楚後發現只是缺一個連結，貼上去就能睡，人生少繞一座山。",
+            -1,
+            2,
+            { focus: 1, relationship: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "五分鐘長出尾巴",
+            "對方說完第一個問題，又補一句「還有一個小小的」。五分鐘長出尾巴，你只能剪短牠。",
+            -2,
+            1,
+            { relationship: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "直接接起來全程救援",
+        timeDeltaHours: -3,
+        effectiveMarks: 1,
+        indicatorDeltas: { relationship: 1 },
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "夜間客服英雄",
+            "你把事情救回來，對方很感謝，但你的睡眠已經送去急診。",
+            -3,
+            1,
+            { relationship: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "別人的急事住進棉被",
+            "你處理到一半才發現這不是求救，是整包專案移民到你床邊。",
+            -4,
+            -1
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "回一句明早處理，先睡",
+        timeDeltaHours: -1,
+        effectiveMarks: 1,
+        indicatorDeltas: { health: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "對方自己解掉了",
+            "你早上醒來發現對方已經處理完，原來世界偶爾會自己長腳。",
+            -1,
+            1,
+            { health: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "訊息堆成小山",
+            "你睡得很好，但早上手機像雪崩。你花時間把小山鏟平，還好沒有變火山。",
+            -2,
+            0
+          )
+        ]
+      }
     ]
   },
   {

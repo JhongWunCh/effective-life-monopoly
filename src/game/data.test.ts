@@ -1,9 +1,114 @@
 import { describe, expect, it } from "vitest";
 import { boardSpaces, cards, protagonists, teams } from "./data";
 import { indicatorKeys } from "./indicators";
+import type { Card } from "./types";
 
 const expectUniqueValues = <T>(values: T[]) => {
   expect(new Set(values).size).toBe(values.length);
+};
+
+const storyCardIds = [
+  "midnight-fate-phone",
+  "midnight-opportunity-prepare",
+  "signature-baby",
+  "midnight-fate-emergency",
+  "morning-opportunity-commute",
+  "morning-fate-meeting",
+  "signature-atu",
+  "afternoon-opportunity-help",
+  "afternoon-fate-request",
+  "evening-opportunity-study",
+  "evening-fate-overtime"
+] as const;
+
+const cannedOutcomeFragments = [
+  "意外順利",
+  "情況轉折",
+  "事情比預期順利",
+  "事情比預期多繞了一圈"
+];
+
+const getCardsById = (cardIds: readonly string[]): Card[] =>
+  cardIds.map((cardId) => {
+    const card = cards.find((item) => item.id === cardId);
+
+    if (!card) {
+      throw new Error(`Missing card fixture: ${cardId}`);
+    }
+
+    return card;
+  });
+
+const collectStoryCopy = (cardsToCheck: Card[]): string =>
+  cardsToCheck
+    .flatMap((card) => [
+      card.title,
+      card.text,
+      ...card.options.flatMap((option) => [
+        option.label,
+        ...(option.outcomes?.flatMap((outcome) => [outcome.title, outcome.text]) ?? [])
+      ])
+    ])
+    .join("\n");
+
+const collectMissingOutcomes = (cardsToCheck: Card[]) =>
+  cardsToCheck.flatMap((card) =>
+    card.options
+      .filter((option) => !option.outcomes?.length)
+      .map((option) => ({ cardId: card.id, optionId: option.id }))
+  );
+
+const collectCannedOutcomes = (cardsToCheck: Card[]) =>
+  cardsToCheck.flatMap((card) =>
+    card.options.flatMap((option) =>
+      (option.outcomes ?? [])
+        .filter((outcome) =>
+          cannedOutcomeFragments.some(
+            (fragment) => outcome.title.includes(fragment) || outcome.text.includes(fragment)
+          )
+        )
+        .map((outcome) => ({
+          cardId: card.id,
+          optionId: option.id,
+          outcomeId: outcome.id,
+          title: outcome.title
+        }))
+    )
+  );
+
+const collectSameMarkDifferentCostTradeoffs = (cardsToCheck: Card[]): string[] =>
+  cardsToCheck
+    .filter((card) => {
+      const marksToCosts = new Map<number, Set<number>>();
+
+      for (const option of card.options) {
+        const costs = marksToCosts.get(option.effectiveMarks) ?? new Set<number>();
+        costs.add(option.timeDeltaHours);
+        marksToCosts.set(option.effectiveMarks, costs);
+      }
+
+      return [...marksToCosts.values()].some((costs) => costs.size > 1);
+    })
+    .map((card) => card.id);
+
+const assertStoryCards = ({
+  cardIds,
+  requiredPhrases,
+  tradeoffCardIds
+}: {
+  cardIds: readonly string[];
+  requiredPhrases: readonly string[];
+  tradeoffCardIds: readonly string[];
+}) => {
+  const cardsToCheck = getCardsById(cardIds);
+  const storyCopy = collectStoryCopy(cardsToCheck);
+
+  expect(collectMissingOutcomes(cardsToCheck)).toEqual([]);
+  expect(collectCannedOutcomes(cardsToCheck)).toEqual([]);
+  expect(requiredPhrases.filter((phrase) => !storyCopy.includes(phrase))).toEqual([]);
+  expect(collectSameMarkDifferentCostTradeoffs(cardsToCheck)).toEqual(
+    expect.arrayContaining([...tradeoffCardIds])
+  );
 };
 
 describe("game data", () => {
@@ -108,6 +213,24 @@ describe("game data", () => {
       const protagonist = protagonists.find((item) => item.id === team.protagonistId)!;
       expect(team.indicators).toEqual(protagonist.baseIndicators);
     }
+  });
+
+  it("upgrades midnight and baby story cards with custom reversals", () => {
+    assertStoryCards({
+      cardIds: [
+        "midnight-fate-phone",
+        "midnight-opportunity-prepare",
+        "signature-baby",
+        "midnight-fate-emergency"
+      ],
+      requiredPhrases: [
+        "群組像續訂影集",
+        "主管的眉毛先到會議室",
+        "老師請家長來開股東會",
+        "五分鐘長出尾巴"
+      ],
+      tradeoffCardIds: ["midnight-opportunity-prepare", "midnight-fate-emergency"]
+    });
   });
 
   it("gives opportunity and fate cards at least one option that grows key indicators", () => {
@@ -307,7 +430,7 @@ describe("game data", () => {
         text: "神童早上上課 5 小時，下午還要用奶瓶主持商業決策，人生履歷比身高長。",
         options: [
           { id: "A", label: "乖乖上課，拿蠟筆畫出年度策略", timeDeltaHours: -5, effectiveMarks: 3 },
-          { id: "B", label: "在教室宣布併購溜滑梯，老師請家長來", timeDeltaHours: -6, effectiveMarks: 1 }
+          { id: "B", label: "在教室宣布併購溜滑梯", timeDeltaHours: -6, effectiveMarks: 1 }
         ]
       },
       "signature-sun": {
