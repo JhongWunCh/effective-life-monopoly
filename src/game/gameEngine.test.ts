@@ -246,7 +246,12 @@ describe("game engine", () => {
       lastRoll: 21,
       teams: teams.map((team, index) => (index === 0 ? { ...team, remainingHours: 1 } : { ...team }))
     };
-    const option = cards.find((card) => card.id === "evening-fate-overtime")!.options[1]!;
+    const option = {
+      id: "B" as const,
+      label: "stable overrun fixture",
+      timeDeltaHours: -3,
+      effectiveMarks: 2
+    };
 
     const next = applyOption(state, option, () => 0);
 
