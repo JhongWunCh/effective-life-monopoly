@@ -253,6 +253,14 @@ describe("game data", () => {
     });
   });
 
+  it("upgrades evening story cards with study and overtime reversals", () => {
+    assertStoryCards({
+      cardIds: ["evening-opportunity-study", "evening-fate-overtime"],
+      requiredPhrases: ["時間黑洞把晚上收走", "報告交了，人也快交出去", "主管已讀，眉毛又出現"],
+      tradeoffCardIds: ["evening-fate-overtime"]
+    });
+  });
+
   it("gives opportunity and fate cards at least one option that grows key indicators", () => {
     const opportunityAndFateCards = cards.filter(
       (card) => card.type === "opportunity" || card.type === "fate"

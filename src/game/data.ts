@@ -1280,9 +1280,85 @@ const baseCards: Card[] = [
     title: "晚間自我投資",
     text: "晚上剩下一點時間，學習與休息都在爭取你的注意力。",
     options: [
-      { id: "A", label: "完成一個小單元的學習", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { achievement: 1 } },
-      { id: "B", label: "一路滑手機到準備睡覺", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "整理今天學到的重點", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } }
+      {
+        id: "A",
+        label: "完成一個小單元的學習",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { achievement: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "小單元真的小",
+            "你完成一段剛好的學習，沒有開啟知識無底洞，明天能直接用。",
+            -1,
+            2,
+            { achievement: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "小單元打開隱藏章節",
+            "你本來只想學一節，結果課程推薦像樓梯一路往下，還好你有在中途煞車。",
+            -2,
+            1,
+            { achievement: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "一路滑手機到準備睡覺",
+        timeDeltaHours: -1,
+        effectiveMarks: 0,
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "滑到一支有用教學",
+            "你在短影音裡撈到一個明天可用的小技巧，雖然前面先繳了注意力門票。",
+            -1,
+            1,
+            { achievement: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "時間黑洞把晚上收走",
+            "你抬頭時已經過了一小時，時間黑洞把晚上收走，還順手留下眼睛乾澀。",
+            -3,
+            -1
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "整理今天學到的重點",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1, achievement: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "三行筆記明天可用",
+            "你把今天學到的東西整理成三行，明天不用重挖記憶礦坑。",
+            -1,
+            2,
+            { focus: 1, achievement: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "整理變成美化筆記",
+            "你整理到一半開始調格式，筆記變漂亮了，重點也差點被裝潢蓋住。",
+            -2,
+            1,
+            { achievement: 1 }
+          )
+        ]
+      }
     ]
   },
   {
@@ -1292,8 +1368,85 @@ const baseCards: Card[] = [
     title: "加班訊息出現",
     text: "工作追到晚上，訊息寫著很急，卻未必非今天不可。",
     options: [
-      { id: "A", label: "確認今天是否真的必須完成", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
-      { id: "B", label: "直接加班到深夜", timeDeltaHours: -2, effectiveMarks: 1 }
+      {
+        id: "A",
+        label: "確認今天是否真的必須完成",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { time: 1, focus: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "急件其實明早才要",
+            "你問完才知道明早十點前即可，今晚不用把自己變成辦公室夜燈。",
+            -1,
+            2,
+            { time: 1, focus: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "真的今晚要，但砍掉一半範圍",
+            "它真的今晚要，不過你問出最小版本，至少不用把整座山搬回家。",
+            -2,
+            1,
+            { focus: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "直接加班到深夜",
+        timeDeltaHours: -3,
+        effectiveMarks: 1,
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "報告交了，人也快交出去",
+            "你硬是交出版本，報告交了，人也快交出去。明天的精神狀態先欠著。",
+            -3,
+            1,
+            { achievement: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "加班訊息會繁殖",
+            "你回得越快，新需求越像分裂細胞。深夜沒有結束，只是換一個檔名。",
+            -4,
+            -1
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "先回覆可交付範圍與明早補件",
+        timeDeltaHours: -2,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1, relationship: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "主管接受半夜不要開副本",
+            "你先交出可用部分，明早補完整版本。主管接受，大家都少一點午夜表演。",
+            -2,
+            2,
+            { focus: 1, relationship: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "主管已讀，眉毛又出現",
+            "主管已讀，眉毛又出現，但你有清楚交代範圍，場面沒有失控。",
+            -2.5,
+            1,
+            { relationship: 1 }
+          )
+        ]
+      }
     ]
   },
   {
