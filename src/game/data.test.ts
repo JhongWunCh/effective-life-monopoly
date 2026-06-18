@@ -233,6 +233,14 @@ describe("game data", () => {
     });
   });
 
+  it("upgrades morning story cards with meeting and commute reversals", () => {
+    assertStoryCards({
+      cardIds: ["morning-opportunity-commute", "morning-fate-meeting"],
+      requiredPhrases: ["拇指先上班了", "會議長出三個會議", "三行變三頁"],
+      tradeoffCardIds: ["morning-fate-meeting"]
+    });
+  });
+
   it("gives opportunity and fate cards at least one option that grows key indicators", () => {
     const opportunityAndFateCards = cards.filter(
       (card) => card.type === "opportunity" || card.type === "fate"

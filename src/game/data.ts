@@ -743,9 +743,85 @@ const baseCards: Card[] = [
     title: "通勤時間選擇",
     text: "捷運晃動之間，短影音很容易吃掉整段通勤。",
     options: [
-      { id: "A", label: "聽一段學習音訊", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { achievement: 1 } },
-      { id: "B", label: "一路滑短影音到下車", timeDeltaHours: -1, effectiveMarks: 0 },
-      { id: "C", label: "在腦中預演今天第一句開場", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1 } }
+      {
+        id: "A",
+        label: "聽一段學習音訊",
+        timeDeltaHours: -1,
+        effectiveMarks: 1,
+        indicatorDeltas: { achievement: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "耳機變成小教練",
+            "你聽到一個剛好能用的方法，抵達公司時腦袋已經暖機。",
+            -1,
+            2,
+            { achievement: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "知識坐過站",
+            "你聽得太投入，聽到站名才發現自己多坐兩站，學習有進帳，時間有扣款。",
+            -2,
+            0,
+            { achievement: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "一路滑短影音到下車",
+        timeDeltaHours: -1,
+        effectiveMarks: 0,
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "演算法突然做功德",
+            "你滑到一支真的有用的整理技巧，雖然前面三十支都在教人煎蛋。",
+            -1,
+            1,
+            { achievement: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "拇指先上班了",
+            "你人還沒到公司，拇指先上班了。下車時腦袋像剛被廣告洗過。",
+            -2,
+            -1
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "在腦中預演今天第一句開場",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "開場不像臨時下載",
+            "你一開口就知道要講什麼，會議室少了一段尷尬空白。",
+            -1,
+            2,
+            { focus: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "預演到忘記下車",
+            "你把開場講得很順，代價是多搭一站。人生有時候連練習都會外溢。",
+            -1.5,
+            1,
+            { focus: 1 }
+          )
+        ]
+      }
     ]
   },
   {
@@ -755,8 +831,84 @@ const baseCards: Card[] = [
     title: "臨時會議插隊",
     text: "臨時會議突然出現，卻沒有清楚議程。",
     options: [
-      { id: "A", label: "先確認會議要決定什麼", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, achievement: 1 } },
-      { id: "B", label: "直接進會議，照單全收", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      {
+        id: "A",
+        label: "先確認會議要決定什麼",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1, achievement: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "議程被你救回來",
+            "你問出真正要決定的事，會議從迷宮變成走廊。",
+            -1,
+            2,
+            { focus: 1, achievement: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "你被任命成會議消防隊",
+            "大家發現你會問重點，於是把所有混亂都推到你面前排隊。",
+            -2,
+            1,
+            { focus: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "直接進會議，照單全收",
+        timeDeltaHours: -2,
+        effectiveMarks: 0,
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "會議奇蹟早退場",
+            "主持人突然想起下一場會議，這場只留下三個決議和一點困惑。",
+            -1,
+            1
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "會議長出三個會議",
+            "你沒先問目的，會議長出三個會議，還附贈一份會後追蹤表。",
+            -3,
+            -1
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "請對方先丟三行結論",
+        timeDeltaHours: -1.5,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "三行救全場",
+            "對方真的丟三行，你用十分鐘判斷方向，上午主線保住。",
+            -1.5,
+            2,
+            { focus: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "三行變三頁",
+            "對方說三行，結果每行都像瀑布。你還是比直接開會少迷路一點。",
+            -2,
+            1,
+            { focus: 1 }
+          )
+        ]
+      }
     ]
   },
   {
