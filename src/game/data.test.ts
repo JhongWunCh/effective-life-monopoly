@@ -241,6 +241,18 @@ describe("game data", () => {
     });
   });
 
+  it("upgrades afternoon story cards with health, help, and urgent request reversals", () => {
+    assertStoryCards({
+      cardIds: ["signature-atu", "afternoon-opportunity-help", "afternoon-fate-request"],
+      requiredPhrases: ["八點檔只剩片尾曲", "三分鐘變成共同作者", "假火警燒掉下午"],
+      tradeoffCardIds: [
+        "signature-atu",
+        "afternoon-opportunity-help",
+        "afternoon-fate-request"
+      ]
+    });
+  });
+
   it("gives opportunity and fate cards at least one option that grows key indicators", () => {
     const opportunityAndFateCards = cards.filter(
       (card) => card.type === "opportunity" || card.type === "fate"
@@ -428,7 +440,8 @@ describe("game data", () => {
         text: "早上耕田、下午拿藥，晚上八點檔準時召喚淚水，人生比連續劇還會轉台。",
         options: [
           { id: "A", label: "用工具提早收工，八點檔前把藥拿好", timeDeltaHours: -2, effectiveMarks: 3 },
-          { id: "B", label: "在醫院聊到片頭曲響起，回家只剩主題曲", timeDeltaHours: -3, effectiveMarks: 1 }
+          { id: "B", label: "在醫院聊到片頭曲響起", timeDeltaHours: -3, effectiveMarks: 1 },
+          { id: "C", label: "先問清楚拿藥流程，下次少跑一趟", timeDeltaHours: -1.5, effectiveMarks: 3 }
         ]
       },
       "signature-baby": {

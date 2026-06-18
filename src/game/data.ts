@@ -966,8 +966,87 @@ const baseCards: Card[] = [
     title: "阿吐伯：田埂、拿藥與八點檔宇宙",
     text: "早上耕田、下午拿藥，晚上八點檔準時召喚淚水，人生比連續劇還會轉台。",
     options: [
-      { id: "A", label: "用工具提早收工，八點檔前把藥拿好", timeDeltaHours: -2, effectiveMarks: 3, indicatorDeltas: { time: 1, energy: 1, health: 1 } },
-      { id: "B", label: "在醫院聊到片頭曲響起，回家只剩主題曲", timeDeltaHours: -3, effectiveMarks: 1 }
+      {
+        id: "A",
+        label: "用工具提早收工，八點檔前把藥拿好",
+        timeDeltaHours: -2,
+        effectiveMarks: 3,
+        indicatorDeltas: { time: 1, energy: 1, health: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "田埂出現省時路線",
+            "工具幫你少走一趟，藥也順利拿到，八點檔片頭曲完整保留。",
+            -2,
+            3,
+            { time: 1, energy: 1, health: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "工具卡泥巴",
+            "工具有效，但先在田裡跟泥巴交流感情。你還是省到一點時間，只是鞋子很有故事。",
+            -3,
+            2,
+            { energy: 1, health: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "在醫院聊到片頭曲響起",
+        timeDeltaHours: -3,
+        effectiveMarks: 1,
+        indicatorDeltas: { relationship: 1, health: 1 },
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "護理師順手提醒回診",
+            "你聊得久，但順便確認下次回診時間，健康行程沒有漏。",
+            -3,
+            2,
+            { relationship: 1, health: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "八點檔只剩片尾曲",
+            "你從藥聊到隔壁村的水稻價格，回家時八點檔只剩片尾曲和你的懊悔。",
+            -4,
+            0,
+            { relationship: 1 }
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "先問清楚拿藥流程，下次少跑一趟",
+        timeDeltaHours: -1.5,
+        effectiveMarks: 3,
+        indicatorDeltas: { time: 1, health: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "下次省下一趟路",
+            "你問到固定流程和可領時間，今天花一點心力，未來少跑一趟。",
+            -1.5,
+            3,
+            { time: 1, health: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "窗口請你先抽號碼牌",
+            "流程問到了，但窗口先請你抽號碼牌。效率沒有飛起來，至少方向清楚。",
+            -2.5,
+            2,
+            { health: 1 }
+          )
+        ]
+      }
     ]
   },
   {
@@ -977,9 +1056,87 @@ const baseCards: Card[] = [
     title: "同事臨時求助",
     text: "同事卡住來求救，說只要三分鐘，實際上可能牽動你的下午安排。",
     options: [
-      { id: "A", label: "直接接手，先替對方解決", timeDeltaHours: -1, effectiveMarks: 1, indicatorDeltas: { relationship: 1 } },
-      { id: "B", label: "寫下下一步和截止線，讓對方自己推進", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { focus: 1, relationship: 1 } },
-      { id: "C", label: "約定固定答疑時段，避免問題一直插隊", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1 } }
+      {
+        id: "A",
+        label: "直接接手，先替對方解決",
+        timeDeltaHours: -2,
+        effectiveMarks: 1,
+        indicatorDeltas: { relationship: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "你三分鐘變出答案",
+            "這次真的很小，你出手後問題消失，同事看你的眼神像看到熱水器修好。",
+            -2,
+            2,
+            { relationship: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "三分鐘變成共同作者",
+            "你接手後發現坑比畫面大，三分鐘變成共同作者，下午主線被迫讓座。",
+            -3,
+            0,
+            { relationship: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "寫下下一步和截止線，讓對方自己推進",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { focus: 1, relationship: 1 },
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "對方自己通關",
+            "你給出下一步後，對方真的自己推進，你保住主線，也保住關係。",
+            -1,
+            2,
+            { focus: 1, relationship: 1 }
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "下一題又來了",
+            "對方照著你的下一步做完，立刻帶著下一題回來。至少問題被切小了。",
+            -2,
+            1,
+            { relationship: 1 }
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "約定固定答疑時段，避免問題一直插隊",
+        timeDeltaHours: -1.5,
+        effectiveMarks: 2,
+        indicatorDeltas: { time: 1, relationship: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "插隊問題排隊成功",
+            "大家把問題集中到同一段時間，你的下午終於不再被通知切片。",
+            -1.5,
+            2,
+            { time: 1, relationship: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "小型門診開張",
+            "答疑時段被揪成小型門診，但至少病人都排同一排，沒有衝進你的主線。",
+            -2,
+            1,
+            { relationship: 1 }
+          )
+        ]
+      }
     ]
   },
   {
@@ -989,8 +1146,83 @@ const baseCards: Card[] = [
     title: "突發請託",
     text: "新的請託看起來很急，但還需要判斷它是否真的重要。",
     options: [
-      { id: "A", label: "先問截止時間與實際影響", timeDeltaHours: -1, effectiveMarks: 2, indicatorDeltas: { time: 1, focus: 1 } },
-      { id: "B", label: "立刻放下手邊工作，先處理再說", timeDeltaHours: -1.5, effectiveMarks: 0 }
+      {
+        id: "A",
+        label: "先問截止時間與實際影響",
+        timeDeltaHours: -1,
+        effectiveMarks: 2,
+        indicatorDeltas: { time: 1, focus: 1 },
+        outcomes: [
+          storyOutcome(
+            "A-good",
+            "good",
+            "急件卸妝後不急",
+            "你問完才發現它明天中午前就行，急件卸妝後只是普通件。",
+            -1,
+            2,
+            { time: 1, focus: 1 }
+          ),
+          storyOutcome(
+            "A-bad",
+            "bad",
+            "真的急，但範圍縮小",
+            "它真的急，不過你問出最小交付範圍，火勢沒有燒到整片下午。",
+            -2,
+            1,
+            { focus: 1 }
+          )
+        ]
+      },
+      {
+        id: "B",
+        label: "立刻放下手邊工作，先處理再說",
+        timeDeltaHours: -2,
+        effectiveMarks: 0,
+        outcomes: [
+          storyOutcome(
+            "B-good",
+            "good",
+            "你救到一個真火警",
+            "這次真的會出事，你即時處理，雖然下午被切開，但災情沒有擴大。",
+            -2,
+            1
+          ),
+          storyOutcome(
+            "B-bad",
+            "bad",
+            "假火警燒掉下午",
+            "你衝過去才發現只是對方沒看說明，假火警燒掉下午，你的主線在旁邊冒煙。",
+            -3,
+            -1
+          )
+        ]
+      },
+      {
+        id: "C",
+        label: "請對方排進今日三件事後面",
+        timeDeltaHours: -1.5,
+        effectiveMarks: 2,
+        indicatorDeltas: { time: 1 },
+        outcomes: [
+          storyOutcome(
+            "C-good",
+            "good",
+            "順序保住主線",
+            "對方接受排程，你先完成主線，再回來處理請託，下午沒有被整碗端走。",
+            -1.5,
+            2,
+            { time: 1 }
+          ),
+          storyOutcome(
+            "C-bad",
+            "bad",
+            "排隊也會敲門",
+            "對方每十分鐘問一次排到了嗎，你保住主線，但通知像門鈴一樣勤勞。",
+            -2,
+            0
+          )
+        ]
+      }
     ]
   },
   {
