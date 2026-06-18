@@ -261,6 +261,16 @@ describe("game data", () => {
     });
   });
 
+  it("keeps every opportunity and fate card on custom story outcomes", () => {
+    const storyCards = cards.filter((card) => card.type === "opportunity" || card.type === "fate");
+    const storyCardIdList = storyCards.map((card) => card.id).sort();
+
+    expect(storyCardIdList).toEqual([...storyCardIds].sort());
+    expect(collectMissingOutcomes(storyCards)).toEqual([]);
+    expect(collectCannedOutcomes(storyCards)).toEqual([]);
+    expect(collectSameMarkDifferentCostTradeoffs(storyCards).length).toBeGreaterThanOrEqual(5);
+  });
+
   it("gives opportunity and fate cards at least one option that grows key indicators", () => {
     const opportunityAndFateCards = cards.filter(
       (card) => card.type === "opportunity" || card.type === "fate"
