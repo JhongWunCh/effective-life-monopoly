@@ -18,7 +18,8 @@ const typeLabels: Record<SpaceType, string> = {
   action: "行動",
   opportunity: "機會",
   fate: "命運",
-  reflection: "反思"
+  reflection: "反思",
+  boss: "魔王"
 };
 
 const formatTimeEffect = (hours: number) => {
@@ -78,7 +79,7 @@ export function CardPanel({ card, displayedOptions, lastOutcome, onApplyOption }
     <section className={`card-panel card-panel-drawn period-${card.period} type-${card.type}`} aria-label="事件卡">
       <div className="card-meta">
         <span>{typeLabels[card.type]}</span>
-        <span>{periodLabels[card.period]}</span>
+        <span>{card.type === "boss" ? "特殊問題" : periodLabels[card.period]}</span>
       </div>
       <h2>{card.title}</h2>
       <p className="card-text">{card.text}</p>

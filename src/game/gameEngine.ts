@@ -1,3 +1,4 @@
+import { bossChallengeCards } from "./bossQuestions";
 import { boardSpaces, teams as initialTeams } from "./data";
 import { indicatorKeys } from "./indicators";
 import type { Indicators } from "./types";
@@ -72,7 +73,7 @@ export function moveCurrentTeam(state: GameState, roll: number): GameState {
       index === state.currentTeamIndex ? { ...team, position: nextPosition } : { ...team }
     ),
     currentTeamIndex: state.currentTeamIndex,
-    currentCardId: getFirstCardIdForPosition(nextPosition),
+    currentCardId: getCardIdForLanding(state, nextPosition),
     lastRoll: roll,
     isResultsVisible: false,
     settings: state.settings,
@@ -142,9 +143,9 @@ export function resolveOptionOutcome(
     optionId: option.id,
     optionLabel: option.label,
     isRandom: false,
-    tone: "fixed",
-    title: "選擇結果",
-    text: "這個選擇立即生效。",
+    tone: option.isCorrect === undefined ? "fixed" : option.isCorrect ? "good" : "bad",
+    title: option.isCorrect === undefined ? "選擇結果" : option.isCorrect ? "答對" : "答錯",
+    text: option.explanation ?? "這個選擇立即生效。",
     timeDeltaHours: option.timeDeltaHours,
     effectiveMarks: option.effectiveMarks,
     indicatorDeltas: option.indicatorDeltas
@@ -333,6 +334,35 @@ function positiveModulo(value: number, divisor: number): number {
 
 function getFirstCardIdForPosition(position: number): string | undefined {
   return boardSpaces.find((space) => space.id === position)?.cardIds[0];
+}
+
+function getCardIdForLanding(state: GameState, position: number): string | undefined {
+  const space = boardSpaces.find((item) => item.id === position);
+
+  if (!space) {
+    return undefined;
+  }
+
+  const nextTurnRound = Math.floor(state.completedTurns / Math.max(1, state.teams.length)) + 1;
+  const isSecondRound = nextTurnRound === 2;
+  const isBossExemptSpace = space.type === "opportunity" || space.type === "fate";
+  const shouldUseBossChallenge = isSecondRound || (nextTurnRound >= 3 && !isBossExemptSpace);
+
+  if (shouldUseBossChallenge) {
+    return getBossChallengeCardId(state.completedTurns, position);
+  }
+
+  return getFirstCardIdForPosition(position);
+}
+
+function getBossChallengeCardId(completedTurns: number, position: number): string | undefined {
+  if (bossChallengeCards.length === 0) {
+    return undefined;
+  }
+
+  const challengeIndex = positiveModulo(completedTurns + position, bossChallengeCards.length);
+
+  return bossChallengeCards[challengeIndex]?.id;
 }
 
 function normalizeSettings(settings: GameSettings): GameSettings {

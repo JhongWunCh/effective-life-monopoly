@@ -15,7 +15,8 @@ const typeLabels: Record<SpaceType, string> = {
   action: "一般",
   opportunity: "機會",
   fate: "命運",
-  reflection: "一般"
+  reflection: "一般",
+  boss: "魔王"
 };
 
 const teamTokenLabels: Record<string, string> = {

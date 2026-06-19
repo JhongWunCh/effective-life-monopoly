@@ -1,3 +1,4 @@
+import { bossChallengeCards } from "./bossQuestions";
 import type { BoardSpace, Card, CardOption, CardOutcome, Protagonist, Team } from "./types";
 
 export const protagonists: Protagonist[] = [
@@ -1487,14 +1488,17 @@ const baseCards: Card[] = [
   }
 ];
 
-export const cards: Card[] = baseCards.map((card) =>
-  card.type === "opportunity" || card.type === "fate"
-    ? {
-        ...card,
-        options: card.options.map(withDefaultRandomOutcomes)
-      }
-    : card
-);
+export const cards: Card[] = [
+  ...baseCards.map((card) =>
+    card.type === "opportunity" || card.type === "fate"
+      ? {
+          ...card,
+          options: card.options.map(withDefaultRandomOutcomes)
+        }
+      : card
+  ),
+  ...bossChallengeCards
+];
 
 function withDefaultRandomOutcomes(option: CardOption): CardOption {
   if (option.outcomes?.length) {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { boardSpaces, cards, protagonists, teams } from "./data";
+import { bossChallengeCards } from "./bossQuestions";
 import { indicatorKeys } from "./indicators";
 import type { Card } from "./types";
 
@@ -138,6 +139,37 @@ describe("game data", () => {
     for (const protagonist of protagonists) {
       expect(cardIds.has(protagonist.signatureCardId)).toBe(true);
     }
+  });
+
+  it("defines a large boss challenge question bank with one correct answer each", () => {
+    expect(bossChallengeCards.length).toBeGreaterThanOrEqual(40);
+    expect(cards.map((card) => card.id)).toEqual(
+      expect.arrayContaining(bossChallengeCards.map((card) => card.id))
+    );
+
+    for (const card of bossChallengeCards) {
+      expect(card.type).toBe("boss");
+      expect(card.title).toMatch(/^魔王題 /);
+      expect(card.options).toHaveLength(3);
+      expect(card.options.filter((option) => option.isCorrect)).toHaveLength(1);
+      expect(card.options.every((option) => option.explanation && option.explanation.length > 0)).toBe(true);
+      expect(card.options.every((option) => option.timeDeltaHours <= -1)).toBe(true);
+    }
+  });
+
+  it("includes Chad's requested boss challenge examples", () => {
+    const bossCopy = bossChallengeCards
+      .flatMap((card) => [
+        card.title,
+        card.text,
+        ...card.options.flatMap((option) => [option.label, option.explanation ?? ""])
+      ])
+      .join("\n");
+
+    expect(bossCopy).toContain("戰鬥陀螺");
+    expect(bossCopy).toContain("3、2、1，Go Shoot");
+    expect(bossCopy).toContain("以下何者不是周星馳電影");
+    expect(bossCopy).toContain("與龍共舞");
   });
 
   it("defines Chad's approved protagonist personas and fixed burdens", () => {

@@ -298,6 +298,22 @@ button {
   border-color: #6078bd;
 }
 
+.card-panel.type-boss {
+  background: #fff1d8;
+  border-color: #c55721;
+  box-shadow: 0 12px 22px rgb(126 54 16 / 18%);
+}
+
+.card-panel.type-boss .card-meta span {
+  background: #7e3610;
+}
+
+.card-panel.type-boss .option-button:hover,
+.card-panel.type-boss .option-button:focus-visible {
+  border-color: #c55721;
+  box-shadow: 0 0 0 3px rgb(197 87 33 / 18%);
+}
+
 .space-meta,
 .card-meta,
 .score-card-header,

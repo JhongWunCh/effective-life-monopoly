@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { bossChallengeCards } from "./bossQuestions";
 import { boardSpaces, cards, teams } from "./data";
 import {
   applyOption,
@@ -28,6 +29,24 @@ function expectFlatHistory(state: GameState): void {
   state.history.forEach((snapshot) => {
     expect(snapshot).not.toHaveProperty("history");
   });
+}
+
+function completeTurns(state: GameState, turnCount: number): GameState {
+  const option = {
+    id: "A" as const,
+    label: "stable boss round fixture",
+    timeDeltaHours: -1,
+    effectiveMarks: 1
+  };
+
+  return Array.from({ length: turnCount }).reduce<GameState>(
+    (currentState) => applyOption(currentState, option),
+    state
+  );
+}
+
+function expectBossCard(cardId: string | undefined): void {
+  expect(bossChallengeCards.map((card) => card.id)).toContain(cardId);
 }
 
 describe("game engine", () => {
@@ -85,6 +104,32 @@ describe("game engine", () => {
     expect(state.currentCardId).toBeUndefined();
     expect(state.lastRoll).toBeUndefined();
     expect(state.history).toEqual([]);
+  });
+
+  it("uses boss challenge cards for every team in the second round", () => {
+    const secondRoundState = completeTurns(createInitialGameState({ targetRounds: 3 }), 4);
+
+    expectBossCard(moveCurrentTeam(secondRoundState, 1).currentCardId);
+    expectBossCard(moveCurrentTeam(secondRoundState, 3).currentCardId);
+  });
+
+  it("uses normal opportunity and fate spaces as boss exemptions from the third round onward", () => {
+    const thirdRoundState = completeTurns(createInitialGameState({ targetRounds: 3 }), 8);
+    const opportunityLanding = moveCurrentTeam(thirdRoundState, 3);
+    const fateLanding = moveCurrentTeam(thirdRoundState, 1);
+
+    expect(boardSpaces[3]!.type).toBe("opportunity");
+    expect(opportunityLanding.currentCardId).toBe(boardSpaces[3]!.cardIds[0]);
+    expect(boardSpaces[1]!.type).toBe("fate");
+    expect(fateLanding.currentCardId).toBe(boardSpaces[1]!.cardIds[0]);
+  });
+
+  it("uses boss challenge cards on non-opportunity and non-fate spaces from the third round onward", () => {
+    const thirdRoundState = completeTurns(createInitialGameState({ targetRounds: 3 }), 8);
+    const actionLanding = moveCurrentTeam(thirdRoundState, 2);
+
+    expect(boardSpaces[2]!.type).toBe("action");
+    expectBossCard(actionLanding.currentCardId);
   });
 
   it("wraps over 24 spaces using zero-based board positions", () => {

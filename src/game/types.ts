@@ -1,5 +1,5 @@
 export type Period = "midnight" | "morning" | "afternoon" | "evening";
-export type SpaceType = "action" | "opportunity" | "fate" | "reflection";
+export type SpaceType = "action" | "opportunity" | "fate" | "reflection" | "boss";
 export type IndicatorKey =
   | "time"
   | "energy"
@@ -53,6 +53,8 @@ export type CardOption = {
   effectiveMarks: number;
   indicatorDeltas?: Partial<Indicators>;
   outcomes?: CardOutcome[];
+  isCorrect?: boolean;
+  explanation?: string;
 };
 
 export type CardOutcome = {
