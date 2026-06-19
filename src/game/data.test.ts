@@ -210,6 +210,63 @@ describe("game data", () => {
     expect(hardQuestionCount).toBeGreaterThanOrEqual(35);
   });
 
+  it("leans boss challenge topics toward entertainment and pop culture", () => {
+    const popCultureMarkers = [
+      "周星馳",
+      "電影",
+      "影集",
+      "韓團",
+      "K-pop",
+      "BLACKPINK",
+      "BTS",
+      "IVE",
+      "aespa",
+      "NewJeans",
+      "TWICE",
+      "戰鬥陀螺",
+      "寶可夢",
+      "Labubu",
+      "盲盒",
+      "扭蛋",
+      "動漫",
+      "柯南",
+      "海賊王",
+      "灌籃高手",
+      "鬼滅",
+      "魷魚遊戲"
+    ];
+    const technicalMarkers = [
+      "天文",
+      "pH",
+      "DNA",
+      "RNA",
+      "HTTP",
+      "SQL",
+      "CSS",
+      "Git",
+      "二進位",
+      "Regex",
+      "DNS",
+      "QR Code",
+      "p-value",
+      "貝氏",
+      "酸鹼",
+      "光年",
+      "金星"
+    ];
+    const cardCopy = (card: Card) =>
+      [card.title, card.text, ...card.options.map((option) => option.label)].join("\n");
+    const popCultureCount = bossChallengeCards.filter((card) =>
+      popCultureMarkers.some((marker) => cardCopy(card).includes(marker))
+    ).length;
+    const technicalCount = bossChallengeCards.filter((card) =>
+      technicalMarkers.some((marker) => cardCopy(card).includes(marker))
+    ).length;
+
+    expect(popCultureCount).toBeGreaterThanOrEqual(28);
+    expect(technicalCount).toBeLessThanOrEqual(8);
+  });
+
   it("defines Chad's approved protagonist personas and fixed burdens", () => {
     expect(
       protagonists.map(({ baseIndicators: _baseIndicators, ...protagonist }) => protagonist)

@@ -46,6 +46,51 @@ export const bossChallengeCards: Card[] = [
     correctAnswer("B", "3、2、1，Go Shoot!", "常見喊法是「3、2、1，Go Shoot!」，不是單純 Start。"),
     wrongAnswer("C", "Let us battle, Spin On", "這是混合英文熱血台詞，不是常見口號。")
   ]),
+  bossQuestion("boss-beyblade-battle-basic", "戰鬥陀螺對戰常識", "玩戰鬥陀螺時，下列何者最像正常對戰行為？", [
+    correctAnswer("A", "用發射器把陀螺發射進對戰盤", "戰鬥陀螺核心就是用發射器讓陀螺在場地中對戰。"),
+    wrongAnswer("B", "把陀螺拿在手上互敲，看誰比較痛", "這不是正常玩法，也不安全。"),
+    wrongAnswer("C", "把陀螺當骰子丟，點數大的人贏", "陀螺不是骰子，對戰看旋轉與碰撞。")
+  ]),
+  bossQuestion("boss-labubu-blind-box", "Labubu 與盲盒", "近年很紅的 Labubu，最常和下列哪一種收藏玩法連在一起？", [
+    wrongAnswer("A", "買菜送集點貼紙", "這比較像超市集點，不是 Labubu 熱潮的核心玩法。"),
+    correctAnswer("B", "盲盒抽款與隱藏款收藏", "Labubu 常和 POP MART、盲盒、隱藏款收藏一起被討論。"),
+    wrongAnswer("C", "只能在電影院看 3D 版", "Labubu 是收藏玩具，不是電影放映格式。")
+  ]),
+  bossQuestion("boss-blind-box-secret", "盲盒隱藏款陷阱", "玩盲盒時，下列何者最精準？", [
+    wrongAnswer("A", "每盒都保證抽到隱藏款", "隱藏款通常是低機率，不是每盒保證。"),
+    correctAnswer("B", "買到哪一款有隨機性，隱藏款通常更稀有", "盲盒的驚喜感來自隨機與稀有款設計。"),
+    wrongAnswer("C", "拆盒前一定能從外盒知道內容物", "如果拆盒前完全知道，就不太像盲盒了。")
+  ]),
+  bossQuestion("boss-pokemon-card-basic", "寶可夢卡牌對戰", "寶可夢卡牌對戰中，下列何者最像合理的遊戲元素？", [
+    wrongAnswer("A", "用卡牌刮出發票號碼決定勝負", "這不是寶可夢卡牌對戰規則。"),
+    correctAnswer("B", "寶可夢、能量與招式搭配", "寶可夢卡牌常見玩法會牽涉寶可夢、能量與招式。"),
+    wrongAnswer("C", "輸的人要把手機交給裁判保管一週", "這不是正常卡牌對戰規則。")
+  ]),
+  bossQuestion("boss-gashapon-random", "轉蛋玩法", "扭蛋或轉蛋最核心的樂趣，下列何者最精準？", [
+    correctAnswer("A", "投入金額後隨機取得系列中的一款", "扭蛋的重點通常是系列收藏與隨機抽取。"),
+    wrongAnswer("B", "每次都能指定拿展示櫃正中央那款", "通常不能完全指定款式。"),
+    wrongAnswer("C", "按一次會印出電影票", "這不是轉蛋收藏的核心玩法。")
+  ]),
+  bossQuestion("boss-lego-play", "樂高玩法陷阱", "下列何者最像 LEGO 樂高的核心玩法？", [
+    wrongAnswer("A", "積木一拆封就永久黏死，不能重組", "樂高的樂趣之一就是組裝與重組。"),
+    correctAnswer("B", "用積木零件組裝、拆解、再創作", "樂高核心在組裝與創造。"),
+    wrongAnswer("C", "只能拿來播放音樂，不能組東西", "這和樂高的主要玩法不符。")
+  ]),
+  bossQuestion("boss-tamagotchi", "電子雞照顧陷阱", "經典電子雞 / Tamagotchi 類玩具，下列何者最精準？", [
+    correctAnswer("A", "需要定時餵食、清潔或互動照顧虛擬寵物", "電子雞的核心就是照顧虛擬寵物。"),
+    wrongAnswer("B", "只能拿來遠端開公司會議", "這不是電子雞的用途。"),
+    wrongAnswer("C", "按下去會自動變成戰鬥陀螺發射器", "電子雞和戰鬥陀螺是不同玩具。")
+  ]),
+  bossQuestion("boss-chiikawa", "吉伊卡哇辨識", "近年常出現在貼圖、娃娃與周邊的「吉伊卡哇」，下列何者最合理？", [
+    wrongAnswer("A", "NBA 球隊名稱", "吉伊卡哇不是籃球隊。"),
+    correctAnswer("B", "日本角色 IP，常被做成周邊收藏", "吉伊卡哇是近年很常見的角色周邊題材。"),
+    wrongAnswer("C", "一種 SQL 資料庫指令", "這不是工程指令。")
+  ]),
+  bossQuestion("boss-collector-choice", "收藏理性題", "抽盲盒一直抽不到想要的隱藏款，下列何者最合理？", [
+    wrongAnswer("A", "把生活費全押下去，因為下一盒一定中", "這是賭徒謬誤，不是理性收藏。"),
+    correctAnswer("B", "先設定預算上限，必要時用交換或二手方式補齊", "收藏可以好玩，但仍要控制成本。"),
+    wrongAnswer("C", "宣布自己已經是官方設計師", "抽不到隱藏款不會讓人變官方設計師。")
+  ]),
   bossQuestion("boss-stephen-chow-not-movie", "何者不是周星馳電影", "以下何者不是周星馳電影？", [
     wrongAnswer("A", "逃學威龍", "《逃學威龍》是周星馳代表作品之一。"),
     wrongAnswer("B", "唐伯虎點秋香", "《唐伯虎點秋香》是周星馳經典喜劇。"),
@@ -61,260 +106,175 @@ export const bossChallengeCards: Card[] = [
     correctAnswer("B", "少林食神足球", "這是把《少林足球》和《食神》硬湊在一起。"),
     wrongAnswer("C", "國產凌凌漆", "這是真實周星馳電影。")
   ]),
-  bossQuestion("boss-idiom-chai-qiang", "成語誤用：差強人意", "「差強人意」在傳統語義中，下列何者最精準？", [
-    wrongAnswer("A", "差到讓人不能接受", "這是常見誤解。"),
-    correctAnswer("B", "大致還能令人滿意", "差強人意原意偏向還算能振奮人心、勉強令人滿意。"),
-    wrongAnswer("C", "完全超出期待", "它不是滿分稱讚。")
+  bossQuestion("boss-stephen-chow-tang", "周星馳電影：唐伯虎", "《唐伯虎點秋香》片名中的「秋香」下列何者最合理？", [
+    correctAnswer("A", "唐伯虎想接近的華府丫鬟", "秋香是片名中的關鍵人物。"),
+    wrongAnswer("B", "少林足球隊的守門員", "這是把另一部電影混進來。"),
+    wrongAnswer("C", "斧頭幫幫主的名字", "這和《功夫》較相關，不是秋香。")
   ]),
-  bossQuestion("boss-idiom-qi-yue", "成語誤用：七月流火", "「七月流火」下列何者不是正確理解？", [
-    correctAnswer("A", "天氣熱到像火在流", "這是常見誤用；原意和暑熱不是同一件事。"),
-    wrongAnswer("B", "可用來指天氣轉涼的時節感", "傳統語境不是形容酷熱。"),
-    wrongAnswer("C", "和星象、時節變化有關", "這比直接解成很熱更接近原意。")
+  bossQuestion("boss-stephen-chow-ling-ling", "周星馳電影：國產凌凌漆", "《國產凌凌漆》最像在惡搞哪一類影視題材？", [
+    wrongAnswer("A", "校園考試片", "校園臥底比較接近《逃學威龍》。"),
+    correctAnswer("B", "特務 / 間諜片", "片名和設定都明顯帶有特務片惡搞感。"),
+    wrongAnswer("C", "美食實境節目", "美食主題比較接近《食神》。")
   ]),
-  bossQuestion("boss-idiom-bu-kan", "成語誤用：不刊之論", "「不刊之論」下列何者最精準？", [
-    wrongAnswer("A", "不能刊登的言論", "這是望文生義。"),
-    correctAnswer("B", "不可磨滅、不可改動的定論", "「刊」有削改之意，不是不准出版。"),
-    wrongAnswer("C", "一定會被退稿的文章", "這不是成語本義。")
+  bossQuestion("boss-stephen-chow-justice", "周星馳電影：九品芝麻官", "下列何者最符合《九品芝麻官》的電影類型感？", [
+    wrongAnswer("A", "太空科幻戰爭", "這不是《九品芝麻官》的類型。"),
+    correctAnswer("B", "古裝喜劇加官場與申冤橋段", "這比較符合《九品芝麻官》的觀感。"),
+    wrongAnswer("C", "韓團出道紀錄片", "這不是周星馳古裝喜劇。")
   ]),
-  bossQuestion("boss-idiom-shou-zhu", "成語情境判斷", "下列何者最適合用「守株待兔」形容？", [
-    wrongAnswer("A", "每天固定練習，等待成績進步", "這是持續努力，不是守株待兔。"),
-    correctAnswer("B", "一次偶然成功後，就只等同樣好運再發生", "守株待兔重點是把偶然當常態。"),
-    wrongAnswer("C", "觀察市場後再決定策略", "這是等待資訊，不是盲等好運。")
+  bossQuestion("boss-stephen-chow-comedy-king", "周星馳電影：喜劇之王", "《喜劇之王》主角最核心的身分追求，下列何者最合理？", [
+    correctAnswer("A", "努力想成為演員", "這是《喜劇之王》的核心之一。"),
+    wrongAnswer("B", "成為寶可夢訓練家", "這是寶可夢世界，不是這部電影。"),
+    wrongAnswer("C", "組韓團當主唱", "這不是《喜劇之王》的主軸。")
   ]),
-  bossQuestion("boss-logic-liars", "邏輯：誰說謊", "三人中只有一人說謊。甲說乙說謊，乙說丙說謊，丙說甲乙都說真話。下列何者最合理？", [
-    correctAnswer("A", "丙說謊", "若甲乙都真，丙的話也會真，矛盾；檢查可得丙為唯一說謊者。"),
-    wrongAnswer("B", "甲說謊", "若甲說謊，乙不說謊；再推會讓丙狀態不一致。"),
-    wrongAnswer("C", "乙說謊", "若乙說謊，丙不說謊，會推出甲乙都真而矛盾。")
+  bossQuestion("boss-stephen-chow-school", "周星馳電影：逃學威龍", "《逃學威龍》的基本設定，下列何者最合理？", [
+    correctAnswer("A", "警察混入校園執行任務", "這是《逃學威龍》的主要設定。"),
+    wrongAnswer("B", "廚師開發撒尿牛丸", "這比較接近《食神》。"),
+    wrongAnswer("C", "外星人加入足球隊", "這不是《逃學威龍》的設定。")
   ]),
-  bossQuestion("boss-logic-syllogism", "邏輯：必然推出", "已知所有 A 都是 B，且有些 B 是 C。下列何者必然成立？", [
-    wrongAnswer("A", "有些 A 一定是 C", "有些 B 是 C，不代表那些 B 來自 A。"),
-    wrongAnswer("B", "所有 C 都是 A", "題目完全沒有給 C 到 A 的充分條件。"),
-    correctAnswer("C", "若某物是 A，則它一定是 B", "這是第一句直接給出的必然關係。")
+  bossQuestion("boss-stephen-chow-journey", "周星馳電影：大話西遊", "《大話西遊》最常被聯想到哪個角色或身分？", [
+    wrongAnswer("A", "鋼鐵人", "鋼鐵人屬於 Marvel 超級英雄題材。"),
+    correctAnswer("B", "至尊寶 / 孫悟空", "這是《大話西遊》核心角色線。"),
+    wrongAnswer("C", "江戶川柯南", "柯南是日本推理動漫角色。")
   ]),
-  bossQuestion("boss-logic-probability-dice", "機率：兩顆骰子", "同時擲兩顆公平六面骰，下列何者是點數和為 7 的機率？", [
-    wrongAnswer("A", "1/12", "和為 7 有 6 種組合，不是 3 種。"),
-    correctAnswer("B", "1/6", "36 種等可能結果中有 6 種和為 7，所以是 1/6。"),
-    wrongAnswer("C", "1/3", "1/3 太高，和為 7 沒有 12 種組合。")
+  bossQuestion("boss-kpop-not-group", "韓團辨識：何者不是韓團", "下列何者不是韓團或 K-pop 團體？", [
+    wrongAnswer("A", "BLACKPINK", "BLACKPINK 是韓國女團。"),
+    wrongAnswer("B", "BTS", "BTS 是韓國男團。"),
+    correctAnswer("C", "斧頭幫", "斧頭幫是《功夫》裡的幫派，不是韓團。")
   ]),
-  bossQuestion("boss-probability-monty", "機率：換門問題", "三門選獎，一開始選一門，主持人打開另一扇沒獎的門。若主持人知道獎在哪，下列策略何者最合理？", [
-    wrongAnswer("A", "堅持原門，中獎率 2/3", "原門中獎率仍是 1/3。"),
-    correctAnswer("B", "換門，中獎率 2/3", "主持人排除一扇空門後，換門吃到原本 2/3 的機率。"),
-    wrongAnswer("C", "換不換都一定是 1/2", "這忽略主持人知道答案並刻意開空門的條件。")
+  bossQuestion("boss-kpop-blackpink-fandom", "韓團粉絲名：BLACKPINK", "BLACKPINK 的粉絲常被稱為什麼？", [
+    wrongAnswer("A", "ARMY", "ARMY 是 BTS 粉絲名。"),
+    correctAnswer("B", "BLINK", "BLINK 是 BLACKPINK 常見粉絲名。"),
+    wrongAnswer("C", "ONCE", "ONCE 是 TWICE 粉絲名。")
   ]),
-  bossQuestion("boss-probability-compound", "複利直覺", "100 元連續兩年各成長 10%，下列何者最精準？", [
-    wrongAnswer("A", "兩年後剛好 120 元", "複利第二年是以 110 為基礎再成長。"),
-    correctAnswer("B", "兩年後 121 元", "100 * 1.1 * 1.1 = 121。"),
-    wrongAnswer("C", "兩年後 110 元", "這只算了一年。")
+  bossQuestion("boss-kpop-bts-fandom", "韓團粉絲名：BTS", "BTS 的粉絲常被稱為什麼？", [
+    correctAnswer("A", "ARMY", "ARMY 是 BTS 的代表粉絲名。"),
+    wrongAnswer("B", "BLINK", "BLINK 是 BLACKPINK 粉絲名。"),
+    wrongAnswer("C", "VIP", "VIP 常和 BIGBANG 粉絲名連在一起，不是 BTS。")
   ]),
-  bossQuestion("boss-bayes-test", "機率：偽陽性陷阱", "某病盛行率 1%，檢測敏感度 99%、偽陽性率 5%。若檢測陽性，下列何者最合理？", [
-    correctAnswer("A", "不能直接說有 99% 機率真的有病", "低盛行率會讓偽陽性占比變高，需要用貝氏思考。"),
-    wrongAnswer("B", "一定真的有病", "檢測不是完美，且偽陽性率不低。"),
-    wrongAnswer("C", "一定沒有病", "陽性仍提高了罹病可能，不是零。")
+  bossQuestion("boss-kpop-twice-fandom", "韓團粉絲名：TWICE", "TWICE 的粉絲名，下列何者最精準？", [
+    wrongAnswer("A", "STAY", "STAY 是 Stray Kids 粉絲名。"),
+    correctAnswer("B", "ONCE", "TWICE 與 ONCE 是經典粉絲名配對。"),
+    wrongAnswer("C", "BLINK", "BLINK 是 BLACKPINK 粉絲名。")
   ]),
-  bossQuestion("boss-timezone-taipei-london", "時區換算", "2026 年 1 月 1 日台北 09:00，倫敦採 UTC+0。下列何者最合理？", [
-    correctAnswer("A", "倫敦同日 01:00", "台北 UTC+8，比倫敦快 8 小時。"),
-    wrongAnswer("B", "倫敦同日 17:00", "這是把方向加反了。"),
-    wrongAnswer("C", "倫敦前一日 01:00", "09:00 減 8 小時仍是同日 01:00。")
+  bossQuestion("boss-kpop-seventeen-count", "韓團陷阱：SEVENTEEN", "韓團 SEVENTEEN 的團名是 17，但成員數下列何者最合理？", [
+    wrongAnswer("A", "17 人", "團名是 SEVENTEEN，但成員數不是 17。"),
+    correctAnswer("B", "13 人", "SEVENTEEN 常見成員數是 13 人。"),
+    wrongAnswer("C", "4 人", "4 人更像 BLACKPINK 或 aespa 的成員數。")
   ]),
-  bossQuestion("boss-date-line", "國際換日線", "從夏威夷往西飛到日本，跨過國際換日線時，下列何者最合理？", [
-    wrongAnswer("A", "日期通常往回一天", "往西跨越換日線通常日期往前加一天。"),
-    correctAnswer("B", "日期通常往前一天", "往西跨越國際換日線，日期通常加一天。"),
-    wrongAnswer("C", "日期完全不變，只改小時", "跨換日線會牽涉日期改變。")
+  bossQuestion("boss-kpop-aespa-concept", "韓團概念：aespa", "aespa 早期最常被聯想到的概念，下列何者最合理？", [
+    wrongAnswer("A", "只唱古典歌劇，完全沒有舞蹈", "這不是 aespa 的主流印象。"),
+    correctAnswer("B", "avatar / 虛擬世界概念", "aespa 早期以 avatar、虛擬世界等概念受到討論。"),
+    wrongAnswer("C", "專門拍周星馳續集", "這不是韓團概念。")
   ]),
-  bossQuestion("boss-leap-year", "閏年規則", "下列哪一年不是閏年？", [
-    wrongAnswer("A", "2000 年", "能被 400 整除，所以 2000 年是閏年。"),
-    correctAnswer("B", "1900 年", "能被 100 整除但不能被 400 整除，所以不是閏年。"),
-    wrongAnswer("C", "2024 年", "2024 能被 4 整除且不是百年例外，是閏年。")
+  bossQuestion("boss-kpop-ive", "韓團辨識：IVE", "下列哪一組最像 IVE 相關線索？", [
+    wrongAnswer("A", "少林足球、食神、唐伯虎", "這組是周星馳電影線索。"),
+    correctAnswer("B", "K-pop 女團、Wonyoung、Yujin", "Wonyoung、Yujin 常和 IVE 連在一起。"),
+    wrongAnswer("C", "寶可夢、能量卡、進化", "這是寶可夢卡牌線索。")
   ]),
-  bossQuestion("boss-astronomy-venus", "天文：最熱行星陷阱", "下列何者最精準說明金星比水星更熱的原因？", [
-    wrongAnswer("A", "金星離太陽比水星更近", "金星其實比水星離太陽遠。"),
-    correctAnswer("B", "金星濃厚大氣造成強烈溫室效應", "金星高溫主因是濃厚大氣與溫室效應。"),
-    wrongAnswer("C", "金星沒有自轉", "金星自轉很慢，但不是這題主因。")
+  bossQuestion("boss-kpop-newjeans", "韓團辨識：NewJeans", "下列哪一個最像 NewJeans 相關歌曲或線索？", [
+    correctAnswer("A", "Hype Boy", "Hype Boy 是 NewJeans 常被聯想到的歌曲。"),
+    wrongAnswer("B", "少林食神足球", "這是假周星馳片名。"),
+    wrongAnswer("C", "3、2、1，Go Shoot", "這是戰鬥陀螺口號。")
   ]),
-  bossQuestion("boss-astronomy-light-year", "天文：光年", "下列何者不是光年的正確描述？", [
-    wrongAnswer("A", "它是距離單位", "光年是光一年走過的距離。"),
-    correctAnswer("B", "它是時間單位，等於一年", "名字有年，但光年不是時間單位。"),
-    wrongAnswer("C", "它常用於天文尺度", "這是正確用法。")
+  bossQuestion("boss-kpop-stray-kids", "韓團粉絲名：Stray Kids", "Stray Kids 的粉絲常被稱為什麼？", [
+    wrongAnswer("A", "ONCE", "ONCE 是 TWICE 粉絲名。"),
+    correctAnswer("B", "STAY", "STAY 是 Stray Kids 粉絲名。"),
+    wrongAnswer("C", "BLINK", "BLINK 是 BLACKPINK 粉絲名。")
   ]),
-  bossQuestion("boss-science-ph", "酸鹼值判斷", "兩杯溶液 pH 分別為 3 與 5，下列何者最精準？", [
-    correctAnswer("A", "pH 3 比 pH 5 酸性強，而且約強 100 倍", "pH 每差 1 是 10 倍氫離子濃度差，差 2 是約 100 倍。"),
-    wrongAnswer("B", "pH 5 比 pH 3 酸性強", "pH 越低酸性越強。"),
-    wrongAnswer("C", "pH 3 只比 pH 5 酸一點點，約 2 倍", "pH 是對數尺度，不是線性差距。")
+  bossQuestion("boss-kpop-babymonster", "韓團辨識：BABYMONSTER", "BABYMONSTER 下列何者最合理？", [
+    correctAnswer("A", "YG Entertainment 推出的 K-pop 女團", "BABYMONSTER 是 YG 推出的女團。"),
+    wrongAnswer("B", "周星馳電影裡的少林足球隊名", "這不是周星馳電影隊名。"),
+    wrongAnswer("C", "寶可夢卡牌裡的能量卡種類", "這不是寶可夢能量卡。")
   ]),
-  bossQuestion("boss-science-dna-rna", "生物：DNA/RNA 差異", "下列何者最精準區分 DNA 與 RNA 的常見鹼基差異？", [
-    wrongAnswer("A", "DNA 有尿嘧啶 U，RNA 有胸腺嘧啶 T", "這剛好反了。"),
-    correctAnswer("B", "DNA 常見 T，RNA 常見 U", "DNA 常用 T，RNA 常用 U。"),
-    wrongAnswer("C", "DNA 和 RNA 鹼基完全相同", "兩者在 T/U 上有常見差異。")
+  bossQuestion("boss-kpop-lightstick", "韓團應援棒", "韓團演唱會常見的 light stick，中文通常最接近下列哪個說法？", [
+    wrongAnswer("A", "投影機遙控器", "演唱會應援棒不是控制投影機用。"),
+    correctAnswer("B", "應援棒", "light stick 常被稱為應援棒。"),
+    wrongAnswer("C", "陀螺發射器", "這是戰鬥陀螺用品。")
   ]),
-  bossQuestion("boss-science-correlation", "統計：相關不等於因果", "下列何者最精準描述「相關不等於因果」？", [
-    wrongAnswer("A", "只要兩件事一起變化，就能證明前者造成後者", "一起變化不代表因果。"),
-    correctAnswer("B", "兩變數相關可能來自第三因素或反向因果", "這是相關不等於因果的核心。"),
-    wrongAnswer("C", "相關係數越高，樣本就一定越大", "相關係數大小不直接等於樣本量。")
+  bossQuestion("boss-kpop-dance-challenge", "韓團短影音挑戰", "K-pop 新歌宣傳常見 dance challenge，最常在做什麼？", [
+    correctAnswer("A", "用副歌舞步或招牌動作讓大家跟拍", "短影音舞蹈挑戰常靠副歌 hook 和招牌動作擴散。"),
+    wrongAnswer("B", "大家一起背 SQL 語法", "這不是 K-pop dance challenge。"),
+    wrongAnswer("C", "把戰鬥陀螺發射到舞台下", "這不是正常舞台宣傳。")
   ]),
-  bossQuestion("boss-stat-pvalue", "統計：p-value", "關於 p-value，下列何者最精準？", [
-    wrongAnswer("A", "p=0.03 表示虛無假設有 3% 機率為真", "p-value 不是假設為真的機率。"),
-    correctAnswer("B", "在虛無假設為真時，觀察到目前或更極端資料的機率", "這是 p-value 的標準解釋方向。"),
-    wrongAnswer("C", "p 越小，效果量一定越大", "p-value 也受樣本數影響，不能直接等於效果量。")
+  bossQuestion("boss-kpop-lisa", "韓團成員：Lisa", "BLACKPINK 成員 Lisa 的出身背景，下列何者最常被提到？", [
+    wrongAnswer("A", "加拿大渥太華市長", "這和 Lisa 無關。"),
+    correctAnswer("B", "來自泰國", "Lisa 常被提到是來自泰國的 BLACKPINK 成員。"),
+    wrongAnswer("C", "周星馳電影《食神》角色", "Lisa 不是《食神》角色。")
   ]),
-  bossQuestion("boss-web-http-method", "Web：HTTP 方法", "下列何者不是 HTTP 方法語意的常見理解？", [
-    wrongAnswer("A", "GET 通常用於取得資源", "這是常見語意。"),
-    wrongAnswer("B", "POST 常用於建立或提交資料", "這是常見語意。"),
-    correctAnswer("C", "DELETE 通常用於查詢資料且絕不改變狀態", "DELETE 語意上是刪除資源，不是查詢。")
+  bossQuestion("boss-kpop-bts-count", "韓團成員數：BTS", "BTS 最常見的成員數，下列何者正確？", [
+    wrongAnswer("A", "4 人", "4 人比較像 BLACKPINK。"),
+    correctAnswer("B", "7 人", "BTS 常見成員數是 7 人。"),
+    wrongAnswer("C", "13 人", "13 人更像 SEVENTEEN。")
   ]),
-  bossQuestion("boss-web-status-code", "Web：狀態碼判斷", "下列何者最精準配對 HTTP 狀態碼？", [
-    correctAnswer("A", "404：找不到資源", "404 Not Found 是找不到資源。"),
-    wrongAnswer("B", "500：使用者密碼錯誤", "密碼錯誤通常不是 500，500 是伺服器內部錯誤。"),
-    wrongAnswer("C", "301：暫時重新導向", "301 是永久重新導向，暫時常見為 302/307。")
+  bossQuestion("boss-squid-game", "影集：魷魚遊戲", "韓國影集《魷魚遊戲》最常被聯想到下列哪種元素？", [
+    correctAnswer("A", "童年遊戲被改造成高壓生存競賽", "這是《魷魚遊戲》的代表設定。"),
+    wrongAnswer("B", "四位女團成員出道實錄", "這不是《魷魚遊戲》的主軸。"),
+    wrongAnswer("C", "寶可夢卡牌世界大賽", "這是卡牌遊戲題材，不是該影集。")
   ]),
-  bossQuestion("boss-sql-where-having", "SQL：WHERE/HAVING", "下列何者最精準描述 SQL 的 WHERE 與 HAVING？", [
-    correctAnswer("A", "WHERE 篩選分組前資料，HAVING 篩選分組後聚合結果", "這是 WHERE/HAVING 的典型差異。"),
-    wrongAnswer("B", "HAVING 一定比 WHERE 先執行", "語意上 HAVING 用於分組聚合後的條件。"),
-    wrongAnswer("C", "WHERE 只能用在 SELECT *，不能搭配 GROUP BY", "WHERE 可以和 GROUP BY 搭配。")
+  bossQuestion("boss-conan-apotoxin", "動漫：名偵探柯南", "《名偵探柯南》中，讓主角身體變小的藥物代號常被寫成哪一個？", [
+    wrongAnswer("A", "AKB48", "這是日本偶像團體相關名稱，不是柯南藥物代號。"),
+    correctAnswer("B", "APTX 4869", "APTX 4869 是柯南作品中的關鍵藥物代號。"),
+    wrongAnswer("C", "HTTP 404", "這是網頁狀態碼，不是動漫藥物代號。")
   ]),
-  bossQuestion("boss-css-specificity", "CSS：優先權", "下列 CSS selector specificity 由高到低，何者最合理？", [
-    wrongAnswer("A", "元素 > class > id", "id 的 specificity 高於 class 和元素。"),
-    correctAnswer("B", "id > class > 元素", "一般情況下 id selector 權重高於 class，高於元素。"),
-    wrongAnswer("C", "class > id > 元素", "class 不高於 id。")
+  bossQuestion("boss-one-piece", "動漫：海賊王", "《海賊王》主角魯夫最核心的目標，下列何者最合理？", [
+    wrongAnswer("A", "成為火影", "成為火影是《火影忍者》的目標語境。"),
+    correctAnswer("B", "成為海賊王", "這是魯夫的核心目標。"),
+    wrongAnswer("C", "成為食神", "這是周星馳電影語境。")
   ]),
-  bossQuestion("boss-git-merge-rebase", "Git：merge/rebase", "下列何者最精準描述 rebase 的風險？", [
-    correctAnswer("A", "它會改寫 commit history，已共享分支需小心", "rebase 會重寫 commit，公開共享歷史要謹慎。"),
-    wrongAnswer("B", "它只會新增 merge commit，永遠不改 commit hash", "這比較像 merge 的常見行為，不是 rebase。"),
-    wrongAnswer("C", "它會自動刪除遠端分支", "rebase 不等於刪遠端分支。")
+  bossQuestion("boss-slam-dunk", "動漫：灌籃高手", "《灌籃高手》最核心的運動主題是什麼？", [
+    wrongAnswer("A", "棒球", "棒球不是《灌籃高手》的核心。"),
+    correctAnswer("B", "籃球", "《灌籃高手》是籃球題材作品。"),
+    wrongAnswer("C", "花式滑冰", "這不是作品主題。")
   ]),
-  bossQuestion("boss-binary-decimal", "二進位轉換", "二進位 10110 轉成十進位，下列何者正確？", [
-    wrongAnswer("A", "18", "10110 = 16 + 4 + 2，不是 18。"),
-    correctAnswer("B", "22", "10110₂ = 16 + 4 + 2 = 22。"),
-    wrongAnswer("C", "26", "26 會需要 16 + 8 + 2。")
+  bossQuestion("boss-demon-slayer", "動漫：鬼滅之刃", "《鬼滅之刃》中獵鬼者常使用的刀，下列何者最合理？", [
+    correctAnswer("A", "日輪刀", "日輪刀是作品中獵鬼者的重要武器。"),
+    wrongAnswer("B", "寶可夢球", "寶可夢球屬於寶可夢世界。"),
+    wrongAnswer("C", "應援棒", "應援棒是演唱會用品。")
   ]),
-  bossQuestion("boss-excel-absolute", "Excel：絕對參照", "Excel 公式中的 `$A$1`，下列何者最精準？", [
-    correctAnswer("A", "欄 A 和列 1 都被鎖定", "$ 放在欄與列前，表示欄列都絕對參照。"),
-    wrongAnswer("B", "只鎖定欄 A，不鎖定列 1", "只鎖欄會寫成 `$A1`。"),
-    wrongAnswer("C", "只鎖定列 1，不鎖定欄 A", "只鎖列會寫成 `A$1`。")
+  bossQuestion("boss-harry-potter-house", "電影：哈利波特", "《哈利波特》中霍格華茲分院，下列何者是合理組合？", [
+    wrongAnswer("A", "斧頭幫、食神幫、少林幫", "這是亂混周星馳元素。"),
+    correctAnswer("B", "葛來分多、史萊哲林、雷文克勞、赫夫帕夫", "這是霍格華茲四學院。"),
+    wrongAnswer("C", "ARMY、BLINK、ONCE、STAY", "這是韓團粉絲名組合。")
   ]),
-  bossQuestion("boss-regex-digit", "Regex：\\d", "在多數正規表示式語境中，`\\d+` 最常表示什麼？", [
-    wrongAnswer("A", "一個或多個英文字母", "英文字母通常不是用 \\d 表示。"),
-    correctAnswer("B", "一個或多個數字", "\\d 表示 digit，+ 表示一個或多個。"),
-    wrongAnswer("C", "剛好一個任意字元", "任意字元通常用 .，不是 \\d+。")
+  bossQuestion("boss-marvel-dc", "電影宇宙辨識", "下列角色配對，何者最合理？", [
+    correctAnswer("A", "鋼鐵人：Marvel", "鋼鐵人屬於 Marvel 角色。"),
+    wrongAnswer("B", "蝙蝠俠：Marvel", "蝙蝠俠通常屬於 DC。"),
+    wrongAnswer("C", "孫悟空：BLACKPINK", "孫悟空不是 BLACKPINK 成員。")
   ]),
-  bossQuestion("boss-dns-role", "網路：DNS", "下列何者最精準描述 DNS 的主要功能？", [
-    correctAnswer("A", "把網域名稱解析到對應的位址資訊", "DNS 主要負責名稱解析。"),
-    wrongAnswer("B", "加密所有網頁內容", "加密主要是 TLS/HTTPS 的工作。"),
-    wrongAnswer("C", "壓縮圖片讓網頁更快", "這不是 DNS 的主要功能。")
-  ]),
-  bossQuestion("boss-qr-error-correction", "QR Code：容錯", "QR Code 即使被遮住一小部分仍可能讀取，下列何者最合理？", [
-    wrongAnswer("A", "因為 QR Code 沒有任何資料，只是圖案", "QR Code 內含編碼資料。"),
-    correctAnswer("B", "因為 QR Code 有錯誤修正能力", "QR Code 支援不同等級的錯誤修正。"),
-    wrongAnswer("C", "因為手機會上網猜答案", "讀取不是靠手機任意猜測內容。")
-  ]),
-  bossQuestion("boss-taiwan-tropic", "台灣地理：北回歸線", "下列何者最精準？北回歸線在台灣大致通過哪些區域？", [
-    wrongAnswer("A", "台北與基隆一帶", "北回歸線不在北台灣。"),
-    correctAnswer("B", "嘉義、花蓮一帶", "北回歸線通過台灣中南部，常見標誌在嘉義、花蓮等地。"),
-    wrongAnswer("C", "屏東最南端", "北回歸線不在台灣最南端。")
-  ]),
-  bossQuestion("boss-taiwan-mountains", "台灣地理：山脈判斷", "下列何者最精準描述中央山脈對台灣地理的影響？", [
-    correctAnswer("A", "大致形成東西部氣候與交通的天然分隔", "中央山脈是台灣重要地形骨幹。"),
-    wrongAnswer("B", "它位於澎湖，主要影響離島潮汐", "中央山脈在台灣本島，不在澎湖。"),
-    wrongAnswer("C", "它讓台灣完全沒有颱風雨影", "地形會造成雨影與迎風差異，不是完全沒有。")
+  bossQuestion("boss-frozen", "電影：冰雪奇緣", "《冰雪奇緣》中，下列哪一組姐妹最合理？", [
+    correctAnswer("A", "Elsa 與 Anna", "Elsa 和 Anna 是《冰雪奇緣》的核心姐妹。"),
+    wrongAnswer("B", "Lisa 與 Rosé", "這是 BLACKPINK 成員，不是冰雪奇緣姐妹。"),
+    wrongAnswer("C", "唐伯虎與秋香", "這是周星馳電影人物。")
   ]),
   bossQuestion("boss-taiwan-trash-music", "台灣生活：垃圾車音樂陷阱", "台灣垃圾車常見音樂，下列何者最合理？", [
     correctAnswer("A", "常聽到《少女的祈禱》", "這是台灣垃圾車常被聯想到的音樂之一。"),
     wrongAnswer("B", "固定只播放國歌，且全台完全一致", "垃圾車音樂不只這一種，且不是全台完全一致。"),
     wrongAnswer("C", "播放音樂代表不能倒垃圾", "通常是提醒居民垃圾車來了。")
   ]),
-  bossQuestion("boss-chess-stalemate", "西洋棋：逼和", "西洋棋中，輪到某方走但沒有合法步，且國王沒有被將軍，下列何者最精準？", [
-    correctAnswer("A", "stalemate，通常判和局", "沒有合法步且未被將軍是 stalemate。"),
-    wrongAnswer("B", "checkmate，該方輸", "checkmate 需要國王正在被將軍且無法解除。"),
-    wrongAnswer("C", "該方必須跳過一手", "西洋棋通常不能跳過回合。")
+  bossQuestion("boss-idiom-chai-qiang", "成語誤用：差強人意", "「差強人意」在傳統語義中，下列何者最精準？", [
+    wrongAnswer("A", "差到讓人不能接受", "這是常見誤解。"),
+    correctAnswer("B", "大致還能令人滿意", "差強人意原意偏向還算能振奮人心、勉強令人滿意。"),
+    wrongAnswer("C", "完全超出期待", "它不是滿分稱讚。")
   ]),
-  bossQuestion("boss-go-komi", "圍棋：貼目概念", "圍棋中的貼目，最主要是為了處理什麼？", [
-    wrongAnswer("A", "讓棋盤變成 20 路", "貼目不改變棋盤大小。"),
-    correctAnswer("B", "補償黑棋先手優勢", "貼目通常是給白方分數補償，平衡黑先。"),
-    wrongAnswer("C", "禁止打劫", "打劫有另外的規則處理。")
+  bossQuestion("boss-idiom-bu-kan", "成語誤用：不刊之論", "「不刊之論」下列何者最精準？", [
+    wrongAnswer("A", "不能刊登的言論", "這是望文生義。"),
+    correctAnswer("B", "不可磨滅、不可改動的定論", "「刊」有削改之意，不是不准出版。"),
+    wrongAnswer("C", "一定會被退稿的文章", "這不是成語本義。")
   ]),
-  bossQuestion("boss-basketball-free-throw", "籃球：分數判斷", "下列籃球得分配對，何者不是一般規則下的正確配對？", [
-    wrongAnswer("A", "罰球進：1 分", "罰球進通常 1 分。"),
-    wrongAnswer("B", "三分線外投進：3 分", "三分線外投進通常 3 分。"),
-    correctAnswer("C", "三分線內投進：3 分", "三分線內一般投籃進是 2 分。")
+  bossQuestion("boss-timezone-taipei-london", "時區換算", "台北晚上 9 點要連線倫敦朋友，倫敦若是 UTC+0，下列何者最合理？", [
+    correctAnswer("A", "倫敦同日中午 1 點", "台北 UTC+8，比倫敦快 8 小時。"),
+    wrongAnswer("B", "倫敦同日晚上 9 點", "這忽略了時差。"),
+    wrongAnswer("C", "倫敦隔日清晨 5 點", "這是把方向算反了。")
   ]),
-  bossQuestion("boss-baseball-force-play", "棒球：封殺概念", "棒球中一壘有人、打者擊出滾地球時，一壘跑者被迫往二壘，下列何者最合理？", [
-    correctAnswer("A", "守備方踩二壘即可封殺該跑者", "被迫進壘時可用封殺。"),
-    wrongAnswer("B", "一定要觸碰跑者本人才能出局", "封殺狀況不一定要觸殺本人。"),
-    wrongAnswer("C", "一壘跑者可以選擇留在一壘不動", "打者跑向一壘時，原一壘跑者被迫前進。")
+  bossQuestion("boss-science-ph", "科學小題：酸鹼值", "兩杯飲料 pH 分別為 3 與 5，下列何者最精準？", [
+    correctAnswer("A", "pH 3 比 pH 5 酸性強，而且約強 100 倍", "pH 每差 1 是 10 倍氫離子濃度差，差 2 約 100 倍。"),
+    wrongAnswer("B", "pH 5 比 pH 3 酸性強", "pH 越低酸性越強。"),
+    wrongAnswer("C", "pH 3 只比 pH 5 酸一點點，約 2 倍", "pH 是對數尺度，不是線性差距。")
   ]),
-  bossQuestion("boss-soccer-offside", "足球：越位直覺", "足球越位判定中，下列何者最精準？", [
-    wrongAnswer("A", "只要站在對方半場就一定越位", "位置只是條件之一，還要看傳球時機與倒數第二名防守者等。"),
-    correctAnswer("B", "傳球瞬間位置與參與進攻都很重要", "越位不是只看接球後位置，也看傳球瞬間與是否參與。"),
-    wrongAnswer("C", "守門員前面有一名防守者就永遠不越位", "通常要看倒數第二名防守者，不是只看守門員。")
-  ]),
-  bossQuestion("boss-world-ocean-size", "地理：世界最大洋", "下列何者最精準？", [
-    correctAnswer("A", "太平洋是面積最大的洋", "太平洋是世界最大洋。"),
-    wrongAnswer("B", "北冰洋是面積最大的洋", "北冰洋是最小的洋。"),
-    wrongAnswer("C", "印度洋比太平洋大", "印度洋不比太平洋大。")
-  ]),
-  bossQuestion("boss-capital-trap", "地理：首都陷阱", "下列首都配對，何者正確？", [
-    wrongAnswer("A", "澳洲：雪梨", "澳洲首都是坎培拉，不是雪梨。"),
-    correctAnswer("B", "加拿大：渥太華", "加拿大首都是渥太華。"),
-    wrongAnswer("C", "巴西：里約熱內盧", "巴西首都是巴西利亞。")
-  ]),
-  bossQuestion("boss-roman-xl", "羅馬數字", "羅馬數字 XL 表示多少？", [
-    wrongAnswer("A", "60", "LX 才是 60。"),
-    correctAnswer("B", "40", "X 在 L 前面代表 50 - 10 = 40。"),
-    wrongAnswer("C", "90", "XC 才是 90。")
-  ]),
-  bossQuestion("boss-order-operations", "四則運算順序", "算式 6 + 2 * 5 的結果，下列何者正確？", [
-    wrongAnswer("A", "40", "這是先做 6+2 再乘 5，但一般先乘除後加減。"),
-    correctAnswer("B", "16", "先算 2*5=10，再加 6 得 16。"),
-    wrongAnswer("C", "30", "這不是一般運算順序結果。")
-  ]),
-  bossQuestion("boss-family-relationship", "親屬稱謂推理", "「媽媽的哥哥」在中文親屬稱謂中最常稱為什麼？", [
-    correctAnswer("A", "舅舅", "母親的兄弟通常稱舅舅。"),
-    wrongAnswer("B", "伯伯", "伯伯通常是父親的哥哥。"),
-    wrongAnswer("C", "叔叔", "叔叔通常是父親的弟弟或泛稱男性長輩。")
-  ]),
-  bossQuestion("boss-language-loanword", "語言：外來語判斷", "下列何者最像日文外來語進入中文後的生活用法？", [
-    wrongAnswer("A", "望梅止渴", "這是中文成語。"),
-    correctAnswer("B", "便當", "便當常被視為由日語 bento 影響進入中文生活語彙。"),
-    wrongAnswer("C", "畫蛇添足", "這是中文成語。")
-  ]),
-  bossQuestion("boss-memory-ranking", "排序題：朝代", "下列中國朝代先後排序，哪一組最合理？", [
-    wrongAnswer("A", "唐 → 秦 → 明", "秦遠早於唐。"),
-    correctAnswer("B", "秦 → 唐 → 明", "秦在前，唐居中，明較後。"),
-    wrongAnswer("C", "明 → 唐 → 秦", "這是完全倒序。")
-  ]),
-  bossQuestion("boss-history-taiwan", "台灣史：年代排序", "下列台灣相關事件的時間先後，哪一組最合理？", [
-    correctAnswer("A", "荷西時期 → 清領時期 → 日治時期", "這是大致正確的歷史階段順序。"),
-    wrongAnswer("B", "日治時期 → 荷西時期 → 清領時期", "日治不會早於荷西時期。"),
-    wrongAnswer("C", "清領時期 → 日治時期 → 荷西時期", "荷西時期更早。")
-  ]),
-  bossQuestion("boss-economics-inflation", "經濟：通膨判斷", "下列何者最精準描述通膨？", [
-    wrongAnswer("A", "所有商品價格每天都必須上漲才叫通膨", "通膨看整體物價水準，不要求所有商品每天都漲。"),
-    correctAnswer("B", "整體物價水準持續上升，貨幣購買力下降", "這是通膨的核心概念。"),
-    wrongAnswer("C", "股票下跌就一定是通膨", "股票下跌不等於通膨。")
-  ]),
-  bossQuestion("boss-finance-risk", "投資：風險分散", "下列何者最精準描述分散投資？", [
-    wrongAnswer("A", "買很多張同一家公司的股票就是分散", "同家公司風險仍高度集中。"),
-    correctAnswer("B", "把資產分散到不同標的或類別，降低單一事件衝擊", "這是分散投資的目的。"),
-    wrongAnswer("C", "分散後就一定不會虧損", "分散降低部分風險，但不能保證不虧。")
-  ]),
-  bossQuestion("boss-psych-sunk-cost", "心理：沉沒成本", "下列何者最像沉沒成本謬誤？", [
-    correctAnswer("A", "電影很難看，但票錢已付，所以硬看到底", "已付票錢無法回收，硬看可能是沉沒成本謬誤。"),
-    wrongAnswer("B", "電影好看，所以想看完", "這是基於當下效益，不是沉沒成本。"),
-    wrongAnswer("C", "不知道電影好不好，先看評價", "這是蒐集資訊。")
-  ]),
-  bossQuestion("boss-psych-dunning", "心理：能力錯覺", "下列何者最接近鄧寧-克魯格效應的直覺描述？", [
-    wrongAnswer("A", "越熟的人越不會犯錯", "熟練不代表完全不犯錯。"),
-    correctAnswer("B", "能力不足者可能高估自己的能力", "這是該效應常見描述。"),
-    wrongAnswer("C", "所有高手一定低估自己", "這太絕對，也不是完整描述。")
-  ]),
-  bossQuestion("boss-management-critical-path", "專案：關鍵路徑", "專案管理中，關鍵路徑最主要代表什麼？", [
-    correctAnswer("A", "會直接影響整體完工時間的最長依賴路徑", "關鍵路徑延誤通常會推遲整體完工。"),
-    wrongAnswer("B", "成本最低的一條路徑", "關鍵路徑不是成本最低路徑。"),
-    wrongAnswer("C", "參與人數最多的工作項目", "人數多不一定是關鍵路徑。")
-  ]),
-  bossQuestion("boss-product-mvp", "產品：MVP", "產品開發中的 MVP，下列何者最精準？", [
-    wrongAnswer("A", "功能越多越好，先做完整大平台", "MVP 不是一次做滿。"),
-    correctAnswer("B", "用最小可行版本驗證核心假設", "MVP 目的是快速驗證核心價值與假設。"),
-    wrongAnswer("C", "只能是沒有 UI 的後端程式", "MVP 形式取決於要驗證的問題。")
+  bossQuestion("boss-astronomy-light-year", "科學小題：光年", "下列何者不是光年的正確描述？", [
+    wrongAnswer("A", "它是距離單位", "光年是光一年走過的距離。"),
+    correctAnswer("B", "它是時間單位，等於一年", "名字有年，但光年不是時間單位。"),
+    wrongAnswer("C", "它常用於天文尺度", "這是正確用法。")
   ]),
   bossQuestion("boss-line-read-trap", "LINE 已讀陷阱", "LINE 出現已讀後，下列何者最精準？", [
     wrongAnswer("A", "代表對方一定同意你的內容", "已讀只代表看過，不代表同意。"),
