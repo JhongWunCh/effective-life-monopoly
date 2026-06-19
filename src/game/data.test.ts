@@ -172,6 +172,44 @@ describe("game data", () => {
     expect(bossCopy).toContain("與龍共舞");
   });
 
+  it("keeps boss challenge questions at a harder-than-warmup difficulty", () => {
+    const bossCopy = bossChallengeCards
+      .flatMap((card) => [
+        card.title,
+        card.text,
+        ...card.options.flatMap((option) => [option.label, option.explanation ?? ""])
+      ])
+      .join("\n");
+    const warmupFragments = [
+      "哆啦A夢最喜歡吃的點心",
+      "江戶川柯南變小前的真正身分",
+      "皮卡丘最主要的屬性",
+      "日本首都是哪一座城市",
+      "法國首都是哪一座城市",
+      "Ctrl + Z 通常代表什麼",
+      "水的沸點約是幾度",
+      "Excel 欄位從 A 到 Z"
+    ];
+    const hardQuestionMarkers = [
+      "下列何者",
+      "何者不是",
+      "最精準",
+      "排序",
+      "同時成立",
+      "關鍵差異",
+      "最合理",
+      "哪一組"
+    ];
+    const hardQuestionCount = bossChallengeCards.filter((card) =>
+      hardQuestionMarkers.some(
+        (marker) => card.title.includes(marker) || card.text.includes(marker)
+      )
+    ).length;
+
+    expect(warmupFragments.filter((fragment) => bossCopy.includes(fragment))).toEqual([]);
+    expect(hardQuestionCount).toBeGreaterThanOrEqual(35);
+  });
+
   it("defines Chad's approved protagonist personas and fixed burdens", () => {
     expect(
       protagonists.map(({ baseIndicators: _baseIndicators, ...protagonist }) => protagonist)
