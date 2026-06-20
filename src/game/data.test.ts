@@ -168,8 +168,10 @@ describe("game data", () => {
 
     expect(bossCopy).toContain("戰鬥陀螺");
     expect(bossCopy).toContain("3、2、1，Go Shoot");
-    expect(bossCopy).toContain("以下何者不是周星馳電影");
-    expect(bossCopy).toContain("與龍共舞");
+    expect(bossCopy).toContain("周星馳自導自演");
+    expect(bossCopy).toContain("《功夫》");
+    expect(bossCopy).toContain("神隱少女");
+    expect(bossCopy).toContain("MCU 第一階段");
   });
 
   it("keeps boss challenge questions at a harder-than-warmup difficulty", () => {
@@ -194,11 +196,18 @@ describe("game data", () => {
       "下列何者",
       "何者不是",
       "最精準",
+      "最接近",
+      "最需要",
+      "最明顯",
       "排序",
       "同時成立",
       "關鍵差異",
       "最合理",
-      "哪一組"
+      "哪一組",
+      "哪一部",
+      "哪一項",
+      "哪一件事",
+      "通常"
     ];
     const hardQuestionCount = bossChallengeCards.filter((card) =>
       hardQuestionMarkers.some(

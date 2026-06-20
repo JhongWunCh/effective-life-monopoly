@@ -46,10 +46,10 @@ export const bossChallengeCards: Card[] = [
     correctAnswer("B", "3、2、1，Go Shoot!", "常見喊法是「3、2、1，Go Shoot!」，不是單純 Start。"),
     wrongAnswer("C", "Let us battle, Spin On", "這是混合英文熱血台詞，不是常見口號。")
   ]),
-  bossQuestion("boss-beyblade-battle-basic", "戰鬥陀螺對戰常識", "玩戰鬥陀螺時，下列何者最像正常對戰行為？", [
-    correctAnswer("A", "用發射器把陀螺發射進對戰盤", "戰鬥陀螺核心就是用發射器讓陀螺在場地中對戰。"),
-    wrongAnswer("B", "把陀螺拿在手上互敲，看誰比較痛", "這不是正常玩法，也不安全。"),
-    wrongAnswer("C", "把陀螺當骰子丟，點數大的人贏", "陀螺不是骰子，對戰看旋轉與碰撞。")
+  bossQuestion("boss-beyblade-battle-basic", "戰鬥陀螺勝負陷阱", "戰鬥陀螺對戰中，下列哪一項最像會影響勝負的正常判定？", [
+    correctAnswer("A", "停止旋轉、出界或爆裂等狀況", "戰鬥陀螺勝負常看旋轉狀態、是否出界或是否爆裂。"),
+    wrongAnswer("B", "發射器顏色越接近金色就直接獲勝", "發射器顏色不是標準勝負判定。"),
+    wrongAnswer("C", "喊口號最大聲的人可以重骰一次", "口號有氣勢，但不會成為正式勝負條件。")
   ]),
   bossQuestion("boss-labubu-blind-box", "Labubu 與盲盒", "近年很紅的 Labubu，最常和下列哪一種收藏玩法連在一起？", [
     wrongAnswer("A", "買菜送集點貼紙", "這比較像超市集點，不是 Labubu 熱潮的核心玩法。"),
@@ -61,10 +61,10 @@ export const bossChallengeCards: Card[] = [
     correctAnswer("B", "買到哪一款有隨機性，隱藏款通常更稀有", "盲盒的驚喜感來自隨機與稀有款設計。"),
     wrongAnswer("C", "拆盒前一定能從外盒知道內容物", "如果拆盒前完全知道，就不太像盲盒了。")
   ]),
-  bossQuestion("boss-pokemon-card-basic", "寶可夢卡牌對戰", "寶可夢卡牌對戰中，下列何者最像合理的遊戲元素？", [
-    wrongAnswer("A", "用卡牌刮出發票號碼決定勝負", "這不是寶可夢卡牌對戰規則。"),
-    correctAnswer("B", "寶可夢、能量與招式搭配", "寶可夢卡牌常見玩法會牽涉寶可夢、能量與招式。"),
-    wrongAnswer("C", "輸的人要把手機交給裁判保管一週", "這不是正常卡牌對戰規則。")
+  bossQuestion("boss-pokemon-card-basic", "寶可夢卡牌：能量判斷", "寶可夢卡牌對戰中，想使用寶可夢的招式時，通常最需要先確認哪一件事？", [
+    wrongAnswer("A", "手牌裡有沒有抽到同名角色的貼紙", "貼紙不是發動招式的必要資源。"),
+    correctAnswer("B", "身上的能量是否符合招式需求", "多數招式需要符合卡面標示的能量條件才能使用。"),
+    wrongAnswer("C", "對手手機電量是否低於 20%", "手機電量和卡牌招式發動無關。")
   ]),
   bossQuestion("boss-gashapon-random", "轉蛋玩法", "扭蛋或轉蛋最核心的樂趣，下列何者最精準？", [
     correctAnswer("A", "投入金額後隨機取得系列中的一款", "扭蛋的重點通常是系列收藏與隨機抽取。"),
@@ -91,50 +91,50 @@ export const bossChallengeCards: Card[] = [
     correctAnswer("B", "先設定預算上限，必要時用交換或二手方式補齊", "收藏可以好玩，但仍要控制成本。"),
     wrongAnswer("C", "宣布自己已經是官方設計師", "抽不到隱藏款不會讓人變官方設計師。")
   ]),
-  bossQuestion("boss-stephen-chow-not-movie", "何者不是周星馳電影", "以下何者不是周星馳電影？", [
-    wrongAnswer("A", "逃學威龍", "《逃學威龍》是周星馳代表作品之一。"),
-    wrongAnswer("B", "唐伯虎點秋香", "《唐伯虎點秋香》是周星馳經典喜劇。"),
-    correctAnswer("C", "與龍共舞", "《與龍共舞》主要主演是劉德華，不是周星馳電影。")
+  bossQuestion("boss-stephen-chow-not-movie", "周星馳電影：自導自演辨識", "下列哪一部最接近周星馳自導自演的電影？", [
+    correctAnswer("A", "《功夫》", "《功夫》是周星馳自導自演的代表作之一。"),
+    wrongAnswer("B", "《唐伯虎點秋香》", "這是周星馳主演作品，但不是最精準的自導自演例子。"),
+    wrongAnswer("C", "《逃學威龍》", "這是周星馳主演作品，但不是這題要找的自導自演代表。")
   ]),
-  bossQuestion("boss-stephen-chow-character-match", "周星馳角色配對", "下列電影與角色/身分配對，何者最不合理？", [
-    wrongAnswer("A", "《食神》：失勢後重新找回料理初心", "這符合《食神》的主軸。"),
-    correctAnswer("B", "《功夫》：主角一開始就是斧頭幫老大", "《功夫》主角不是斧頭幫老大，這個配對不合理。"),
-    wrongAnswer("C", "《少林足球》：把少林功夫和足球結合", "這正是《少林足球》的核心設定。")
+  bossQuestion("boss-stephen-chow-character-match", "周星馳電影：食神料理梗", "《食神》中最常被拿來當經典料理梗的品項，下列何者最合理？", [
+    correctAnswer("A", "撒尿牛丸", "撒尿牛丸是《食神》中非常具代表性的料理梗。"),
+    wrongAnswer("B", "三杯珍珠奶茶飯", "這不是《食神》的代表料理梗。"),
+    wrongAnswer("C", "鳳梨蝦球拿鐵", "這是硬湊的餐點名稱，不是片中經典梗。")
   ]),
-  bossQuestion("boss-movie-title-elimination", "電影名稱排除", "下列何者最像把兩部周星馳電影概念混在一起的假片名？", [
-    wrongAnswer("A", "九品芝麻官", "這是真實周星馳電影。"),
-    correctAnswer("B", "少林食神足球", "這是把《少林足球》和《食神》硬湊在一起。"),
-    wrongAnswer("C", "國產凌凌漆", "這是真實周星馳電影。")
+  bossQuestion("boss-ghibli-spirited-away-oscar", "動畫獎項：神隱少女", "《神隱少女》在奧斯卡獎最常被提到的成就，下列何者正確？", [
+    correctAnswer("A", "獲得最佳動畫長片", "《神隱少女》曾獲奧斯卡最佳動畫長片。"),
+    wrongAnswer("B", "獲得最佳紀錄長片", "《神隱少女》不是紀錄片。"),
+    wrongAnswer("C", "獲得最佳真人短片", "它是動畫長片，不是真人短片。")
   ]),
-  bossQuestion("boss-stephen-chow-tang", "周星馳電影：唐伯虎", "《唐伯虎點秋香》片名中的「秋香」下列何者最合理？", [
-    correctAnswer("A", "唐伯虎想接近的華府丫鬟", "秋香是片名中的關鍵人物。"),
-    wrongAnswer("B", "少林足球隊的守門員", "這是把另一部電影混進來。"),
-    wrongAnswer("C", "斧頭幫幫主的名字", "這和《功夫》較相關，不是秋香。")
+  bossQuestion("boss-mcu-phase-one", "電影宇宙：MCU 第一階段", "下列哪一部不是 Marvel Cinematic Universe 第一階段電影？", [
+    wrongAnswer("A", "《鋼鐵人》", "《鋼鐵人》是 MCU 第一階段開端作品。"),
+    wrongAnswer("B", "《復仇者聯盟》", "《復仇者聯盟》是 MCU 第一階段收束作品。"),
+    correctAnswer("C", "《星際異攻隊》", "《星際異攻隊》上映時間較晚，不屬於 MCU 第一階段。")
   ]),
-  bossQuestion("boss-stephen-chow-ling-ling", "周星馳電影：國產凌凌漆", "《國產凌凌漆》最像在惡搞哪一類影視題材？", [
-    wrongAnswer("A", "校園考試片", "校園臥底比較接近《逃學威龍》。"),
-    correctAnswer("B", "特務 / 間諜片", "片名和設定都明顯帶有特務片惡搞感。"),
-    wrongAnswer("C", "美食實境節目", "美食主題比較接近《食神》。")
+  bossQuestion("boss-stephen-chow-ling-ling", "周星馳電影：國產凌凌漆", "《國產凌凌漆》的片名與設定，最明顯在惡搞哪個特務類型？", [
+    correctAnswer("A", "James Bond / 007 式特務片", "「凌凌漆」和設定都明顯帶有 007 惡搞感。"),
+    wrongAnswer("B", "哈利波特式魔法學院", "這不是魔法學院題材。"),
+    wrongAnswer("C", "寶可夢道館挑戰", "這不是寶可夢或道館對戰題材。")
   ]),
-  bossQuestion("boss-stephen-chow-justice", "周星馳電影：九品芝麻官", "下列何者最符合《九品芝麻官》的電影類型感？", [
-    wrongAnswer("A", "太空科幻戰爭", "這不是《九品芝麻官》的類型。"),
-    correctAnswer("B", "古裝喜劇加官場與申冤橋段", "這比較符合《九品芝麻官》的觀感。"),
-    wrongAnswer("C", "韓團出道紀錄片", "這不是周星馳古裝喜劇。")
+  bossQuestion("boss-pokemon-type-ground", "寶可夢屬性：電與地面", "寶可夢主系列遊戲中，電屬性招式打到地面屬性寶可夢，通常會怎樣？", [
+    wrongAnswer("A", "效果絕佳，傷害加倍", "電屬性不是剋地面屬性。"),
+    correctAnswer("B", "通常沒有效果", "主系列遊戲中，地面屬性通常免疫電屬性招式。"),
+    wrongAnswer("C", "一定讓對方中毒", "中毒不是電打地面的標準效果。")
   ]),
-  bossQuestion("boss-stephen-chow-comedy-king", "周星馳電影：喜劇之王", "《喜劇之王》主角最核心的身分追求，下列何者最合理？", [
-    correctAnswer("A", "努力想成為演員", "這是《喜劇之王》的核心之一。"),
-    wrongAnswer("B", "成為寶可夢訓練家", "這是寶可夢世界，不是這部電影。"),
-    wrongAnswer("C", "組韓團當主唱", "這不是《喜劇之王》的主軸。")
+  bossQuestion("boss-zelda-link-trap", "遊戲：薩爾達傳說陷阱", "《薩爾達傳說》系列中，玩家常操作的綠衣勇者通常叫什麼？", [
+    correctAnswer("A", "Link", "系列主角通常是 Link；Zelda 多半是公主。"),
+    wrongAnswer("B", "Zelda", "Zelda 通常是公主名字，不是玩家常操作的勇者。"),
+    wrongAnswer("C", "Ganon", "Ganon / Ganondorf 通常是主要反派。")
   ]),
-  bossQuestion("boss-stephen-chow-school", "周星馳電影：逃學威龍", "《逃學威龍》的基本設定，下列何者最合理？", [
-    correctAnswer("A", "警察混入校園執行任務", "這是《逃學威龍》的主要設定。"),
-    wrongAnswer("B", "廚師開發撒尿牛丸", "這比較接近《食神》。"),
-    wrongAnswer("C", "外星人加入足球隊", "這不是《逃學威龍》的設定。")
+  bossQuestion("boss-web-status-404", "網路常識：HTTP 404", "網頁出現 404 Not Found，最接近下列哪個意思？", [
+    correctAnswer("A", "伺服器找不到你要求的資源", "404 的語意通常是找不到指定資源。"),
+    wrongAnswer("B", "登入成功，而且權限完整", "登入成功不是 404 的意思。"),
+    wrongAnswer("C", "付款完成，訂單已成立", "付款完成不會用 404 表示。")
   ]),
-  bossQuestion("boss-stephen-chow-journey", "周星馳電影：大話西遊", "《大話西遊》最常被聯想到哪個角色或身分？", [
-    wrongAnswer("A", "鋼鐵人", "鋼鐵人屬於 Marvel 超級英雄題材。"),
-    correctAnswer("B", "至尊寶 / 孫悟空", "這是《大話西遊》核心角色線。"),
-    wrongAnswer("C", "江戶川柯南", "柯南是日本推理動漫角色。")
+  bossQuestion("boss-stephen-chow-journey", "周星馳電影：大話西遊", "《大話西遊》最明顯把西遊記角色與哪一種敘事元素混合？", [
+    wrongAnswer("A", "太空艦隊與星際議會", "這比較像太空科幻，不是《大話西遊》的核心。"),
+    correctAnswer("B", "穿越、轉世與愛情悲喜劇", "《大話西遊》常被聯想到至尊寶、孫悟空、轉世與愛情線。"),
+    wrongAnswer("C", "韓團選秀與應援棒競賽", "這是韓團綜藝語境，不是西遊記改編。")
   ]),
   bossQuestion("boss-kpop-not-group", "韓團辨識：何者不是韓團", "下列何者不是韓團或 K-pop 團體？", [
     wrongAnswer("A", "BLACKPINK", "BLACKPINK 是韓國女團。"),
@@ -236,10 +236,10 @@ export const bossChallengeCards: Card[] = [
     correctAnswer("B", "葛來分多、史萊哲林、雷文克勞、赫夫帕夫", "這是霍格華茲四學院。"),
     wrongAnswer("C", "ARMY、BLINK、ONCE、STAY", "這是韓團粉絲名組合。")
   ]),
-  bossQuestion("boss-marvel-dc", "電影宇宙辨識", "下列角色配對，何者最合理？", [
-    correctAnswer("A", "鋼鐵人：Marvel", "鋼鐵人屬於 Marvel 角色。"),
-    wrongAnswer("B", "蝙蝠俠：Marvel", "蝙蝠俠通常屬於 DC。"),
-    wrongAnswer("C", "孫悟空：BLACKPINK", "孫悟空不是 BLACKPINK 成員。")
+  bossQuestion("boss-marvel-dc", "電影宇宙辨識", "下列哪一組角色與主要出版宇宙配對全都正確？", [
+    correctAnswer("A", "鋼鐵人：Marvel；蝙蝠俠：DC", "鋼鐵人通常屬於 Marvel，蝙蝠俠通常屬於 DC。"),
+    wrongAnswer("B", "鋼鐵人：DC；超人：Marvel", "這兩個配對剛好反過來。"),
+    wrongAnswer("C", "蜘蛛人：斧頭幫；小丑：K-pop", "這是把完全不同領域混在一起。")
   ]),
   bossQuestion("boss-frozen", "電影：冰雪奇緣", "《冰雪奇緣》中，下列哪一組姐妹最合理？", [
     correctAnswer("A", "Elsa 與 Anna", "Elsa 和 Anna 是《冰雪奇緣》的核心姐妹。"),
@@ -271,10 +271,10 @@ export const bossChallengeCards: Card[] = [
     wrongAnswer("B", "pH 5 比 pH 3 酸性強", "pH 越低酸性越強。"),
     wrongAnswer("C", "pH 3 只比 pH 5 酸一點點，約 2 倍", "pH 是對數尺度，不是線性差距。")
   ]),
-  bossQuestion("boss-astronomy-light-year", "科學小題：光年", "下列何者不是光年的正確描述？", [
-    wrongAnswer("A", "它是距離單位", "光年是光一年走過的距離。"),
-    correctAnswer("B", "它是時間單位，等於一年", "名字有年，但光年不是時間單位。"),
-    wrongAnswer("C", "它常用於天文尺度", "這是正確用法。")
+  bossQuestion("boss-astronomy-light-year", "科學小題：光年", "一光年大約等於光在一年內走過的距離，換成公里最接近下列哪一個量級？", [
+    wrongAnswer("A", "約 30 萬公里", "30 萬公里比較接近光一秒走的距離量級。"),
+    correctAnswer("B", "約 9.46 兆公里", "一光年約為 9.46 兆公里，常用來描述天文距離。"),
+    wrongAnswer("C", "約 24 公里", "這遠小於天文距離量級。")
   ]),
   bossQuestion("boss-line-read-trap", "LINE 已讀陷阱", "LINE 出現已讀後，下列何者最精準？", [
     wrongAnswer("A", "代表對方一定同意你的內容", "已讀只代表看過，不代表同意。"),
