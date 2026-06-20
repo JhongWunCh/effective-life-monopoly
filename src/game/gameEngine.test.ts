@@ -132,6 +132,35 @@ describe("game engine", () => {
     expectBossCard(actionLanding.currentCardId);
   });
 
+  it("does not repeat a normal card after another team has already landed on it", () => {
+    const firstLanding = moveCurrentTeam(createInitialGameState(), 2);
+    const firstCardId = firstLanding.currentCardId;
+    const option = cards.find((card) => card.id === firstCardId)!.options[0]!;
+    const nextTurn = applyOption(firstLanding, option);
+
+    const secondLanding = moveCurrentTeam(nextTurn, 2);
+
+    expect(firstCardId).toBe(boardSpaces[2]!.cardIds[0]);
+    expect(secondLanding.currentCardId).toBeDefined();
+    expect(secondLanding.currentCardId).not.toBe(firstCardId);
+    expect(secondLanding.usedCardIds).toEqual([firstCardId, secondLanding.currentCardId]);
+  });
+
+  it("skips already-used boss challenge cards globally", () => {
+    const secondRoundState = completeTurns(createInitialGameState({ targetRounds: 3 }), 4);
+    const firstBossCardId = moveCurrentTeam(secondRoundState, 1).currentCardId!;
+    const stateWithUsedBossCard = {
+      ...secondRoundState,
+      usedCardIds: [firstBossCardId]
+    };
+
+    const landing = moveCurrentTeam(stateWithUsedBossCard, 1);
+
+    expectBossCard(landing.currentCardId);
+    expect(landing.currentCardId).not.toBe(firstBossCardId);
+    expect(landing.usedCardIds).toEqual([firstBossCardId, landing.currentCardId]);
+  });
+
   it("wraps over 24 spaces using zero-based board positions", () => {
     const state = {
       ...createInitialGameState(),

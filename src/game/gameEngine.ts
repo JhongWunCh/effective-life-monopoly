@@ -1,7 +1,7 @@
 import { bossChallengeCards } from "./bossQuestions";
-import { boardSpaces, teams as initialTeams } from "./data";
+import { boardSpaces, cards, teams as initialTeams } from "./data";
 import { indicatorKeys } from "./indicators";
-import type { Indicators } from "./types";
+import type { BoardSpace, Indicators } from "./types";
 import type { CardOption, ResolvedOutcome, Team } from "./types";
 
 const BOARD_SPACE_COUNT = 24;
@@ -31,6 +31,7 @@ export type GameStateSnapshot = {
   teams: Team[];
   currentTeamIndex: number;
   currentCardId?: string;
+  usedCardIds: string[];
   lastRoll?: number;
   lastOutcome?: ResolvedOutcome;
   isResultsVisible: boolean;
@@ -56,6 +57,7 @@ export function createInitialGameState(settings: GameSettings = defaultGameSetti
       effectiveMarks: 0
     })),
     currentTeamIndex: 0,
+    usedCardIds: [],
     isResultsVisible: false,
     settings: normalizedSettings,
     completedTurns: 0,
@@ -67,13 +69,17 @@ export function moveCurrentTeam(state: GameState, roll: number): GameState {
   validateRoll(roll);
 
   const nextPosition = wrapBoardPosition(state.teams[state.currentTeamIndex]!.position, roll);
+  const currentCardId = getCardIdForLanding(state, nextPosition);
 
   return createState({
     teams: state.teams.map((team, index) =>
       index === state.currentTeamIndex ? { ...team, position: nextPosition } : { ...team }
     ),
     currentTeamIndex: state.currentTeamIndex,
-    currentCardId: getCardIdForLanding(state, nextPosition),
+    currentCardId,
+    usedCardIds: currentCardId
+      ? appendUsedCardId(state.usedCardIds, currentCardId)
+      : [...state.usedCardIds],
     lastRoll: roll,
     isResultsVisible: false,
     settings: state.settings,
@@ -107,6 +113,7 @@ export function applyOption(
   return createState({
     teams: nextTeams,
     currentTeamIndex: nextTeamIndex,
+    usedCardIds: [...state.usedCardIds],
     lastOutcome: resolvedOutcome,
     isResultsVisible: activeTeamCount === 0,
     settings: state.settings,
@@ -157,6 +164,7 @@ export function showResults(state: GameState): GameState {
     teams: cloneTeams(state.teams),
     currentTeamIndex: state.currentTeamIndex,
     currentCardId: state.currentCardId,
+    usedCardIds: [...state.usedCardIds],
     lastRoll: state.lastRoll,
     lastOutcome: state.lastOutcome,
     isResultsVisible: true,
@@ -225,6 +233,7 @@ function cloneSnapshot(snapshot: GameStateSnapshot): GameStateSnapshot {
   const cloned: GameStateSnapshot = {
     teams: cloneTeams(snapshot.teams),
     currentTeamIndex: snapshot.currentTeamIndex,
+    usedCardIds: [...snapshot.usedCardIds],
     isResultsVisible: snapshot.isResultsVisible,
     settings: { ...snapshot.settings },
     completedTurns: snapshot.completedTurns
@@ -332,10 +341,6 @@ function positiveModulo(value: number, divisor: number): number {
   return ((value % divisor) + divisor) % divisor;
 }
 
-function getFirstCardIdForPosition(position: number): string | undefined {
-  return boardSpaces.find((space) => space.id === position)?.cardIds[0];
-}
-
 function getCardIdForLanding(state: GameState, position: number): string | undefined {
   const space = boardSpaces.find((item) => item.id === position);
 
@@ -349,20 +354,63 @@ function getCardIdForLanding(state: GameState, position: number): string | undef
   const shouldUseBossChallenge = isSecondRound || (nextTurnRound >= 3 && !isBossExemptSpace);
 
   if (shouldUseBossChallenge) {
-    return getBossChallengeCardId(state.completedTurns, position);
+    return getBossChallengeCardId(state.completedTurns, position, state.usedCardIds);
   }
 
-  return getFirstCardIdForPosition(position);
+  return getNormalCardIdForSpace(space, state.usedCardIds);
 }
 
-function getBossChallengeCardId(completedTurns: number, position: number): string | undefined {
+function getNormalCardIdForSpace(space: BoardSpace, usedCardIds: string[]): string | undefined {
+  const usedCardIdSet = new Set(usedCardIds);
+  const spaceCardId = findFirstUnusedCardId(space.cardIds, usedCardIdSet);
+
+  if (spaceCardId) {
+    return spaceCardId;
+  }
+
+  return findFirstUnusedCardId(getNormalDeckCardIds(space), usedCardIdSet);
+}
+
+function getNormalDeckCardIds(space: BoardSpace): string[] {
+  if (space.type === "action" || space.type === "reflection") {
+    return cards
+      .filter((card) => card.type === "action" || card.type === "reflection")
+      .map((card) => card.id);
+  }
+
+  return cards.filter((card) => card.type === space.type).map((card) => card.id);
+}
+
+function getBossChallengeCardId(
+  completedTurns: number,
+  position: number,
+  usedCardIds: string[]
+): string | undefined {
   if (bossChallengeCards.length === 0) {
     return undefined;
   }
 
-  const challengeIndex = positiveModulo(completedTurns + position, bossChallengeCards.length);
+  const usedCardIdSet = new Set(usedCardIds);
+  const startingChallengeIndex = positiveModulo(completedTurns + position, bossChallengeCards.length);
 
-  return bossChallengeCards[challengeIndex]?.id;
+  for (let offset = 0; offset < bossChallengeCards.length; offset += 1) {
+    const challengeIndex = positiveModulo(startingChallengeIndex + offset, bossChallengeCards.length);
+    const cardId = bossChallengeCards[challengeIndex]?.id;
+
+    if (cardId && !usedCardIdSet.has(cardId)) {
+      return cardId;
+    }
+  }
+
+  return undefined;
+}
+
+function findFirstUnusedCardId(cardIds: string[], usedCardIdSet: Set<string>): string | undefined {
+  return cardIds.find((cardId) => !usedCardIdSet.has(cardId));
+}
+
+function appendUsedCardId(usedCardIds: string[], cardId: string): string[] {
+  return usedCardIds.includes(cardId) ? [...usedCardIds] : [...usedCardIds, cardId];
 }
 
 function normalizeSettings(settings: GameSettings): GameSettings {
